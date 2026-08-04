@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Collective View">
+    <meta name="author" content="Collective View">
+    <title>
+        Publicaciones - Collective View    </title>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/fontawesome-all.css" rel="stylesheet">
+    <link href="../css/swiper.css" rel="stylesheet">
+    <link href="../css/magnific-popup.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/collective-view.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="icon" href="../images/logo.png">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top navbar-solid">
+    <a class="navbar-brand logo-container" href="http://localhost:8000">
+        <img src="../images/logo.png" alt="Collective View" class="navbar-logo">
+        <span class="navbar-logo-text">
+            Collective View
+        </span>
+    </a>
+
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+
+        <span class="navbar-toggler-awesome fas fa-bars"></span>
+        <span class="navbar-toggler-awesome fas fa-times"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">
+                    INICIO
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link active"
+                href="../publicaciones">
+                    PUBLICACIONES
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="../datos">
+                    DATOS ABIERTOS
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link active" href="../visualizaciones">
+                    VISUALIZACIONES
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="../videos">
+                    VIDEOS
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="../propiedad">
+                    PROPIEDAD INTELECTUAL
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link "
+                href="../medios">
+                    MEDIOS
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="../contactos">
+                    CONTACTO
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+    <main>
+        
+<section class="page-section videos-page">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12 text-center" data-aos="fade-up">
+                <div class="section-title">PUBLICACIONES</div>
+                <h2>Artículos y publicaciones académicas</h2>
+                <p class="p-heading">
+                    Consulta investigaciones, artículos científicos y documentos
+                    relacionados con el proyecto Collective View y ECOSUR.
+                </p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+                <div class="publication-search-wrapper">
+                    <div class="publication-search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <input type="text" id="pub-search-input"
+                           class="publication-search-input"
+                           placeholder="Buscar por título, abstract o etiqueta..."
+                           autocomplete="off">
+                    <button id="pub-search-clear" class="publication-search-clear"
+                            title="Limpiar" style="display:none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="pub-tabs-wrap" data-aos="fade-up" data-aos-delay="150">
+            <div class="pub-tabs-scroll">
+
+                <button class="pub-tab pub-tab--active" data-categoria="">
+                    <span class="pub-tab__icon"><i class="fas fa-layer-group"></i></span>
+                    <span class="pub-tab__label">Todas</span>
+                    <span class="pub-tab__count" id="count-all">0</span>
+                </button>
+
+                                <button class="pub-tab" data-categoria="1">
+                    <span class="pub-tab__icon"><i class="fas fa-file-alt"></i></span>
+                    <span class="pub-tab__label">Científico</span>
+                    <span class="pub-tab__count" id="count-1">0</span>
+                </button>
+                                <button class="pub-tab" data-categoria="2">
+                    <span class="pub-tab__icon"><i class="fas fa-file-alt"></i></span>
+                    <span class="pub-tab__label">Divulgación</span>
+                    <span class="pub-tab__count" id="count-2">0</span>
+                </button>
+                                <button class="pub-tab" data-categoria="3">
+                    <span class="pub-tab__icon"><i class="fas fa-file-alt"></i></span>
+                    <span class="pub-tab__label">Difusión</span>
+                    <span class="pub-tab__count" id="count-3">0</span>
+                </button>
+                                <button class="pub-tab" data-categoria="4">
+                    <span class="pub-tab__icon"><i class="fas fa-file-alt"></i></span>
+                    <span class="pub-tab__label">Libro</span>
+                    <span class="pub-tab__count" id="count-4">0</span>
+                </button>
+                
+            </div>
+        </div>
+
+        <div class="row pub-grid" id="pub-grid" style="margin-top:28px;"></div>
+
+        <div id="pub-empty" style="display:none; text-align:center; padding:70px 0;">
+            <div class="pub-empty__icon">
+                <i class="fas fa-search"></i>
+            </div>
+            <h4 class="pub-empty__title">Sin resultados</h4>
+            <p class="pub-empty__text">Intenta con otro término o categoría.</p>
+            <button id="pub-empty-reset" class="btn-solid-reg pub-empty__btn">
+                Limpiar filtros
+            </button>
+        </div>
+
+        <div id="pub-pagination" style="display:none; margin-top:40px; text-align:center;"></div>
+
+    </div>
+
+    <div id="pub-modal-overlay" class="pub-modal-overlay" style="display:none;"
+         role="dialog" aria-modal="true" aria-labelledby="pub-modal-title">
+        <div class="pub-modal">
+            <button class="pub-modal-close" aria-label="Cerrar">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="pub-modal-inner">
+
+                <div class="pub-modal-img-wrap" id="pub-modal-img-wrap"></div>
+
+                <div class="pub-modal-right">
+                    <div class="pub-modal-body">
+                        <div class="pub-modal-meta">
+                            <span class="pub-modal-badge" id="pub-modal-badge"></span>
+                            <div class="pub-modal-date" id="pub-modal-date">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span></span>
+                            </div>
+                        </div>
+                        <h3 class="pub-modal-title" id="pub-modal-title"></h3>
+                        <div class="pub-modal-divider"></div>
+                        <p class="pub-modal-abstract" id="pub-modal-abstract"></p>
+                        <div class="pub-modal-tags" id="pub-modal-tags"></div>
+                    </div>
+                    <div class="pub-modal-footer">
+                        <a id="pub-modal-link" href="#" target="_blank"
+                           rel="noopener noreferrer" class="pub-modal-btn">
+                            Ver publicación <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <span id="pub-modal-no-link" class="pub-modal-no-link"
+                              style="display:none;">Sin enlace disponible</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    window.__PUBLICACIONES__ = [{"id":17,"titulo":"Collective view: De la ciencia ciudadana a la ciencia abierta para el monitoreo del sargazo en las playas de México","abstract":"¿Puede una sola persona cambiar el rumbo del planeta?\r\nQuizá no por sí sola… pero sí puede hacerlo cuando se une a miles más.\r\n\r\nEste libro es una invitación a descubrir el poder colectivo de la ciencia ciudadana y la inteligencia artificial para enfrentar los desafíos ambientales más urgentes de nuestro tiempo. Lejos de tecnicismos y fórmulas complicadas, aquí se narran historias reales, aprendizajes y experiencias donde la curiosidad de la gente común se convierte en conocimiento, y donde la tecnología más avanzada se pone al servicio del bien común.\r\n\r\nA través de ejemplos prácticos, reflexiones y una mirada honesta a lo que motiva y detiene a las personas, este libro muestra cómo cualquier ciudadano puede aportar a la protección de los ecosistemas, desde una playa del Caribe hasta los paisajes más remotos.\r\n\r\nEs un llamado a participar, a preguntar y a creer que cada acción, por pequeña que parezca, suma. Porque el futuro ambiental no se construye desde los laboratorios aislados, sino desde la voluntad colectiva de quienes deciden cuidar el planeta.\r\n\r\nTu curiosidad importa. Tu voz importa. Tu participación importa.\r\nEste libro te mostrará por qué… y cómo empezar.","fecha_publicacion":"04\/06\/2026","url":"https:\/\/collectiveview.com","imagen":"\/storage\/publicaciones\/QBdf6ByPcMeZHVUbSoS7AasTCrham7zdf33mh2dD.jpg","categoria_id":4,"categoria_nombre":"Libro","etiquetas":["Monitoreo","Ciencia Ciudadana","México","Fotografía Aérea"]},{"id":16,"titulo":"A high-resolution beach imagery dataset with COCO annotations for deep learning-based Sargassum monitoring in coastal environments","abstract":"El seguimiento preciso de las floraciones de sargazo es esencial para mitigar sus graves impactos socioeconómicos y ecológicos en las zonas costeras. Para apoyar el desarrollo de herramientas de visión por computadora para la gestión costera, este estudio presenta un conjunto de datos de imágenes de alta resolución a lo largo de la costa de Quintana Roo, México. El conjunto de datos incluye imágenes RGB, acompañadas de máscaras de segmentación multiclase a nivel de píxel. Estas máscaras clasifican el entorno costero en tres clases distintas: Sargazo, arena, y otros elementos ambientales y objetos costeros (como agua, vegetación, cielo, nubes, embarcaciones y personas, entre otros). Para facilitar la integración inmediata con las arquitecturas modernas de aprendizaje profundo, las máscaras a nivel de píxel se han convertido sistemáticamente en anotaciones poligonales formateadas como archivos JSON compatibles con COCO. El conjunto de datos también incluye estadísticas descriptivas que detallan la distribución de clases para caracterizar la complejidad espacial. Este conjunto de datos multiformato curado proporciona una línea de base de referencia estandarizada para investigadores y desarrolladores con la que entrenar, validar y comparar modelos de segmentación semántica y a nivel de instancia (por ejemplo, U-Net, Mask R-CNN) destinados a la cuantificación automatizada de Sargassumbiomasa y logística eficiente de limpieza costera. Este conjunto de datos va más allá de la colección publicada anteriormente, lo que lo convierte en el punto de referencia actual de su tipo.","fecha_publicacion":"31\/05\/2026","url":"https:\/\/www.sciencedirect.com\/science\/article\/pii\/S2352340926004610?via%3Dihub","imagen":"\/storage\/publicaciones\/jWeie0U3UldFYUBb9xHDaZyw3I0dgh0F7MGMRWtj.jpg","categoria_id":1,"categoria_nombre":"Científico","etiquetas":["Sargassum","Caribe","Monitoreo","Ciencia Ciudadana","Playas","Segmentación","México","Crowdsourcing"]},{"id":1,"titulo":"Towards enhanced Sargassum monitoring in the Caribbean Sea","abstract":"El monitoreo del sargazo en el Gran Caribe es fundamental debido a sus crecientes impactos ambientales, sociales y económicos. Como respuesta, se desarrolló la plataforma LANOT, que utiliza imágenes satelitales de Sentinel-2 y Landsat-8\/9 para ofrecer información actualizada cada cinco días sobre la presencia de sargazo. Además, incluye herramientas interactivas para visualizar, medir y descargar datos geoespaciales, facilitando la gestión e investigación de los ecosistemas costeros afectados.","fecha_publicacion":"15\/03\/2025","url":"https:\/\/www.nature.com\/articles\/s41598-025-93001-9","imagen":"\/storage\/publicaciones\/Captura-de-pantalla-2025-09-04-142813.png","categoria_id":1,"categoria_nombre":"Científico","etiquetas":["Sargassum","Caribe","Monitoreo","Teledetección","Costas","Macroalgas","Medio Ambiente","Gran Caribe","Proliferación Algal","Investigación"]},{"id":15,"titulo":"Una breve introducción a la percepción remota","abstract":"Una breve introducción a la percepción remota es una ventana hacia nuestro mundo desde el espacio. Desde los principios fundamentales de la física aplicados a la teledetección, hasta la aplicación práctica de estas técnicas en la monitorización de los  recursos forestales en la península de Yucatán, cada página de este libro nos lleva en un viaje de descubrimiento sin igual .A través de imágenes cautivadoras y una narrativa  envolvente, exploramos cómo la percepción remota nos permite comprender y conservar la belleza y la diversidad de nuestro planeta. Además, examinamos cómo la ciencia ciudadana se une a esta causa, invitándonos a participar en la investigación y conservación del hogar compartido. Con un llamado apasionado a la acción, este libro nos recuerda la responsabilidad colectiva de proteger y preservar la Tierra  para las generaciones venideras. Únete a nosotros en este viaje hacia un futuro más consciente de nuestra conexión con el cosmos y comprometámonos juntos a construir un mundo más sostenible y resiliente.","fecha_publicacion":"24\/09\/2024","url":"https:\/\/www.ecosur.mx\/libros\/producto\/una-breve-introduccion-a-la-percepcion-remota\/","imagen":"\/storage\/publicaciones\/qCI4JkDkCDkSPViLn7VmrINHGHeabtTgJ4ZtGUTZ.jpg","categoria_id":4,"categoria_nombre":"Libro","etiquetas":[]},{"id":2,"titulo":"Towards sustainable coastal management: aerial imagery and deep learning for high-resolution Sargassum mapping","abstract":"La llegada masiva de Sargassum pelágico en las costas de varios países del Océano Atlántico comenzó en 2011 y hasta la fecha sigue generando desafíos sociales y ambientales para la región.","fecha_publicacion":"23\/09\/2024","url":"https:\/\/peerj.com\/articles\/18192\/#","imagen":"\/storage\/publicaciones\/articulo-prj-1.png","categoria_id":1,"categoria_nombre":"Científico","etiquetas":["Sargassum","Caribe","Deep Learning","Imágenes Aéreas","Aprendizaje Profundo","Costas","Fotografía Aérea","Gestión Costera","Mapeo","Investigación"]},{"id":11,"titulo":"Cómo la ciencia ciudadana transforma la investigación","abstract":"¿Puedo colaborar con la NASA siendo una persona común? ¡Es posible! Cualquiera puede contribuir en proyectos científicos desde la ciencia ciudadana: una modalidad de investigación que promueve la participación de gente voluntaria.","fecha_publicacion":"21\/01\/2024","url":"https:\/\/revistas.ecosur.mx\/ecofronteras\/index.php\/eco\/article\/view\/2121","imagen":"\/storage\/publicaciones\/Como-la-ciencia-ciudadana-transforma-la-investigacion-1.png","categoria_id":2,"categoria_nombre":"Divulgación","etiquetas":["Ciencia Ciudadana","Ecología","Medio Ambiente","Crowdsourcing","Participación Ciudadana","Datos Abiertos","Investigación","Divulgación Científica"]},{"id":8,"titulo":"Two Algorithms for Sargassum Segmentation in Citizen Science Images","abstract":"La llegada de grandes cantidades de Sargassum a las playas del Caribe, principalmente desde 2018, es un problema emergente que ha generado retos ecológicos, económicos y de salud en las localidades costeras.","fecha_publicacion":"13\/09\/2023","url":"https:\/\/ieeexplore.ieee.org\/document\/10508690","imagen":"\/storage\/publicaciones\/Two-Algoritmits-1.png","categoria_id":3,"categoria_nombre":"Difusión","etiquetas":["Sargassum","Ciencia Ciudadana","Playas","Algoritmos","Visión por Computadora","Segmentación","Crowdsourcing","Participación Ciudadana","Procesamiento de Imágenes","Datos Abiertos"]},{"id":3,"titulo":"Algorithms applied for monitoring pelagic Sargassum","abstract":"Las llegadas masivas de Sargassum pelágico a las costas de varios países del Océano Atlántico comenzaron en 2011. El seguimiento de la abundancia y distribución de Sargassum en el océano y a lo largo de las costas representa un reto importante.","fecha_publicacion":"02\/08\/2023","url":"https:\/\/www.frontiersin.org\/journals\/marine-science\/articles\/10.3389\/fmars.2023.1216426\/full","imagen":"\/storage\/publicaciones\/Algoritmos-aplicados-para-el-monitoreo-de-pelagicos-Sargazo-2023-1.png","categoria_id":1,"categoria_nombre":"Científico","etiquetas":["Sargassum","Monitoreo","Teledetección","Algoritmos","Océano Atlántico","Macroalgas","Satélite","Mapeo","Distribución Espacial","Investigación"]},{"id":12,"titulo":"Acciones colaborativas para el monitoreo del sargazo","abstract":"La ciencia procura apoyarse en la mejor tecnología para obtener resultados precisos, pero incluso el equipo más sofisticado tiene limitaciones. En cuanto a las arribazones de sargazo a las costas y playas del Caribe.","fecha_publicacion":"21\/04\/2023","url":"https:\/\/revistas.ecosur.mx\/ecofronteras\/index.php\/eco\/article\/view\/2078","imagen":"\/storage\/publicaciones\/Acciones-colaborativas-para-el-monitoreo-del-sargazo-1.png","categoria_id":2,"categoria_nombre":"Divulgación","etiquetas":["Sargassum","Caribe","Monitoreo","Ciencia Ciudadana","Quintana Roo","Costas","Ecología","Medio Ambiente","Participación Ciudadana","Divulgación Científica"]},{"id":9,"titulo":"Automatic classification of images with beach linear perspective using convolutional neural networks","abstract":"Desde 2018, el varamiento de Sargassum ha aumentado en las playas del mar Caribe. El monitoreo de Sargassum a través de plataformas satelitales ha permitido sondear su dinámica a escala regional.","fecha_publicacion":"16\/09\/2022","url":"https:\/\/ieeexplore.ieee.org\/document\/9882952","imagen":"\/storage\/publicaciones\/Automatic-clasification-of-image-1.png","categoria_id":3,"categoria_nombre":"Difusión","etiquetas":["Sargassum","Monitoreo","Deep Learning","Teledetección","Playas","Visión por Computadora","Clasificación","Satélite","CNN","Investigación"]},{"id":4,"titulo":"Use of semantic segmentation for mapping Sargassum on beaches","abstract":"La llegada inusual de Sargassum a las playas del Caribe es un problema emergente que ha generado numerosos retos. El monitoreo, visualización y estimación de la cobertura de Sargassum en las playas sigue siendo un desafío.","fecha_publicacion":"09\/06\/2022","url":"https:\/\/peerj.com\/articles\/13537\/","imagen":"\/storage\/publicaciones\/use-the-sematic-1.png","categoria_id":1,"categoria_nombre":"Científico","etiquetas":["Sargassum","Deep Learning","Playas","Algoritmos","Redes Neuronales","Visión por Computadora","Segmentación","Procesamiento de Imágenes","Mapeo","Investigación"]},{"id":5,"titulo":"Collective view: mapping Sargassum distribution along beaches","abstract":"La llegada atípica de Sargassum pelágico a las playas del Caribe mexicano ha causado daños económicos y ecológicos considerables. Además, ha planteado nuevos retos para la vigilancia de las costas.","fecha_publicacion":"13\/05\/2021","url":"https:\/\/peerj.com\/articles\/cs-528\/","imagen":"\/storage\/publicaciones\/Collective-view-maping-1.png","categoria_id":1,"categoria_nombre":"Científico","etiquetas":["Sargassum","Caribe","Ciencia Ciudadana","Playas","México","Costas","Crowdsourcing","Mapeo","Datos Abiertos","Investigación"]},{"id":10,"titulo":"Crowdsourcing for Sargassum Monitoring Along the Beaches in Quintana Roo","abstract":"En los últimos años, la llegada inusual de Sargassum a las costas del mar Caribe ha causado daños considerables, tanto económicos como ecológicos. El seguimiento de esta macroalga es un reto importante.","fecha_publicacion":"20\/09\/2020","url":"https:\/\/colab.ws\/articles\/10.1007%2F978-3-030-59872-3_4","imagen":"\/storage\/publicaciones\/crowusourcing-1.png","categoria_id":3,"categoria_nombre":"Difusión","etiquetas":["Sargassum","Caribe","Monitoreo","Ciencia Ciudadana","Playas","Quintana Roo","México","Ecología","Crowdsourcing","Participación Ciudadana"]},{"id":6,"titulo":"Off-line and on-line optical monitoring of microalgal growth","abstract":"Se monitorizó con éxito el crecimiento de cultivos de microalgas Chlamydomonas reinhardtii, utilizando técnicas ópticas clásicas fuera de línea (densidad óptica y fluorescencia) y análisis en línea de imágenes digitales.","fecha_publicacion":"01\/11\/2019","url":"https:\/\/peerj.com\/articles\/7956\/","imagen":"\/storage\/publicaciones\/off-line-and-on-line-1.png","categoria_id":1,"categoria_nombre":"Científico","etiquetas":["Monitoreo","Microalgas","Óptica","Fluorescencia","Biorreactor","Procesamiento de Imágenes","Investigación"]},{"id":7,"titulo":"ERISNet: deep neural network for Sargassum detection along the coastline of the Mexican Caribbean","abstract":"Recientemente, las costas del Caribe han experimentado llegadas masivas atípicas de Sargassum pelágico con consecuencias negativas tanto ecológicas como económicas. Este estudio propone un novedoso algoritmo basado en aprendizaje profundo.","fecha_publicacion":"01\/05\/2019","url":"https:\/\/peerj.com\/articles\/6842\/","imagen":"\/storage\/publicaciones\/ERISNET-1.png","categoria_id":1,"categoria_nombre":"Científico","etiquetas":["Sargassum","Caribe","Deep Learning","Algoritmos","Redes Neuronales","Aprendizaje Profundo","Quintana Roo","México","CNN","Investigación"]}];
+</script>
+
+<script>
+(function () {
+    const PER_PAGE = 9;
+    const todas    = window.__PUBLICACIONES__ || [];
+
+    let filtradas       = [...todas];
+    let paginaActual    = 1;
+    let categoriaActiva = '';
+    let terminoBusqueda = '';
+
+    const grid        = document.getElementById('pub-grid');
+    const emptyState  = document.getElementById('pub-empty');
+    const pagination  = document.getElementById('pub-pagination');
+    const searchInput = document.getElementById('pub-search-input');
+    const searchClear = document.getElementById('pub-search-clear');
+    const tabs        = document.querySelectorAll('.pub-tab');
+    const emptyReset  = document.getElementById('pub-empty-reset');
+
+    function coincideBusqueda(pub, term) {
+        if (term === '') return true;
+        if (pub.titulo.toLowerCase().includes(term)) return true;
+        if (pub.abstract && pub.abstract.toLowerCase().includes(term)) return true;
+        if (Array.isArray(pub.etiquetas) && pub.etiquetas.some(e => e.toLowerCase().includes(term))) return true;
+        return false;
+    }
+
+    function aplicarFiltros() {
+        const term = terminoBusqueda.toLowerCase().trim();
+        filtradas = todas.filter(pub => {
+            const matchCat    = categoriaActiva === '' || String(pub.categoria_id) === String(categoriaActiva);
+            const matchSearch = coincideBusqueda(pub, term);
+            return matchCat && matchSearch;
+        });
+        paginaActual = 1;
+        actualizarContadores();
+        renderizar();
+    }
+
+    function actualizarContadores() {
+        const term = terminoBusqueda.toLowerCase().trim();
+
+        const countAll = todas.filter(p => coincideBusqueda(p, term)).length;
+        const elAll = document.getElementById('count-all');
+        if (elAll) elAll.textContent = countAll;
+
+        tabs.forEach(tab => {
+            const catId = tab.dataset.categoria;
+            if (catId === '') return;
+            const el = document.getElementById('count-' + catId);
+            if (!el) return;
+            el.textContent = todas.filter(p =>
+                String(p.categoria_id) === String(catId) && coincideBusqueda(p, term)
+            ).length;
+        });
+    }
+
+    function renderizar() {
+        grid.innerHTML = '';
+        const total  = filtradas.length;
+        const inicio = (paginaActual - 1) * PER_PAGE;
+        const pagina = filtradas.slice(inicio, inicio + PER_PAGE);
+
+        if (total === 0) {
+            emptyState.style.display = 'block';
+            pagination.style.display = 'none';
+            return;
+        }
+        emptyState.style.display = 'none';
+
+        pagina.forEach(pub => {
+            const col = document.createElement('div');
+            col.className = 'col-lg-4 col-md-6 mb-4';
+
+            const imagenHTML = pub.imagen
+                ? `<div class="pub-card__img">
+                       <img src="${esc(pub.imagen)}" alt="${esc(pub.titulo)}" loading="lazy">
+                   </div>`
+                : `<div class="pub-card__img">
+                       <div class="pub-card__placeholder">
+                           <i class="fas fa-file-alt"></i>
+                           <span>Publicación</span>
+                       </div>
+                       ${pub.categoria_nombre
+                           ? `<span class="pub-card__cat-badge">${esc(pub.categoria_nombre)}</span>`
+                           : ''}
+                   </div>`;
+
+            const etiquetasStr = Array.isArray(pub.etiquetas)
+                ? pub.etiquetas.join(',')
+                : (pub.etiquetas || '');
+
+            col.innerHTML = `
+                <div class="pub-card pub-card--clickable"
+                     data-titulo="${esc(pub.titulo)}"
+                     data-abstract="${esc(pub.abstract || '')}"
+                     data-fecha="${esc(pub.fecha_publicacion || '')}"
+                     data-url="${esc(pub.url || '')}"
+                     data-imagen="${esc(pub.imagen || '')}"
+                     data-categoria="${esc(pub.categoria_nombre || '')}"
+                     data-etiquetas="${esc(etiquetasStr)}">
+                    ${imagenHTML}
+                    <div class="pub-card__body">
+                        <div class="pub-card__date">
+                            <span class="pub-card__date-dot"></span>
+                            ${esc(pub.fecha_publicacion || '')}
+                        </div>
+                        <h3 class="pub-card__title">${esc(pub.titulo)}</h3>
+                        <p class="pub-card__abstract">${esc(truncar(pub.abstract, 155))}</p>
+                        <div class="pub-card__footer">
+                            <span class="pub-card__hint">
+                                <i class="fas fa-expand-alt"></i> Ver detalles
+                            </span>
+                        </div>
+                    </div>
+                </div>`;
+            grid.appendChild(col);
+        });
+
+        renderPaginacion(total);
+    }
+
+    function renderPaginacion(total) {
+        const totalPags = Math.ceil(total / PER_PAGE);
+        if (totalPags <= 1) { pagination.style.display = 'none'; return; }
+
+        pagination.style.display = 'block';
+        pagination.innerHTML = '';
+
+        const ul = document.createElement('ul');
+        ul.className = 'pub-pag-list';
+
+        ul.appendChild(crearItem('←', paginaActual === 1, () => ir(paginaActual - 1)));
+
+        for (let i = 1; i <= totalPags; i++) {
+            const li = crearItem(i, false, () => ir(i));
+            if (i === paginaActual) li.querySelector('button').classList.add('pub-pag-btn--active');
+            ul.appendChild(li);
+        }
+
+        ul.appendChild(crearItem('→', paginaActual === totalPags, () => ir(paginaActual + 1)));
+        pagination.appendChild(ul);
+    }
+
+    function crearItem(label, disabled, onClick) {
+        const li  = document.createElement('li');
+        const btn = document.createElement('button');
+        btn.className = 'pub-pag-btn' + (disabled ? ' pub-pag-btn--disabled' : '');
+        btn.innerHTML = label;
+        btn.disabled  = disabled;
+        if (!disabled) btn.addEventListener('click', onClick);
+        li.appendChild(btn);
+        return li;
+    }
+
+    function ir(num) {
+        paginaActual = num;
+        renderizar();
+        grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function esc(str) {
+        if (str == null) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    function truncar(str, max) {
+        if (!str) return '';
+        return str.length > max ? str.slice(0, max).trimEnd() + '…' : str;
+    }
+
+    searchInput.addEventListener('input', function () {
+        terminoBusqueda = this.value;
+        searchClear.style.display = terminoBusqueda.length > 0 ? 'inline-flex' : 'none';
+        aplicarFiltros();
+    });
+
+    searchClear.addEventListener('click', function () {
+        searchInput.value = terminoBusqueda = '';
+        this.style.display = 'none';
+        aplicarFiltros();
+    });
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function () {
+            tabs.forEach(t => t.classList.remove('pub-tab--active'));
+            this.classList.add('pub-tab--active');
+            categoriaActiva = this.dataset.categoria;
+            aplicarFiltros();
+        });
+    });
+
+    emptyReset.addEventListener('click', function () {
+        searchInput.value = terminoBusqueda = categoriaActiva = '';
+        searchClear.style.display = 'none';
+        tabs.forEach(t => t.classList.remove('pub-tab--active'));
+        tabs[0].classList.add('pub-tab--active');
+        aplicarFiltros();
+    });
+
+    const overlay    = document.getElementById('pub-modal-overlay');
+    const modalClose = overlay.querySelector('.pub-modal-close');
+
+    function abrirModal(data) {
+        const imgWrap = document.getElementById('pub-modal-img-wrap');
+        if (data.imagen) {
+            imgWrap.innerHTML = `<img src="${data.imagen}" alt="${escText(data.titulo)}">`;
+        } else {
+            imgWrap.innerHTML = `<div class="pub-modal-placeholder">
+                                     <i class="fas fa-file-alt"></i>
+                                     <span>Publicación</span>
+                                 </div>`;
+        }
+
+        const badge = document.getElementById('pub-modal-badge');
+        if (data.categoria) {
+            badge.textContent   = data.categoria;
+            badge.style.display = 'inline-block';
+        } else {
+            badge.style.display = 'none';
+        }
+
+        document.getElementById('pub-modal-title').textContent = data.titulo;
+
+        const dateEl = document.getElementById('pub-modal-date');
+        if (data.fecha) {
+            dateEl.querySelector('span').textContent = data.fecha;
+            dateEl.style.display = 'flex';
+        } else {
+            dateEl.style.display = 'none';
+        }
+
+        document.getElementById('pub-modal-abstract').textContent =
+            data.abstract || 'Sin resumen disponible.';
+
+        const tagsWrap  = document.getElementById('pub-modal-tags');
+        const etiquetas = data.etiquetas
+            ? data.etiquetas.split(',').map(e => e.trim()).filter(Boolean)
+            : [];
+        tagsWrap.innerHTML = etiquetas
+            .map(e => `<span class="pub-modal-tag">${escText(e)}</span>`)
+            .join('');
+
+        const link   = document.getElementById('pub-modal-link');
+        const noLink = document.getElementById('pub-modal-no-link');
+        if (data.url) {
+            link.href            = data.url;
+            link.style.display   = 'inline-flex';
+            noLink.style.display = 'none';
+        } else {
+            link.style.display   = 'none';
+            noLink.style.display = 'flex';
+        }
+
+        overlay.style.display        = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarModal() {
+        overlay.style.display        = 'none';
+        document.body.style.overflow = '';
+    }
+
+    function escText(str) {
+        if (str == null) return '';
+        const d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
+    }
+
+    grid.addEventListener('click', function (e) {
+        const card = e.target.closest('.pub-card--clickable');
+        if (!card) return;
+        abrirModal({
+            titulo:    card.dataset.titulo,
+            abstract:  card.dataset.abstract,
+            fecha:     card.dataset.fecha,
+            url:       card.dataset.url,
+            imagen:    card.dataset.imagen,
+            categoria: card.dataset.categoria,
+            etiquetas: card.dataset.etiquetas,
+        });
+    });
+
+    modalClose.addEventListener('click', cerrarModal);
+
+    overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) cerrarModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.style.display !== 'none') cerrarModal();
+    });
+
+    aplicarFiltros();
+})();
+</script>
+
+    </main>
+
+    <div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h4>
+                    Collective View
+                </h4>
+
+                <p class="white">
+                    Proyecto de ECOSUR para el monitoreo ciudadano del sargazo en el Caribe mexicano.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="copyright">
+    <div class="container">
+        <div class="row">
+             <div class="col-lg-12 text-center">
+                <p class="p-small">
+                    © 2024 Collective View - Proyecto de investigación ECOSUR
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.easing.min.js"></script>
+    <script src="/js/swiper.min.js"></script>
+    <script src="/js/jquery.magnific-popup.js"></script>
+    <script src="/js/morphext.min.js"></script>
+    <script src="/js/isotope.pkgd.min.js"></script>
+    <script src="/js/validator.min.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1200,
+            once: true,
+            offset: 120
+        });
+    </script>
+</body>
+</html>
