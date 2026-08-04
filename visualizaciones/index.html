@@ -3,21 +3,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Collective View - Visualizaciones y análisis bibliométrico interactivo de las publicaciones del proyecto">
+    <meta name="description" content="Collective View - Visualizaciones y análisis bibliométrico interactivo de las referencias del proyecto">
     <meta name="author" content="Collective View - ECOSUR">
-    <meta name="keywords" content="sargazo, bibliometría, red de etiquetas, VOSviewer, Collective View, ECOSUR">
+    <meta name="keywords" content="sargazo, bibliometría, red de referencias, coautoría, VOSviewer, Collective View, ECOSUR">
 
     <title>Visualizaciones - Collective View</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/fontawesome-all.css" rel="stylesheet">
-    <link href="css/swiper.css" rel="stylesheet">
-    <link href="css/magnific-popup.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-    <link href="css/collective-view.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/fontawesome-all.css" rel="stylesheet">
+    <link href="../css/swiper.css" rel="stylesheet">
+    <link href="../css/magnific-popup.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/collective-view.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    <link rel="icon" href="images/logo.png">
+    <link rel="icon" href="../images/logo.png">
 </head>
 <body data-spy="scroll" data-target=".fixed-top">
 
@@ -104,10 +104,12 @@
                     <div class="section-title">ANÁLISIS BIBLIOMÉTRICO</div>
                     <h2>Visualizaciones</h2>
                     <p class="p-heading">
-                        Explora de forma interactiva las relaciones entre las etiquetas de las
-                        publicaciones de Collective View. El tamaño de cada nodo representa
-                        cuántas veces se ha usado esa etiqueta; las conexiones entre nodos
-                        indican qué tan seguido aparecen juntas en las mismas publicaciones.
+                        Explora de forma interactiva la red construida a partir de las
+                        referencias bibliográficas consultadas en el proyecto Collective View.
+                        El tamaño de cada nodo representa qué tan presente está ese elemento
+                        (autor o término, según el análisis) en el corpus de referencias; las
+                        conexiones entre nodos indican qué tan seguido aparecen relacionados
+                        entre sí.
                     </p>
                 </div>
             </div>
@@ -120,7 +122,7 @@
                                 <i class="fas fa-project-diagram"></i>
                             </div>
                             <div>
-                                <h4>Red de coocurrencia de etiquetas</h4>
+                                <h4>Red bibliométrica de referencias</h4>
                                 <span class="bibliometrico-card__badge">VOSviewer</span>
                             </div>
                         </div>
@@ -135,10 +137,9 @@
                                 <span>Cargando mapa interactivo...</span>
                             </div>
 
-                            
                             <iframe
                                 id="vosviewer-frame"
-                                title="Red de coocurrencia de etiquetas"
+                                title="Red bibliométrica de referencias"
                                 src="https://vosviewer.com/vosviewer-online?json=https%3A%2F%2Fcollective-view.collective-view-ecosur.workers.dev%2Fdata%2Fred-referencias.json"
                                 allowfullscreen
                                 loading="lazy"
@@ -149,10 +150,11 @@
                         <div class="bibliometrico-card__notas">
                             <i class="fas fa-info-circle"></i>
                             <p>
-                                <strong>Cómo leer el mapa:</strong> nodos más grandes = etiquetas
-                                más usadas. Líneas más gruesas = etiquetas que aparecen juntas con
-                                más frecuencia. Puedes hacer zoom, arrastrar nodos y hacer clic
-                                sobre uno para resaltar sus conexiones directas.
+                                <strong>Cómo leer el mapa:</strong> nodos más grandes = elementos
+                                (autores o términos) más frecuentes en el corpus de referencias.
+                                Líneas más gruesas = elementos que aparecen relacionados con más
+                                frecuencia. Puedes hacer zoom, arrastrar nodos y hacer clic sobre
+                                uno para resaltar sus conexiones directas.
                             </p>
                         </div>
                     </div>
