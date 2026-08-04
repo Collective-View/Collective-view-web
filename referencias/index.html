@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Collective View - Visualizaciones y análisis bibliométrico interactivo de las referencias del proyecto">
+    <meta name="description" content="Collective View - Referencias bibliográficas y red de análisis bibliométrico interactivo del proyecto">
     <meta name="author" content="Collective View - ECOSUR">
     <meta name="keywords" content="sargazo, bibliometría, red de referencias, coautoría, VOSviewer, Collective View, ECOSUR">
 
@@ -96,107 +96,111 @@
         </div>
     </nav>
 
-    <div class="page-section bibliometrico-page">
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-12 text-center" data-aos="fade-up">
-                    <div class="section-title">ANÁLISIS BIBLIOMÉTRICO</div>
-                    <h2>Visualizaciones</h2>
-                    <p class="p-heading">
-                        Explora de forma interactiva la red construida a partir de las
-                        referencias bibliográficas consultadas en el proyecto Collective View.
-                        El tamaño de cada nodo representa qué tan presente está ese elemento
-                        (autor o término, según el análisis) en el corpus de referencias; las
-                        conexiones entre nodos indican qué tan seguido aparecen relacionados
-                        entre sí.
-                    </p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
-                    <div class="bibliometrico-card">
-                        <div class="bibliometrico-card__header">
-                            <div class="bibliometrico-card__icon">
-                                <i class="fas fa-project-diagram"></i>
-                            </div>
-                            <div>
-                                <h4>Red bibliométrica de referencias</h4>
-                                <span class="bibliometrico-card__badge">VOSviewer</span>
-                            </div>
-                        </div>
-
-                        <div class="bibliometrico-mapa">
-                            <div class="bibliometrico-mapa__loading" id="bibliometrico-loading">
-                                <div class="spinner">
-                                    <div class="bounce1"></div>
-                                    <div class="bounce2"></div>
-                                    <div class="bounce3"></div>
-                                </div>
-                                <span>Cargando mapa interactivo...</span>
-                            </div>
-
-                            
-                            <iframe
-                                id="vosviewer-frame"
-                                title="Red bibliométrica de referencias"
-                                src="https://app.vosviewer.com/?json=https%3A%2F%2Fcollective-view.collective-view-ecosur.workers.dev%2Fdata%2Fred-referencias.json&simple_ui=true"
-                                allowfullscreen
-                                loading="lazy"
-                                onload="document.getElementById('bibliometrico-loading').style.display='none'">
-                            </iframe>
-                        </div>
-
-                        <div class="bibliometrico-card__notas">
-                            <i class="fas fa-info-circle"></i>
-                            <p>
-                                <strong>Cómo leer el mapa:</strong> nodos más grandes = elementos
-                                (autores o términos) más frecuentes en el corpus de referencias.
-                                Líneas más gruesas = elementos que aparecen relacionados con más
-                                frecuencia. Puedes hacer zoom, arrastrar nodos y hacer clic sobre
-                                uno para resaltar sus conexiones directas.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="page-section referencias-page" style="padding-top:40px;">
+    <div class="page-section referencias-page">
         <div class="container">
 
             <div class="row">
                 <div class="col-lg-12 text-center" data-aos="fade-up">
                     <div class="section-title">CORPUS DE LA INVESTIGACIÓN</div>
-                    <h2>Referencias consultadas</h2>
+                    <h2>Referencias</h2>
                     <p class="p-heading">
-                        Listado de las referencias bibliográficas usadas en el proyecto
-                        Collective View, con su resumen y enlace al artículo original.
+                        Explora las referencias bibliográficas consultadas en el proyecto
+                        Collective View, como listado con buscador o como red interactiva
+                        construida con VOSviewer. El tamaño de cada nodo representa qué tan
+                        presente está ese elemento (autor o término) en el corpus; las
+                        conexiones indican qué tan seguido aparecen relacionados entre sí.
                     </p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
-                    <div class="referencias-search">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="referencias-buscador" placeholder="Buscar por título, autor o palabra clave...">
+                    <div class="referencias-card">
+
+                        <!-- Tabs: mismo patrón visual que en publicaciones -->
+                        <div class="pub-tabs-wrap">
+                            <div class="pub-tabs-scroll">
+                                <button class="pub-tab pub-tab--active" data-panel="lista">
+                                    <span class="pub-tab__icon"><i class="fas fa-list"></i></span>
+                                    <span class="pub-tab__label">Lista</span>
+                                </button>
+                                <button class="pub-tab" data-panel="mapa">
+                                    <span class="pub-tab__icon"><i class="fas fa-project-diagram"></i></span>
+                                    <span class="pub-tab__label">Mapa de red</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Panel: LISTA -->
+                        <div class="referencias-panel referencias-panel--active" id="panel-lista">
+
+                            <div class="publication-search-wrapper referencias-search-wrapper">
+                                <div class="publication-search-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <input type="text" id="referencias-buscador"
+                                       class="publication-search-input"
+                                       placeholder="Buscar por título, autor o palabra clave..."
+                                       autocomplete="off">
+                                <button id="referencias-buscador-clear" class="publication-search-clear"
+                                        title="Limpiar" style="display:none;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                            <div class="row" id="referencias-lista" style="margin-top:28px;">
+                                <div class="col-lg-12 text-center" style="padding:60px 0; color:#9ca3af;">
+                                    Cargando referencias...
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12 text-center" id="referencias-vacio"
+                                     style="display:none; padding:40px 0; color:#9ca3af;">
+                                    No se encontraron referencias que coincidan con tu búsqueda.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Panel: MAPA -->
+                        <div class="referencias-panel" id="panel-mapa">
+
+                            <div class="bibliometrico-mapa">
+                                <div class="bibliometrico-mapa__loading" id="bibliometrico-loading">
+                                    <div class="spinner">
+                                        <div class="bounce1"></div>
+                                        <div class="bounce2"></div>
+                                        <div class="bounce3"></div>
+                                    </div>
+                                    <span>Cargando mapa interactivo...</span>
+                                </div>
+
+                                
+                                <iframe
+                                    id="vosviewer-frame"
+                                    title="Red bibliométrica de referencias"
+                                    src="https://app.vosviewer.com/?json=https%3A%2F%2Fcollective-view.collective-view-ecosur.workers.dev%2Fdata%2Fred-referencias.json&simple_ui=true"
+                                    allowfullscreen
+                                    loading="lazy"
+                                    onload="document.getElementById('bibliometrico-loading').style.display='none'">
+                                </iframe>
+                            </div>
+
+                            <div class="bibliometrico-card__notas">
+                                <i class="fas fa-info-circle"></i>
+                                <p>
+                                    <strong>Cómo leer el mapa:</strong> nodos más grandes = elementos
+                                    (autores o términos) más frecuentes en el corpus de referencias.
+                                    Líneas más gruesas = elementos que aparecen relacionados con más
+                                    frecuencia. Puedes hacer zoom, arrastrar nodos y hacer clic sobre
+                                    uno para resaltar sus conexiones directas.
+                                </p>
+                            </div>
+
+                        </div>
+
                     </div>
-                </div>
-            </div>
-
-            <div class="row" id="referencias-lista">
-                <div class="col-lg-12 text-center" style="padding:60px 0; color:#9ca3af;">
-                    Cargando referencias...
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12 text-center" id="referencias-vacio" style="display:none; padding:40px 0; color:#9ca3af;">
-                    No se encontraron referencias que coincidan con tu búsqueda.
                 </div>
             </div>
 
@@ -240,69 +244,99 @@
     </script>
 
     <script>
-        let todasLasReferencias = [];
+        (function () {
+            // ---------- Tabs: Lista / Mapa ----------
+            const tabs   = document.querySelectorAll('.referencias-page .pub-tab');
+            const panels = document.querySelectorAll('.referencias-panel');
 
-        fetch('../data/referencias.json')
-            .then(res => res.json())
-            .then(data => {
-                todasLasReferencias = data;
-                renderReferencias(todasLasReferencias);
-            })
-            .catch(() => {
-                document.getElementById('referencias-lista').innerHTML =
-                    '<div class="col-lg-12 text-center" style="padding:40px 0; color:#9ca3af;">No se pudo cargar el listado de referencias.</div>';
+            tabs.forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(t => t.classList.remove('pub-tab--active'));
+                    panels.forEach(p => p.classList.remove('referencias-panel--active'));
+
+                    tab.classList.add('pub-tab--active');
+                    document.getElementById('panel-' + tab.dataset.panel)
+                        .classList.add('referencias-panel--active');
+                });
             });
 
-        function renderReferencias(lista) {
-            const contenedor = document.getElementById('referencias-lista');
-            const vacio = document.getElementById('referencias-vacio');
+            // ---------- Listado + buscador ----------
+            let todasLasReferencias = [];
 
-            if (lista.length === 0) {
-                contenedor.innerHTML = '';
-                vacio.style.display = 'block';
-                return;
-            }
-            vacio.style.display = 'none';
+            const contenedor    = document.getElementById('referencias-lista');
+            const vacio          = document.getElementById('referencias-vacio');
+            const buscador       = document.getElementById('referencias-buscador');
+            const buscadorClear  = document.getElementById('referencias-buscador-clear');
 
-            contenedor.innerHTML = lista.map(ref => `
-                <div class="col-lg-12">
-                    <div class="referencia-item">
-                        <h4 class="referencia-item__titulo">
-                            ${ref.url
-                                ? `<a href="${ref.url}" target="_blank" rel="noopener noreferrer">${ref.titulo}</a>`
-                                : ref.titulo}
-                        </h4>
-                        <div class="referencia-item__meta">
-                            ${ref.autores ? `<span>${ref.autores}</span>` : ''}
-                            ${ref.revista ? `<span>· ${ref.revista}</span>` : ''}
-                            ${ref.anio ? `<span>· ${ref.anio}</span>` : ''}
-                        </div>
-                        ${ref.resumen ? `<p class="referencia-item__resumen">${ref.resumen}</p>` : ''}
-                        <div class="referencia-item__links">
-                            ${ref.url ? `<a href="${ref.url}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Ver artículo</a>` : ''}
-                            ${ref.doi ? `<a href="https://doi.org/${ref.doi}" target="_blank" rel="noopener noreferrer"><i class="fas fa-link"></i> DOI</a>` : ''}
+            fetch('../data/referencias.json')
+                .then(res => res.json())
+                .then(data => {
+                    todasLasReferencias = data;
+                    renderReferencias(todasLasReferencias);
+                })
+                .catch(() => {
+                    contenedor.innerHTML =
+                        '<div class="col-lg-12 text-center" style="padding:40px 0; color:#9ca3af;">' +
+                        'No se pudo cargar el listado de referencias.</div>';
+                });
+
+            function renderReferencias(lista) {
+                if (lista.length === 0) {
+                    contenedor.innerHTML = '';
+                    vacio.style.display = 'block';
+                    return;
+                }
+                vacio.style.display = 'none';
+
+                contenedor.innerHTML = lista.map(ref => `
+                    <div class="col-lg-12">
+                        <div class="referencia-item">
+                            <h4 class="referencia-item__titulo">
+                                ${ref.url
+                                    ? `<a href="${ref.url}" target="_blank" rel="noopener noreferrer">${ref.titulo}</a>`
+                                    : ref.titulo}
+                            </h4>
+                            <div class="referencia-item__meta">
+                                ${ref.autores ? `<span>${ref.autores}</span>` : ''}
+                                ${ref.revista ? `<span>· ${ref.revista}</span>` : ''}
+                                ${ref.anio ? `<span>· ${ref.anio}</span>` : ''}
+                            </div>
+                            ${ref.resumen ? `<p class="referencia-item__resumen">${ref.resumen}</p>` : ''}
+                            <div class="referencia-item__links">
+                                ${ref.url ? `<a href="${ref.url}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Ver artículo</a>` : ''}
+                                ${ref.doi ? `<a href="https://doi.org/${ref.doi}" target="_blank" rel="noopener noreferrer"><i class="fas fa-link"></i> DOI</a>` : ''}
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
-        }
-
-        document.getElementById('referencias-buscador').addEventListener('input', function (e) {
-            const termino = e.target.value.toLowerCase().trim();
-
-            if (termino === '') {
-                renderReferencias(todasLasReferencias);
-                return;
+                `).join('');
             }
 
-            const filtradas = todasLasReferencias.filter(ref =>
-                (ref.titulo && ref.titulo.toLowerCase().includes(termino)) ||
-                (ref.autores && ref.autores.toLowerCase().includes(termino)) ||
-                (ref.resumen && ref.resumen.toLowerCase().includes(termino))
-            );
+            function filtrar() {
+                const termino = buscador.value.toLowerCase().trim();
+                buscadorClear.style.display = termino.length > 0 ? 'inline-flex' : 'none';
 
-            renderReferencias(filtradas);
-        });
+                if (termino === '') {
+                    renderReferencias(todasLasReferencias);
+                    return;
+                }
+
+                const filtradas = todasLasReferencias.filter(ref =>
+                    (ref.titulo && ref.titulo.toLowerCase().includes(termino)) ||
+                    (ref.autores && ref.autores.toLowerCase().includes(termino)) ||
+                    (ref.resumen && ref.resumen.toLowerCase().includes(termino))
+                );
+
+                renderReferencias(filtradas);
+            }
+
+            buscador.addEventListener('input', filtrar);
+
+            buscadorClear.addEventListener('click', function () {
+                buscador.value = '';
+                buscadorClear.style.display = 'none';
+                renderReferencias(todasLasReferencias);
+            });
+        })();
     </script>
 </body>
 </html>

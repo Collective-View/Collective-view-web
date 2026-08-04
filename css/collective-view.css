@@ -1798,3 +1798,115 @@ body{
     .referencia-item { padding: 18px 20px; }
     .referencia-item__titulo { font-size: 0.95rem; }
 }
+
+/* ============================================= */
+/* Tarjeta de Referencias (Lista + Mapa)          */
+/* ============================================= */
+
+.referencias-card {
+    position: relative;
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 8px 40px 44px;
+    margin-top: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.07);
+    transition: box-shadow 0.35s ease;
+}
+
+.referencias-card:hover {
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.10);
+}
+
+.referencias-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 5px;
+    background: linear-gradient(90deg, #14bf98, #2c7da0);
+}
+
+/* ---------- Tabs (scoped a la página de referencias) ---------- */
+
+.referencias-page .pub-tabs-wrap {
+    border-bottom: none;
+    margin: 28px -40px 34px;
+    padding: 0 40px;
+}
+
+.referencias-page .pub-tabs-scroll {
+    gap: 10px;
+    background: #f3f6f8;
+    padding: 6px;
+    border-radius: 16px;
+    display: inline-flex;
+}
+
+.referencias-page .pub-tab {
+    border-radius: 12px;
+    padding: 12px 22px;
+    background: transparent;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.referencias-page .pub-tab:hover {
+    color: #0f9f82;
+    background: rgba(20, 191, 152, 0.08);
+}
+
+.referencias-page .pub-tab--active {
+    color: #ffffff;
+    background: linear-gradient(135deg, #14bf98, #0f9f82);
+    box-shadow: 0 8px 20px rgba(20, 191, 152, 0.30);
+}
+
+.referencias-page .pub-tab--active:hover {
+    color: #ffffff;
+    background: linear-gradient(135deg, #14bf98, #0f9f82);
+}
+
+.referencias-page .pub-tab__icon {
+    opacity: 0.85;
+}
+
+.referencias-page .pub-tab--active .pub-tab__icon {
+    opacity: 1;
+}
+
+/* ---------- Paneles ---------- */
+
+.referencias-panel {
+    display: none;
+}
+
+.referencias-panel--active {
+    display: block;
+    animation: fadeInPanel 0.4s ease;
+}
+
+@keyframes fadeInPanel {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Ajustes de espaciado dentro de cada panel */
+.referencias-panel .referencias-search-wrapper {
+    margin: 0 auto 32px;
+}
+
+.referencias-panel .bibliometrico-mapa {
+    margin-top: 0;
+}
+
+.referencias-panel .bibliometrico-card__notas {
+    margin-top: 22px;
+    padding-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .referencias-card { padding: 6px 22px 30px; }
+    .referencias-page .pub-tabs-wrap { margin: 22px -22px 26px; padding: 0 22px; }
+    .referencias-page .pub-tabs-scroll { width: 100%; }
+    .referencias-page .pub-tab { flex: 1; padding: 11px 14px; font-size: 0.82rem; justify-content: center; }
+}
