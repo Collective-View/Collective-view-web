@@ -7,7 +7,7 @@
     <meta name="author" content="Collective View - ECOSUR">
     <meta name="keywords" content="sargazo, bibliometría, red de referencias, coautoría, VOSviewer, Collective View, ECOSUR">
 
-    <title>Visualizaciones - Collective View</title>
+    <title>Referencias - Collective View</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="../css/bootstrap.css" rel="stylesheet">
@@ -23,7 +23,7 @@
 
     <nav class="navbar navbar-expand-md navbar-dark navbar-custom navbar-solid fixed-top">
         <a class="navbar-brand logo-container" href="http://localhost:8000">
-            <img src="images/logo.png" alt="Collective View" class="navbar-logo">
+            <img src="../images/logo.png" alt="Collective View" class="navbar-logo">
             <span class="navbar-logo-text">
                 Collective View
             </span>
@@ -65,7 +65,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link active" href="">
-                        VISUALIZACIONES
+                        REFERENCIAS
                     </a>
                 </li>
 
@@ -137,6 +137,7 @@
                                 <span>Cargando mapa interactivo...</span>
                             </div>
 
+                            
                             <iframe
                                 id="vosviewer-frame"
                                 title="Red bibliométrica de referencias"
@@ -158,6 +159,44 @@
                             </p>
                         </div>
                     </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="page-section referencias-page" style="padding-top:40px;">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 text-center" data-aos="fade-up">
+                    <div class="section-title">CORPUS DE LA INVESTIGACIÓN</div>
+                    <h2>Referencias consultadas</h2>
+                    <p class="p-heading">
+                        Listado de las referencias bibliográficas usadas en el proyecto
+                        Collective View, con su resumen y enlace al artículo original.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
+                    <div class="referencias-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="referencias-buscador" placeholder="Buscar por título, autor o palabra clave...">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="referencias-lista">
+                <div class="col-lg-12 text-center" style="padding:60px 0; color:#9ca3af;">
+                    Cargando referencias...
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 text-center" id="referencias-vacio" style="display:none; padding:40px 0; color:#9ca3af;">
+                    No se encontraron referencias que coincidan con tu búsqueda.
                 </div>
             </div>
 
@@ -197,6 +236,72 @@
             duration: 1200,
             once: true,
             offset: 120
+        });
+    </script>
+
+    <script>
+        let todasLasReferencias = [];
+
+        fetch('../data/referencias.json')
+            .then(res => res.json())
+            .then(data => {
+                todasLasReferencias = data;
+                renderReferencias(todasLasReferencias);
+            })
+            .catch(() => {
+                document.getElementById('referencias-lista').innerHTML =
+                    '<div class="col-lg-12 text-center" style="padding:40px 0; color:#9ca3af;">No se pudo cargar el listado de referencias.</div>';
+            });
+
+        function renderReferencias(lista) {
+            const contenedor = document.getElementById('referencias-lista');
+            const vacio = document.getElementById('referencias-vacio');
+
+            if (lista.length === 0) {
+                contenedor.innerHTML = '';
+                vacio.style.display = 'block';
+                return;
+            }
+            vacio.style.display = 'none';
+
+            contenedor.innerHTML = lista.map(ref => `
+                <div class="col-lg-12">
+                    <div class="referencia-item">
+                        <h4 class="referencia-item__titulo">
+                            ${ref.url
+                                ? `<a href="${ref.url}" target="_blank" rel="noopener noreferrer">${ref.titulo}</a>`
+                                : ref.titulo}
+                        </h4>
+                        <div class="referencia-item__meta">
+                            ${ref.autores ? `<span>${ref.autores}</span>` : ''}
+                            ${ref.revista ? `<span>· ${ref.revista}</span>` : ''}
+                            ${ref.anio ? `<span>· ${ref.anio}</span>` : ''}
+                        </div>
+                        ${ref.resumen ? `<p class="referencia-item__resumen">${ref.resumen}</p>` : ''}
+                        <div class="referencia-item__links">
+                            ${ref.url ? `<a href="${ref.url}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Ver artículo</a>` : ''}
+                            ${ref.doi ? `<a href="https://doi.org/${ref.doi}" target="_blank" rel="noopener noreferrer"><i class="fas fa-link"></i> DOI</a>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('referencias-buscador').addEventListener('input', function (e) {
+            const termino = e.target.value.toLowerCase().trim();
+
+            if (termino === '') {
+                renderReferencias(todasLasReferencias);
+                return;
+            }
+
+            const filtradas = todasLasReferencias.filter(ref =>
+                (ref.titulo && ref.titulo.toLowerCase().includes(termino)) ||
+                (ref.autores && ref.autores.toLowerCase().includes(termino)) ||
+                (ref.resumen && ref.resumen.toLowerCase().includes(termino))
+            );
+
+            renderReferencias(filtradas);
         });
     </script>
 </body>
