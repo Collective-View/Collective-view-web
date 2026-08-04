@@ -1745,7 +1745,7 @@ body{
 }
 
 .referencia-item__titulo a {
-    color: #1a0dab; /* azul estilo Google Scholar */
+    color: #1a0dab;
     text-decoration: none;
 }
 
@@ -1799,10 +1799,6 @@ body{
     .referencia-item__titulo { font-size: 0.95rem; }
 }
 
-/* ============================================= */
-/* Tarjeta de Referencias (Lista + Mapa)          */
-/* ============================================= */
-
 .referencias-card {
     position: relative;
     background: #ffffff;
@@ -1825,8 +1821,6 @@ body{
     width: 100%; height: 5px;
     background: linear-gradient(90deg, #14bf98, #2c7da0);
 }
-
-/* ---------- Tabs (scoped a la página de referencias) ---------- */
 
 .referencias-page .pub-tabs-wrap {
     border-bottom: none;
@@ -1874,8 +1868,6 @@ body{
     opacity: 1;
 }
 
-/* ---------- Paneles ---------- */
-
 .referencias-panel {
     display: none;
 }
@@ -1890,7 +1882,6 @@ body{
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Ajustes de espaciado dentro de cada panel */
 .referencias-panel .referencias-search-wrapper {
     margin: 0 auto 32px;
 }
@@ -1909,4 +1900,81 @@ body{
     .referencias-page .pub-tabs-wrap { margin: 22px -22px 26px; padding: 0 22px; }
     .referencias-page .pub-tabs-scroll { width: 100%; }
     .referencias-page .pub-tab { flex: 1; padding: 11px 14px; font-size: 0.82rem; justify-content: center; }
+}
+
+/*           */
+/* Monitoreo */
+/*           */
+
+.monitoreo-page .p-heading {
+    max-width: 650px;
+}
+
+.monitoreo-proximamente {
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 70px 50px;
+    margin-top: 20px;
+    text-align: center;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.07);
+    transition: 0.35s ease;
+}
+
+.monitoreo-proximamente:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.10);
+}
+
+.monitoreo-proximamente__icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 26px;
+    background: linear-gradient(135deg, #00a78e, #2c7da0);
+    box-shadow: 0 15px 35px rgba(0, 167, 142, 0.30);
+    animation: floatIcon 3.5s ease-in-out infinite;
+}
+
+.monitoreo-proximamente__icon i {
+    color: #ffffff;
+    font-size: 2.1rem;
+}
+
+@keyframes floatIcon {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+.monitoreo-proximamente__badge {
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 50px;
+    background: rgba(20, 191, 152, 0.12);
+    color: #0f9f82;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    margin-bottom: 22px;
+}
+
+.monitoreo-proximamente h4 {
+    color: #2c7da0;
+    margin-bottom: 16px;
+}
+
+.monitoreo-proximamente p {
+    color: #6b7280;
+    line-height: 1.85;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .monitoreo-proximamente { padding: 50px 28px; }
+    .monitoreo-proximamente__icon { width: 72px; height: 72px; }
+    .monitoreo-proximamente__icon i { font-size: 1.7rem; }
 }
