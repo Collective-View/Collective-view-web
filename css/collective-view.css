@@ -100,6 +100,20 @@ body{
 .large-text{
     line-height: 1.9;
     color: #4b5563;
+    font-size: 1.14rem/1.5625rem;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.timeline-text{
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+}
+
+.justify-text{
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .testimonial-text{
@@ -565,11 +579,13 @@ body{
     max-width: 720px;
     margin-top: 25px;
     margin-bottom: 35px;
-    text-align: left !important;
+    text-align: justify !important;
     color: #4b5563;
     line-height: 1.9;
     font-size: 1.05rem;
     margin-left: 0 !important;
+    text-justify: inter-word;
+    hyphens: auto;
 }
 
 @media(max-width: 768px){
@@ -711,7 +727,7 @@ body{
 
 .dataset-title{ margin: 0; font-size: 1.8rem; font-weight: 700; color: #111827; }
 .dataset-subtitle{ color: #6b7280; margin-top: 5px; display: block; }
-.dataset-description{ color: #4b5563; line-height: 1.9; margin-bottom: 30px; }
+.dataset-description{ color: #4b5563; line-height: 1.9; margin-bottom: 30px; text-align: justify; text-justify: inter-word;}
 
 .dataset-table{ overflow: hidden; border-radius: 18px; border: 1px solid #e5e7eb; margin-top: 20px; }
 .dataset-table table{ margin-bottom: 0; }
@@ -1778,6 +1794,8 @@ body{
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .referencia-item__links {
