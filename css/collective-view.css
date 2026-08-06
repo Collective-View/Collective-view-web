@@ -725,7 +725,7 @@ body{
     box-shadow: 0 10px 30px rgba(0,167,142,0.30);
 }
 
-.dataset-title{ margin: 0; font-size: 1.8rem; font-weight: 700; color: #111827; }
+.dataset-title{ margin: 0; font-size: 1.8rem; font-weight: 700; color: #111827; text-align: justify; text-justify: inter-word; }
 .dataset-subtitle{ color: #6b7280; margin-top: 5px; display: block; }
 .dataset-description{ color: #4b5563; line-height: 1.9; margin-bottom: 30px; text-align: justify; text-justify: inter-word;}
 
@@ -2001,4 +2001,14 @@ body{
     .monitoreo-proximamente { padding: 50px 28px; }
     .monitoreo-proximamente__icon { width: 72px; height: 72px; }
     .monitoreo-proximamente__icon i { font-size: 1.7rem; }
+}
+
+
+.monitoreo-page ol.dataset-list{
+    counter-reset: none;
+}
+
+.monitoreo-page ol.dataset-list li::marker{
+    color: #00a78e;
+    font-weight: 700;
 }

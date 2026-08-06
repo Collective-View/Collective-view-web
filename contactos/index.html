@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Contacto de investigadores y colaboradores del proyecto Collective View">
     <meta name="author" content="Collective View - ECOSUR">
-    
+
     <title>Contacto - Collective View</title>
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
@@ -18,6 +18,15 @@
     <link href="../css/collective-view.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <link rel="icon" href="../images/logo.png">
+
+    <style>
+        .contact-col-flex {
+            display: flex;
+        }
+        .contact-hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -85,7 +94,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link active" href="../contactos">
-                        CONTACTO
+                        EQUIPO
                     </a>
                 </li>
             </ul>
@@ -97,7 +106,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center" data-aos="fade-up">
                     <div class="section-title">
-                        CONTACTO
+                        Equipo
                     </div>
 
                     <h2>
@@ -110,8 +119,30 @@
                 </div>
             </div>
 
-            <div class="row video-grid">
-                <div class="col-lg-6 mb-4 d-flex" data-aos="fade-right">
+            <div class="pub-tabs-wrap" data-aos="fade-up" data-aos-delay="150">
+                <div class="pub-tabs-scroll">
+                    <button class="pub-tab pub-tab--active" data-categoria="responsables">
+                        <span class="pub-tab__icon"><i class="fas fa-user-tie"></i></span>
+                        <span class="pub-tab__label">Responsables</span>
+                    </button>
+                    <button class="pub-tab" data-categoria="monitoreo-gases">
+                        <span class="pub-tab__icon"><i class="fas fa-cloud"></i></span>
+                        <span class="pub-tab__label">Monitoreo de gases</span>
+                    </button>
+                    <button class="pub-tab" data-categoria="activos">
+                        <span class="pub-tab__icon"><i class="fas fa-user-check"></i></span>
+                        <span class="pub-tab__label">Activos</span>
+                    </button>
+                    <button class="pub-tab" data-categoria="estancias">
+                        <span class="pub-tab__icon"><i class="fas fa-user-clock"></i></span>
+                        <span class="pub-tab__label">Estancias</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="row video-grid" id="contact-grid" style="margin-top:28px;">
+
+                <div class="col-lg-6 mb-4 contact-col-flex contact-item" data-categoria="responsables" data-aos="fade-right">
                     <div class="video-card contact-card w-100">
 
                         <div class="contact-top">
@@ -138,7 +169,7 @@
 
                             <p>
                                 <i class="fas fa-university"></i>
-                                El Colegio de la Frontera Sur · Unidad Chetumal
+                                ECOSUR · Unidad Chetumal
                             </p>
 
                             <p>
@@ -175,7 +206,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 mb-4 d-flex" data-aos="fade-left">
+                <div class="col-lg-6 mb-4 contact-col-flex contact-item" data-categoria="responsables" data-aos="fade-left">
                     <div class="video-card contact-card w-100">
                         <div class="contact-top">
                             <div class="contact-avatar">
@@ -236,7 +267,180 @@
                         </div>
                     </div>
                 </div>
+
+                
+                                <div class="col-lg-6 mb-4 contact-col-flex contact-item contact-hidden" data-categoria="monitoreo-gases" data-aos="fade-up">
+                    <div class="video-card contact-card w-100">
+                        <div class="contact-top">
+                            <div class="contact-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <h4>Dr. Alejandro Hiram Cueva Rodríguez</h4>
+                            </div>
+                        </div>
+                        <div class="contact-info">
+                            <p>
+                                <i class="fas fa-university"></i>
+                                ECOSUR · Unidad Villahermosa
+                            </p>
+                            <p>
+                                <i class="fas fa-envelope"></i>
+                                alejandro.cueva@ecosur.mx
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                                <div class="col-lg-6 mb-4 contact-col-flex contact-item contact-hidden" data-categoria="monitoreo-gases" data-aos="fade-up">
+                    <div class="video-card contact-card w-100">
+                        <div class="contact-top">
+                            <div class="contact-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <h4>Dra. Claudia Isabel Rodríguez Flores</h4>
+                            </div>
+                        </div>
+                        <div class="contact-info">
+                            <p>
+                                <i class="fas fa-university"></i>
+                                ECOSUR · Unidad Villahermosa
+                            </p>
+                            <p>
+                                <i class="fas fa-envelope"></i>
+                                claudia.rodriguez@ecosur.mx
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                                <div class="col-lg-6 mb-4 contact-col-flex contact-item contact-hidden" data-categoria="monitoreo-gases" data-aos="fade-up">
+                    <div class="video-card contact-card w-100">
+                        <div class="contact-top">
+                            <div class="contact-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <h4>Dr. Fernando del Jesús Trejo Uco</h4>
+                            </div>
+                        </div>
+                        <div class="contact-info">
+                            <p>
+                                <i class="fas fa-university"></i>
+                                UT Chetumal
+                            </p>
+                            <p>
+                                <i class="fas fa-envelope"></i>
+                                fernando.trejo@utchetumal.edu.mx
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                                <div class="col-lg-6 mb-4 contact-col-flex contact-item contact-hidden" data-categoria="monitoreo-gases" data-aos="fade-up">
+                    <div class="video-card contact-card w-100">
+                        <div class="contact-top">
+                            <div class="contact-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <h4>Mtra. María Dolores Cruz Ac.</h4>
+                            </div>
+                        </div>
+                        <div class="contact-info">
+                            <p>
+                                <i class="fas fa-university"></i>
+                                UT Chetumal
+                            </p>
+                            <p>
+                                <i class="fas fa-envelope"></i>
+                                maria.dolores@utchetumal.edu.mx
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                                <div class="col-lg-6 mb-4 contact-col-flex contact-item contact-hidden" data-categoria="monitoreo-gases" data-aos="fade-up">
+                    <div class="video-card contact-card w-100">
+                        <div class="contact-top">
+                            <div class="contact-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <h4>Dr. Martín Antonio Santos Romero</h4>
+                            </div>
+                        </div>
+                        <div class="contact-info">
+                            <p>
+                                <i class="fas fa-university"></i>
+                                UQROO
+                            </p>
+                            <p>
+                                <i class="fas fa-envelope"></i>
+                                masant@uqroo.edu.mx
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                                <div class="col-lg-6 mb-4 contact-col-flex contact-item contact-hidden" data-categoria="monitoreo-gases" data-aos="fade-up">
+                    <div class="video-card contact-card w-100">
+                        <div class="contact-top">
+                            <div class="contact-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <h4>Dra. Alicia Guadalupe Robertos Pinto</h4>
+                            </div>
+                        </div>
+                        <div class="contact-info">
+                            <p>
+                                <i class="fas fa-university"></i>
+                                UQROO
+                            </p>
+                            <p>
+                                <i class="fas fa-envelope"></i>
+                                alirober@uqroo.edu.mx
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                                <div class="col-lg-6 mb-4 contact-col-flex contact-item contact-hidden" data-categoria="activos" data-aos="fade-up">
+                    <div class="video-card contact-card w-100">
+                        <div class="contact-top">
+                            <div class="contact-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <h4>M. en C. Luis Arturo Trejo Morales</h4>
+                            </div>
+                        </div>
+                        <div class="contact-info">
+                            <p>
+                                <i class="fas fa-university"></i>
+                                ECOSUR · Unidad Chetumal
+                            </p>
+                            <p>
+                                <i class="fas fa-envelope"></i>
+                                Luis.trejo@posgrado.ecosur.mx
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="col-lg-12 contact-item contact-hidden" data-categoria="estancias">
+                    <p class="text-center p-heading">Próximamente</p>
+                </div>
+
             </div>
+
+            <div id="contact-empty" style="display:none; text-align:center; padding:70px 0;">
+                <div class="pub-empty__icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h4 class="pub-empty__title">Sin resultados</h4>
+                <p class="pub-empty__text">No hay contactos en esta categoría por el momento.</p>
+            </div>
+
         </div>
     </section>
 
@@ -285,6 +489,34 @@
             once: true,
             offset: 120
         });
+    </script>
+
+    <script>
+    (function () {
+        const tabs  = document.querySelectorAll('.pub-tab');
+        const items = document.querySelectorAll('.contact-item');
+        const empty = document.getElementById('contact-empty');
+
+        function filtrar(categoria) {
+            let visibles = 0;
+            items.forEach(item => {
+                const match = item.dataset.categoria === categoria;
+                item.classList.toggle('contact-hidden', !match);
+                if (match) visibles++;
+            });
+            empty.style.display = visibles === 0 ? 'block' : 'none';
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                tabs.forEach(t => t.classList.remove('pub-tab--active'));
+                this.classList.add('pub-tab--active');
+                filtrar(this.dataset.categoria);
+            });
+        });
+
+        filtrar(tabs[0].dataset.categoria);
+    })();
     </script>
 </body>
 </html>
