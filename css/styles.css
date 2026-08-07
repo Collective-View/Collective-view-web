@@ -692,6 +692,13 @@ input[type='checkbox'] {
 	animation: fadeDropdown 0.2s; /* required for the fade animation */
 }
 
+.navbar-custom .dropdown-item:hover,
+.navbar-custom .dropdown-item:focus,
+.navbar-custom .dropdown-item.active {
+    background-color: #113448;
+    color: #14bf98;
+}
+
 @keyframes fadeDropdown {
     0% {
         opacity: 0;
