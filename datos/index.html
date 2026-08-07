@@ -758,6 +758,207 @@
                     </a>
                 </div>
             </div>
+
+            <div class="dataset-card" data-aos="fade-up">
+                <div class="dataset-header">
+                    <div class="dataset-icon">
+                        <i class="fas fa-draw-polygon"></i>
+                    </div>
+
+                    <div>
+                        <h3 class="dataset-title">
+                            Conjunto de imágenes de playa con anotaciones COCO
+                        </h3>
+
+                        <span class="dataset-subtitle">
+                            Segmentación de alta resolución para aprendizaje profundo
+                        </span>
+                    </div>
+                </div>
+
+                <p class="dataset-description">
+                    Dataset de imágenes de playa de alta resolución con máscaras
+                    de segmentación semántica a nivel de píxel y anotaciones
+                    poligonales en formato COCO, pensado para entrenar y comparar
+                    modelos de segmentación semántica e instanciada (p. ej. U-Net,
+                    Mask R-CNN) enfocados en el monitoreo del sargazo.
+                </p>
+
+                <ul class="dataset-list">
+                    <li>
+                        Imágenes RGB originales en formato JPG
+                    </li>
+
+                    <li>
+                        Máscaras de segmentación semántica en formato PNG
+                    </li>
+
+                    <li>
+                        Archivo unificado de anotaciones poligonales en formato
+                        JSON compatible con el estándar COCO
+                    </li>
+                </ul>
+
+                <div class="dataset-table table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Imágenes</th>
+                                <td>1000</td>
+                            </tr>
+
+                            <tr>
+                                <th>Tamaño total</th>
+                                <td>282.60 MB</td>
+                            </tr>
+
+                            <tr>
+                                <th>Clasificación</th>
+                                <td>Sargazo, arena y otros</td>
+                            </tr>
+
+                            <tr>
+                                <th>Instancias poligonales (sargazo)</th>
+                                <td>12,308</td>
+                            </tr>
+
+                            <tr>
+                                <th>Formato</th>
+                                <td>JPG, PNG y JSON (COCO)</td>
+                            </tr>
+
+                            <tr>
+                                <th>Ubicación</th>
+                                <td>Península de Yucatán, principalmente Quintana Roo</td>
+                            </tr>
+
+                            <tr>
+                                <th>Fecha de publicación</th>
+                                <td>2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="dataset-carousel">
+                    <button class="carousel-btn prev-btn" title="preview">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <div class="carousel-track-container">
+                        <div class="carousel-track">
+                            <div class="carousel-slide">
+                                <img src="../images/datos-abiertos/COCO/image_95.jpg" alt="COCO">
+                            </div>
+
+                            <div class="carousel-slide">
+                                <img src="../images/datos-abiertos/COCO/image_96.jpg" alt="COCO">
+                            </div>
+
+                            <div class="carousel-slide">
+                                <img src="../images/datos-abiertos/COCO/image_97.jpg" alt="COCO">
+                            </div>
+
+                            <div class="carousel-slide">
+                                <img src="../images/datos-abiertos/COCO/image_95.png" alt="COCO">
+                            </div>
+
+                            <div class="carousel-slide">
+                                <img src="../images/datos-abiertos/COCO/image_96.png" alt="COCO">
+                            </div>
+
+                            <div class="carousel-slide">
+                                <img src="../images/datos-abiertos/COCO/image_97.png" alt="COCO">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="carousel-btn next-btn" title="next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <div class="collapse dataset-collapse" id="cocoDetails">
+                    <div class="dataset-expand">
+                        <p class="dataset-description">
+                            La segmentación clasifica el ambiente costero en tres
+                            categorías: sargazo, arena y otros elementos ambientales
+                            y objetos costeros (agua, vegetación, cielo, nubes,
+                            embarcaciones y personas, entre otros). Las máscaras a
+                            nivel de píxel fueron convertidas sistemáticamente a
+                            anotaciones poligonales mediante un script en Python
+                            basado en OpenCV, utilizando el algoritmo de
+                            Douglas-Peucker para simplificar la geometría y
+                            garantizar la viabilidad computacional.
+                        </p>
+
+                        <div class="spectral-box">
+                            <h5>
+                                Diccionario de clases y especificaciones técnicas
+                            </h5>
+
+                            <p>
+                                Correspondencia entre las categorías ambientales
+                                definidas, su color y valor RGB dentro de las
+                                máscaras de segmentación, y el identificador de
+                                categoría utilizado en las anotaciones COCO.
+                            </p>
+
+                            <div class="table-responsive">
+                                <table class="table spectral-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Clase</th>
+                                            <th>Color</th>
+                                            <th>Valor RGB</th>
+                                            <th>ID de categoría COCO</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <td>Sargazo</td>
+                                            <td>Rojo oscuro</td>
+                                            <td>[139, 0, 0]</td>
+                                            <td>1</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Arena</td>
+                                            <td>Amarillo</td>
+                                            <td>[255, 255, 0]</td>
+                                            <td>2</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Otros</td>
+                                            <td>Gris</td>
+                                            <td>[192, 192, 192]</td>
+                                            <td>3</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dataset-buttons">
+                    <button class="btn-outline-reg" type="button" data-toggle="collapse" data-target="#cocoDetails"
+                        aria-expanded="false">
+                        Ver detalles
+                    </button>
+                    <a class="btn-solid-reg" href="https://doi.org/10.1016/j.dib.2026.112910" target="_blank"
+                        rel="noopener noreferrer">
+                        Leer artículo
+                    </a>
+
+                    <a class="btn-outline-reg" href="https://doi.org/10.6084/m9.figshare.32125996" target="_blank"
+                        rel="noopener noreferrer">
+                        Descargar dataset
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
