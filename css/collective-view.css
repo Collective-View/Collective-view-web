@@ -2074,3 +2074,15 @@ body{
     color: #00a78e;
     font-weight: 700;
 }
+
+.objetivo-imagen{
+    margin: 40px 0 30px;
+}
+
+.objetivo-imagen img{
+    width: 100%;
+    max-width: 900px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    object-fit: cover;
+}
