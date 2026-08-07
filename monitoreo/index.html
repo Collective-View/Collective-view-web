@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Collective View - Monitoreo de gases en el Caribe mexicano">
+    <meta name="description" content="Collective View - Monitoreo de la calidad del aire en el Caribe mexicano">
     <meta name="author" content="Collective View - ECOSUR">
-    <meta name="keywords" content="sargazo, gases, monitoreo, Collective View, ECOSUR">
+    <meta name="keywords" content="sargazo, gases, calidad del aire, monitoreo, Collective View, ECOSUR">
 
-    <title>Monitoreo de Gases - Collective View</title>
+    <title>Monitoreo de la Calidad del Aire - Collective View</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="../css/bootstrap.css" rel="stylesheet">
@@ -61,7 +61,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="../monitoreo">
-                        MONITOREO DE GASES
+                        CALIDAD DEL AIRE
                     </a>
                 </li>
                 <li class="nav-item">
@@ -99,20 +99,17 @@
 
     <header id="header" class="header">
 
-        <div id="monitoreoCarousel" class="carousel slide carousel-fade header-carousel" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="../images/carousel/DJI_0968.JPG" class="d-block w-100" alt="Playa con acumulación de sargazo">
-                </div>
-
-                <div class="carousel-item">
-                    <img src="../images/carousel/DJI_0903.JPG" class="d-block w-100" alt="Costa del Caribe mexicano">
-                </div>
-
-                <div class="carousel-item">
-                    <img src="../images/carousel/DJI_0547.JPG" class="d-block w-100" alt="Litoral de Quintana Roo">
-                </div>
-            </div>
+        <div class="header-carousel">
+            <video
+                class="d-block w-100"
+                style="width: 100%; height: 100%; object-fit: cover;"
+                autoplay
+                muted
+                loop
+                playsinline
+                poster="../images/carousel/DJI_0968.JPG">
+                <source src="../videos/Maha.mp4" type="video/mp4">
+            </video>
         </div>
 
         <div class="header-overlay"></div>
@@ -123,7 +120,7 @@
                     <div class="col-lg-12">
                         <div class="text-container">
                             <h1 data-aos="fade-up">
-                                MONITOREO DE GASES
+                                MONITOREO DE LA CALIDAD DEL AIRE
                             </h1>
 
                             <h3 data-aos="fade-up" data-aos-delay="200">
@@ -144,7 +141,7 @@
         </div>
     </header>
 
-    <main id="proyecto" class="page-section monitoreo-page" aria-label="Proyecto de monitoreo de gases">
+    <main id="proyecto" class="page-section monitoreo-page" aria-label="Proyecto de monitoreo de la calidad del aire">
         <div class="container">
 
             <div class="row">
@@ -206,7 +203,7 @@
 
                         <div class="spectral-box" id="objetivo-general" aria-labelledby="objetivo-general-heading">
                             <h5 id="objetivo-general-heading"><i class="fas fa-bullseye" style="color:#00a78e; margin-right:8px;"></i>Objetivo general</h5>
-                            <p>
+                            <p class="justify-text">
                                 Diseñar, implementar y validar, mediante una prueba piloto de seis meses,
                                 una plataforma integral de monitoreo ambiental capaz de medir variables
                                 atmosféricas y visuales asociadas a la descomposición del sargazo en
@@ -221,36 +218,36 @@
                             <i class="fas fa-tasks" style="color:#00a78e; margin-right:8px;"></i>Objetivos específicos
                         </h5>
                         <ol class="dataset-list">
-                            <li>
+                            <li class="justify-text">
                                 Diseñar e integrar un sistema piloto de monitoreo basado en sensores
                                 ambientales para medir concentración de gases, temperatura, humedad
                                 relativa y velocidad del viento en zonas de acumulación de sargazo.
                             </li>
-                            <li>
+                            <li class="justify-text">
                                 Desarrollar un módulo de captura y procesamiento de imágenes que
                                 permita estimar la presencia y estado de acumulación del sargazo
                                 mediante técnicas de análisis automatizado.
                             </li>
-                            <li>
+                            <li class="justify-text">
                                 Implementar una infraestructura de adquisición y almacenamiento de
                                 datos que permita el registro continuo y sincronizado de variables
                                 ambientales durante el periodo piloto.
                             </li>
-                            <li>
+                            <li class="justify-text">
                                 Analizar la dinámica espacio-temporal de las emisiones gaseosas y su
                                 relación con variables ambientales y niveles de acumulación de
                                 sargazo mediante métodos estadísticos y de análisis espacial.
                             </li>
-                            <li>
+                            <li class="justify-text">
                                 Evaluar la viabilidad técnica y operativa del sistema mediante
                                 pruebas de campo, calibración de sensores y validación de datos
                                 obtenidos.
                             </li>
-                            <li>
+                            <li class="justify-text">
                                 Definir indicadores preliminares y umbrales de riesgo sanitario que
                                 permitan sentar las bases para un futuro sistema de alerta temprana.
                             </li>
-                            <li>
+                            <li class="justify-text">
                                 Generar productos técnicos y científicos que documenten los
                                 resultados del piloto y orienten la escalabilidad del sistema hacia
                                 fases posteriores de implementación regional.
