@@ -302,6 +302,15 @@ body{
 .footer h4{ color: white; }
 .footer .white{ color: #9ca3af; }
 
+.version {
+    font-size: 0.75em;
+    color: #999;
+    opacity: 0.7;
+    margin-left: 8px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
 [data-aos]{ pointer-events: auto !important; }
 
 @media(max-width: 768px){
@@ -446,6 +455,47 @@ body{
 }
 
 .contact-info i{ color: #00a78e; margin-top: 4px; }
+
+.contact-col-flex {
+    display: flex;
+}
+
+.contact-section-title {
+    width: 100%;
+    margin: 0 0 22px;
+    padding-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    border-bottom: 2px solid rgba(0,0,0,0.08);
+    padding-bottom: 12px;
+}
+        
+.contact-year-title {
+    width: 100%;
+    margin: 30px 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #2c7da0;
+}
+
+.contact-year-title:first-of-type {
+    margin-top: 4px;
+}
+
+.contact-year-title::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    border-radius: 50px;
+    background: linear-gradient(90deg, rgba(0,167,142,0.35), rgba(44,125,160,0.05));
+}
 
 @media(max-width: 768px){
     .contact-card{ padding: 28px; }
@@ -1792,6 +1842,18 @@ body{
     margin-bottom: 12px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.investigacion-item {
+    font-size: 0.88rem;
+    color: #4b5563;
+    line-height: 1.7;
+    margin-bottom: 12px;
+    display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-align: justify;
