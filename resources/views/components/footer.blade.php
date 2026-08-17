@@ -9,6 +9,11 @@
                 <p class="white">
                     Proyecto de ECOSUR para el monitoreo ciudadano del sargazo en el Caribe mexicano.
                 </p>
+
+                <div class="footer-logos">
+                    <img src="../images/logo-ecosur.png" alt="ECOSUR">
+                    <img src="../images/logo-conahcyt.png" alt="CONAHCYT">
+                </div>
             </div>
         </div>
     </div>
@@ -20,7 +25,7 @@
              <div class="col-lg-12 text-center">
                 <p class="p-small">
                     © 2024 Collective View - Proyecto de investigación ECOSUR
-                    <span class="version">v 1.2.4 <span class="version-date">(2026-08-13)</span></span>
+                    <span class="version">v 1.2.5 <span class="version-date">(2026-08-14)</span></span>
                 </p>
             </div>
         </div>

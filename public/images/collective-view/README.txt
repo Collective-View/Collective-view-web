@@ -53,7 +53,12 @@ BASE DE DATOS
 
 GENERACIÓN DE ARCHIVOS JSON
 ---------------------------------
-   - Primero guardar la referencia desde el panel administrativo mediante un archivo RIS o manual.
+a) JSON de red de referencias:
+   - Usar Zotero para gestionar las referencias.
+   - Usar VOSviewer (versión de escritorio) para crear el archivo JSON de la red.
+
+b) JSON de referencias:
+   - Primero guardar la referencia desde el panel administrativo.
    - Luego ejecutar el comando:
      php artisan referencias:generar-json
 

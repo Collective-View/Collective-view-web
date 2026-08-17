@@ -163,7 +163,7 @@
                                 <i class="fas fa-cloud"></i>
                             </div>
                             <div>
-                                <h3 class="dataset-title" id="dataset-title-monitoreo">
+                                <h3 class="monitoreo-title" id="dataset-title-monitoreo">
                                     Sistema integral de alerta sanitaria ante emisiones
                                     de gases por descomposición de sargazo
                                 </h3>
