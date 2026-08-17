@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Collective View - Monitoreo de la calidad del aire en el Caribe mexicano">
+    <meta name="author" content="Collective View - ECOSUR">
+    <meta name="keywords" content="sargazo, gases, calidad del aire, monitoreo, Collective View, ECOSUR">
+
+    <title>Monitoreo de la Calidad del Aire - Collective View</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/fontawesome-all.css" rel="stylesheet">
+    <link href="../css/swiper.css" rel="stylesheet">
+    <link href="../css/magnific-popup.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/collective-view.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="icon" href="../images/logo.png">
+</head>
+<body data-spy="scroll" data-target=".fixed-top">
+
+    <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
+        <a class="navbar-brand logo-container" href="../">
+            <img src="../images/logo.png" alt="Collective View" class="navbar-logo">
+            <span class="navbar-logo-text">
+                Collective View
+            </span>
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-awesome fas fa-bars"></span>
+            <span class="navbar-toggler-awesome fas fa-times"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../">
+                        INICIO
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../publicaciones">
+                        PUBLICACIONES
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../datos">
+                        DATOS ABIERTOS
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="../monitoreo">
+                        CALIDAD DEL AIRE
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../investigacion">
+                        LÍNEAS DE INVESTIGACIÓN
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../contactos">
+                        EQUIPO
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                    href="#"
+                    id="recursosDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                        RECURSOS
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown-custom" aria-labelledby="recursosDropdown">
+                        <a class="dropdown-item" href="../referencias">REFERENCIAS</a>
+                        <a class="dropdown-item" href="../videos">VIDEOS</a>
+                        <a class="dropdown-item" href="../propiedad">PROPIEDAD INTELECTUAL</a>
+                        <a class="dropdown-item" href="../medios">MEDIOS</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="header" class="header">
+
+        <div class="header-carousel">
+            <video
+                class="d-block w-100"
+                style="width: 100%; height: 100%; object-fit: cover;"
+                autoplay
+                muted
+                loop
+                playsinline
+                poster="../images/poster.png">
+                <source src="../media/Maha.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="header-overlay"></div>
+
+        <div class="header-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-container">
+                            <h1 data-aos="fade-up">
+                                MONITOREO DE LA CALIDAD DEL AIRE
+                            </h1>
+
+                            <h3 data-aos="fade-up" data-aos-delay="200">
+                                <span id="js-rotating">
+                                    ALERTA SANITARIA, DESCOMPOSICIÓN DE SARGAZO, SENSORES AMBIENTALES, CIENCIA CIUDADANA, PLAYAS DE QUINTANA ROO
+                                </span>
+                            </h3>
+
+                            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="600">
+                                <a class="btn-solid-lg page-scroll" href="#proyecto">
+                                    CONOCER MÁS
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="proyecto" class="page-section monitoreo-page" aria-label="Proyecto de monitoreo de la calidad del aire">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 text-center" data-aos="fade-up">
+                    <div class="section-title">CALIDAD DEL AIRE</div>
+                    <h2>El proyecto</h2>
+                    <p class="p-heading">
+                        Seguimiento de gases asociados a la descomposición del sargazo
+                        en las costas del Caribe mexicano.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
+                    <article class="dataset-card" aria-labelledby="dataset-title-monitoreo">
+
+                        <div class="dataset-header">
+                            <div class="dataset-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <div>
+                                <h3 class="dataset-title" id="dataset-title-monitoreo">
+                                    Sistema integral de alerta sanitaria ante emisiones
+                                    de gases por descomposición de sargazo
+                                </h3>
+                                <span class="dataset-subtitle">Playas de Quintana Roo</span>
+                            </div>
+                        </div>
+
+                        <span class="monitoreo-proximamente__badge">PRÓXIMAMENTE</span>
+
+                        <div class="objetivo-imagen text-center" data-aos="fade-up">
+                            <img src="../images/calidad_aire.jpg"
+                                alt="Monitoreo de la calidad del aire"
+                                class="img-fluid">
+                        </div>
+
+                        <div id="descripcion" aria-label="Descripción del proyecto">
+                            <p class="dataset-description" style="margin-top: 22px;">
+                                El proyecto <strong>Sistema Integral de Alerta Sanitaria ante Emisiones
+                                de Gases por Descomposición de Sargazo en las Playas de Quintana Roo</strong>
+                                tiene como objetivo diseñar una plataforma de monitoreo ambiental capaz
+                                de evaluar, de manera integral, las condiciones asociadas a la descomposición
+                                del sargazo y los riesgos sanitarios derivados de este proceso.
+                            </p>
+                            <p class="dataset-description">
+                                La propuesta contempla el desarrollo de una infraestructura de monitoreo
+                                basada en sensores de bajo costo para medir variables como concentración
+                                de gases, temperatura, humedad relativa y velocidad del viento, complementadas
+                                con la captura sistemática de imágenes del frente de playa y encuestas
+                                recolectadas bajo un esquema de ciencia ciudadana. La integración de estas
+                                fuentes de información permitirá realizar análisis cuantitativos orientados
+                                a comprender la relación entre la acumulación de sargazo, su estado y los
+                                niveles de emisión de gases potencialmente nocivos.
+                            </p>
+                            <p class="dataset-description">
+                                Mediante el uso de herramientas de análisis de datos e inteligencia
+                                artificial, el sistema buscará identificar patrones espaciotemporales
+                                para generar indicadores objetivos de riesgo sanitario, que se traducirán
+                                en un esquema de alerta orientado a autoridades locales, personal de
+                                protección civil y comunidades costeras.
+                            </p>
+                        </div>
+
+                        <div class="objetivo-imagen text-center" data-aos="fade-up">
+                            <video
+                                class="img-fluid"
+                                style="width: 100%; height: 100%; object-fit: cover;"
+                                poster="../images/poster.png"
+                                controls>
+                                <source src="../media/Vid_monitoreo.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <div class="spectral-box" id="objetivo-general" aria-labelledby="objetivo-general-heading">
+                            <h5 id="objetivo-general-heading"><i class="fas fa-bullseye" style="color:#00a78e; margin-right:8px;"></i>Objetivo general</h5>
+                            <p class="justify-text">
+                                Diseñar, implementar y validar, mediante una prueba piloto de seis meses,
+                                una plataforma integral de monitoreo ambiental capaz de medir variables
+                                atmosféricas y visuales asociadas a la descomposición del sargazo en
+                                playa, con el fin de analizar cuantitativamente la relación entre la
+                                acumulación de biomasa y la emisión de gases, y establecer las bases para
+                                un sistema de alerta sanitaria temprana en las costas de Quintana Roo.
+                            </p>
+                        </div>
+
+                        <div id="objetivos-especificos" aria-labelledby="objetivos-especificos-heading">
+                        <h5 id="objetivos-especificos-heading" style="margin-top: 40px; margin-bottom: 8px; font-weight: 700; color: #0f172a;">
+                            <i class="fas fa-tasks" style="color:#00a78e; margin-right:8px;"></i>Objetivos específicos
+                        </h5>
+                        <ol class="dataset-list">
+                            <li class="justify-text">
+                                Diseñar e integrar un sistema piloto de monitoreo basado en sensores
+                                ambientales para medir concentración de gases, temperatura, humedad
+                                relativa y velocidad del viento en zonas de acumulación de sargazo.
+                            </li>
+                            <li class="justify-text">
+                                Desarrollar un módulo de captura y procesamiento de imágenes que
+                                permita estimar la presencia y estado de acumulación del sargazo
+                                mediante técnicas de análisis automatizado.
+                            </li>
+                            <li class="justify-text">
+                                Implementar una infraestructura de adquisición y almacenamiento de
+                                datos que permita el registro continuo y sincronizado de variables
+                                ambientales durante el periodo piloto.
+                            </li>
+                            <li class="justify-text">
+                                Analizar la dinámica espacio-temporal de las emisiones gaseosas y su
+                                relación con variables ambientales y niveles de acumulación de
+                                sargazo mediante métodos estadísticos y de análisis espacial.
+                            </li>
+                            <li class="justify-text">
+                                Evaluar la viabilidad técnica y operativa del sistema mediante
+                                pruebas de campo, calibración de sensores y validación de datos
+                                obtenidos.
+                            </li>
+                            <li class="justify-text">
+                                Definir indicadores preliminares y umbrales de riesgo sanitario que
+                                permitan sentar las bases para un futuro sistema de alerta temprana.
+                            </li>
+                            <li class="justify-text">
+                                Generar productos técnicos y científicos que documenten los
+                                resultados del piloto y orienten la escalabilidad del sistema hacia
+                                fases posteriores de implementación regional.
+                            </li>
+                        </ol>
+                        </div>
+
+                        <div class="bibliometrico-card__notas" id="estado-actual" aria-label="Estado actual del proyecto">
+                            <i class="fas fa-info-circle"></i>
+                            <p>
+                                Estamos preparando el monitoreo interactivo en tiempo real de esta
+                                sección. Vuelve a visitarnos próximamente.
+                            </p>
+                        </div>
+
+                    </article>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    @include('components.footer')
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.easing.min.js"></script>
+    <script src="../js/swiper.min.js"></script>
+    <script src="../js/jquery.magnific-popup.js"></script>
+    <script src="../js/morphext.min.js"></script>
+    <script src="../js/isotope.pkgd.min.js"></script>
+    <script src="../js/validator.min.js"></script>
+    <script src="../js/scripts.js"></script>
+    <script src="../js/collective-view.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1200,
+            once: true,
+            offset: 120
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Collective View - Referencias bibliográficas y red de análisis bibliométrico interactivo del proyecto">
+    <meta name="author" content="Collective View - ECOSUR">
+    <meta name="keywords" content="sargazo, bibliometría, red de referencias, coautoría, VOSviewer, Collective View, ECOSUR">
+
+    <title>Referencias - Collective View</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/fontawesome-all.css" rel="stylesheet">
+    <link href="../css/swiper.css" rel="stylesheet">
+    <link href="../css/magnific-popup.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/collective-view.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="icon" href="../images/logo.png">
+</head>
+<body data-spy="scroll" data-target=".fixed-top">
+
+    <nav class="navbar navbar-expand-md navbar-dark navbar-custom navbar-solid fixed-top">
+        <a class="navbar-brand logo-container" href="../">
+            <img src="../images/logo.png" alt="Collective View" class="navbar-logo">
+            <span class="navbar-logo-text">
+                Collective View
+            </span>
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-awesome fas fa-bars"></span>
+            <span class="navbar-toggler-awesome fas fa-times"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../">
+                        INICIO
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../publicaciones">
+                        PUBLICACIONES
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../datos">
+                        DATOS ABIERTOS
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../monitoreo">
+                        CALIDAD DEL AIRE
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../investigacion">
+                        LÍNEAS DE INVESTIGACIÓN
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../contactos">
+                        EQUIPO
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                    href="#"
+                    id="recursosDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                        RECURSOS
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown-custom" aria-labelledby="recursosDropdown">
+                        <a class="dropdown-item active" href="../referencias">REFERENCIAS</a>
+                        <a class="dropdown-item" href="../videos">VIDEOS</a>
+                        <a class="dropdown-item" href="../propiedad">PROPIEDAD INTELECTUAL</a>
+                        <a class="dropdown-item" href="../medios">MEDIOS</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-section referencias-page">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 text-center" data-aos="fade-up">
+                    <div class="section-title">CORPUS DE LA INVESTIGACIÓN</div>
+                    <h2>Referencias</h2>
+                    <p class="p-heading">
+                        Explora las referencias bibliográficas consultadas en el proyecto
+                        Collective View, como listado con buscador o como red interactiva
+                        construida con VOSviewer. El tamaño de cada nodo representa qué tan
+                        presente está ese elemento (autor o término) en el corpus; las
+                        conexiones indican qué tan seguido aparecen relacionados entre sí.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
+                    <div class="referencias-card">
+
+                        <div class="pub-tabs-wrap">
+                            <div class="pub-tabs-scroll">
+                                <button class="pub-tab pub-tab--active" data-panel="lista">
+                                    <span class="pub-tab__icon"><i class="fas fa-list"></i></span>
+                                    <span class="pub-tab__label">Lista</span>
+                                </button>
+                                <button class="pub-tab" data-panel="mapa">
+                                    <span class="pub-tab__icon"><i class="fas fa-project-diagram"></i></span>
+                                    <span class="pub-tab__label">Mapa de red</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="referencias-panel referencias-panel--active" id="panel-lista">
+
+                            <div class="publication-search-wrapper referencias-search-wrapper">
+                                <div class="publication-search-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <input type="text" id="referencias-buscador"
+                                       class="publication-search-input"
+                                       placeholder="Buscar por título, autor o palabra clave..."
+                                       autocomplete="off">
+                                <button id="referencias-buscador-clear" class="publication-search-clear"
+                                        title="Limpiar" style="display:none;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                            <div class="row" id="referencias-lista" style="margin-top:28px;">
+                                <div class="col-lg-12 text-center" style="padding:60px 0; color:#9ca3af;">
+                                    Cargando referencias...
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12 text-center" id="referencias-vacio"
+                                     style="display:none; padding:40px 0; color:#9ca3af;">
+                                    No se encontraron referencias que coincidan con tu búsqueda.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="referencias-panel" id="panel-mapa">
+
+                            <div class="bibliometrico-mapa">
+                                <div class="bibliometrico-mapa__loading" id="bibliometrico-loading">
+                                    <div class="spinner">
+                                        <div class="bounce1"></div>
+                                        <div class="bounce2"></div>
+                                        <div class="bounce3"></div>
+                                    </div>
+                                    <span>Cargando mapa interactivo...</span>
+                                </div>
+
+                                <iframe
+                                    id="vosviewer-frame"
+                                    title="Red bibliométrica de referencias"
+                                    src="https://app.vosviewer.com/?json={{ urlencode('https://collective-view.collective-view-ecosur.workers.dev/data/red-referencias.json') }}&simple_ui=true"
+                                    allowfullscreen
+                                    loading="lazy"
+                                    onload="document.getElementById('bibliometrico-loading').style.display='none'">
+                                </iframe>
+                            </div>
+
+                            <div class="bibliometrico-card__notas">
+                                <i class="fas fa-info-circle"></i>
+                                <p>
+                                    <strong>Cómo leer el mapa:</strong> nodos más grandes = elementos
+                                    (autores o términos) más frecuentes en el corpus de referencias.
+                                    Líneas más gruesas = elementos que aparecen relacionados con más
+                                    frecuencia. Puedes hacer zoom, arrastrar nodos y hacer clic sobre
+                                    uno para resaltar sus conexiones directas.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @include('components.footer')
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/collective-view.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1200,
+            once: true,
+            offset: 120
+        });
+    </script>
+
+    <script>
+        (function () {
+            const tabs   = document.querySelectorAll('.referencias-page .pub-tab');
+            const panels = document.querySelectorAll('.referencias-panel');
+
+            tabs.forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(t => t.classList.remove('pub-tab--active'));
+                    panels.forEach(p => p.classList.remove('referencias-panel--active'));
+
+                    tab.classList.add('pub-tab--active');
+                    document.getElementById('panel-' + tab.dataset.panel)
+                        .classList.add('referencias-panel--active');
+                });
+            });
+
+            let todasLasReferencias = [];
+
+            const contenedor    = document.getElementById('referencias-lista');
+            const vacio          = document.getElementById('referencias-vacio');
+            const buscador       = document.getElementById('referencias-buscador');
+            const buscadorClear  = document.getElementById('referencias-buscador-clear');
+
+            fetch('../data/referencias.json')
+                .then(res => res.json())
+                .then(data => {
+                    todasLasReferencias = data;
+                    renderReferencias(todasLasReferencias);
+                })
+                .catch(() => {
+                    contenedor.innerHTML =
+                        '<div class="col-lg-12 text-center" style="padding:40px 0; color:#9ca3af;">' +
+                        'No se pudo cargar el listado de referencias.</div>';
+                });
+
+            function renderReferencias(lista) {
+                if (lista.length === 0) {
+                    contenedor.innerHTML = '';
+                    vacio.style.display = 'block';
+                    return;
+                }
+                vacio.style.display = 'none';
+
+                contenedor.innerHTML = lista.map(ref => `
+                    <div class="col-lg-12">
+                        <div class="referencia-item">
+                            <h4 class="referencia-item__titulo">
+                                ${ref.url
+                                    ? `<a href="${ref.url}" target="_blank" rel="noopener noreferrer">${ref.titulo}</a>`
+                                    : ref.titulo}
+                            </h4>
+                            <div class="referencia-item__meta">
+                                ${ref.autores ? `<span>${ref.autores}</span>` : ''}
+                                ${ref.revista ? `<span>· ${ref.revista}</span>` : ''}
+                                ${ref.anio ? `<span>· ${ref.anio}</span>` : ''}
+                            </div>
+                            ${ref.resumen ? `<p class="referencia-item__resumen">${ref.resumen}</p>` : ''}
+                            <div class="referencia-item__links">
+                                ${ref.url ? `<a href="${ref.url}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Ver artículo</a>` : ''}
+                                ${ref.doi ? `<a href="https://doi.org/${ref.doi}" target="_blank" rel="noopener noreferrer"><i class="fas fa-link"></i> DOI</a>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function filtrar() {
+                const termino = buscador.value.toLowerCase().trim();
+                buscadorClear.style.display = termino.length > 0 ? 'inline-flex' : 'none';
+
+                if (termino === '') {
+                    renderReferencias(todasLasReferencias);
+                    return;
+                }
+
+                const filtradas = todasLasReferencias.filter(ref =>
+                    (ref.titulo && ref.titulo.toLowerCase().includes(termino)) ||
+                    (ref.autores && ref.autores.toLowerCase().includes(termino)) ||
+                    (ref.resumen && ref.resumen.toLowerCase().includes(termino))
+                );
+
+                renderReferencias(filtradas);
+            }
+
+            buscador.addEventListener('input', filtrar);
+
+            buscadorClear.addEventListener('click', function () {
+                buscador.value = '';
+                buscadorClear.style.display = 'none';
+                renderReferencias(todasLasReferencias);
+            });
+        })();
+    </script>
+</body>
+</html>

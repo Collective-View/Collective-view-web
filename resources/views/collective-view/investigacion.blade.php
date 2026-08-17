@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Collective View - Líneas de investigación">
+    <meta name="author" content="Collective View - ECOSUR">
+    <meta name="keywords" content="sargazo, líneas de investigación, Collective View, ECOSUR">
+
+    <title>Líneas de Investigación - Collective View</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/fontawesome-all.css" rel="stylesheet">
+    <link href="../css/swiper.css" rel="stylesheet">
+    <link href="../css/magnific-popup.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/collective-view.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="icon" href="../images/logo.png">
+</head>
+<body data-spy="scroll" data-target=".fixed-top">
+
+    <nav class="navbar navbar-expand-md navbar-dark navbar-custom navbar-solid fixed-top">
+        <a class="navbar-brand logo-container" href="../">
+            <img src="../images/logo.png" alt="Collective View" class="navbar-logo">
+            <span class="navbar-logo-text">
+                Collective View
+            </span>
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-awesome fas fa-bars"></span>
+            <span class="navbar-toggler-awesome fas fa-times"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../">
+                        INICIO
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../publicaciones">
+                        PUBLICACIONES
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../datos">
+                        DATOS ABIERTOS
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../monitoreo">
+                        CALIDAD DEL AIRE
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="../investigacion">
+                        LÍNEAS DE INVESTIGACIÓN
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../contactos">
+                        EQUIPO
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                    href="#"
+                    id="recursosDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                        RECURSOS
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown-custom" aria-labelledby="recursosDropdown">
+                        <a class="dropdown-item" href="../referencias">REFERENCIAS</a>
+                        <a class="dropdown-item" href="../videos">VIDEOS</a>
+                        <a class="dropdown-item" href="../propiedad">PROPIEDAD INTELECTUAL</a>
+                        <a class="dropdown-item" href="../medios">MEDIOS</a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-section referencias-page">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 text-center" data-aos="fade-up">
+                    <div class="section-title">INVESTIGACIÓN</div>
+                    <h2>Líneas de investigación</h2>
+                    <p class="p-heading">
+                        Explora las líneas de investigación que guían el trabajo del
+                        proyecto Collective View, combinando inteligencia artificial,
+                        percepción remota, ciencia ciudadana y gestión costera para el
+                        monitoreo del sargazo.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
+                    <div class="referencias-card">
+
+                        <div class="referencias-panel referencias-panel--active" id="panel-lineas">
+
+                            <div class="row" id="lineas-lista" style="margin-top:28px;">
+
+                                <div class="col-lg-12 linea-item-wrap">
+                                    <div class="referencia-item">
+                                        <h4 class="referencia-item__titulo">
+                                            1. Inteligencia artificial y deep learning para monitoreo ambiental costero
+                                        </h4>
+                                        <div class="referencia-item__meta">
+                                            <span>Aprendizaje profundo · Visión por computadora</span>
+                                        </div>
+                                        <p class="investigacion-item">
+                                            Desarrollo, entrenamiento y validación de arquitecturas de aprendizaje
+                                            profundo (Deep Learning) adaptadas al procesamiento de imágenes
+                                            espectrales y RGB. Diseñamos modelos avanzados de clasificación,
+                                            detección de objetos y segmentación semántica (tales como CNNs,
+                                            ERISNet, pix2pix, U-Net y anotaciones bajo el estándar COCO) capaces
+                                            de identificar patrones complejos en ecosistemas marinos y costeros,
+                                            mitigando ruidos ópticos y variaciones de iluminación.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 linea-item-wrap">
+                                    <div class="referencia-item">
+                                        <h4 class="referencia-item__titulo">
+                                            2. Percepción remota multiescala e integración de datos (Satélites, drones y sensores próximos)
+                                        </h4>
+                                        <div class="referencia-item__meta">
+                                            <span>Sensores remotos · Multiescala</span>
+                                        </div>
+                                        <p class="investigacion-item">
+                                            Integración y escalamiento de observaciones obtenidas a través de
+                                            múltiples sensores remotos: desde satélites oceánicos de media y
+                                            alta resolución (MODIS, Sentinel-2, Landsat) para el monitoreo
+                                            regional en mar abierto, hasta vehículos aéreos no tripulados
+                                            (VAV/Drones) y sensores proximales a nivel de playa. Esta
+                                            aproximación multiescala permite salvar limitaciones de resolución
+                                            espacial, temporal y cobertura nubosa para generar mapas de alta
+                                            precisión y cuantificaciones en metros cuadrados (m²).
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 linea-item-wrap">
+                                    <div class="referencia-item">
+                                        <h4 class="referencia-item__titulo">
+                                            3. Ciencia ciudadana, Crowdsourcing y sensores sociales (Collective View)
+                                        </h4>
+                                        <div class="referencia-item__meta">
+                                            <span>Ciencia ciudadana · Crowdsourcing</span>
+                                        </div>
+                                        <p class="investigacion-item">
+                                            Implementación de plataformas colaborativas y aplicaciones móviles
+                                            para la captura de datos georreferenciados en tiempo real por parte
+                                            de la comunidad, turistas y actores locales (Collective View).
+                                            Investigamos esquemas de procesamiento automatizado para transformar
+                                            fotografías ciudadanas sin estandarizar en fuentes sistemáticas de
+                                            monitoreo, fomentando la apropiación social del conocimiento y la
+                                            vigilancia ambiental continua en franjas costeras de difícil acceso.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 linea-item-wrap">
+                                    <div class="referencia-item">
+                                        <h4 class="referencia-item__titulo">
+                                            4. Modelado geoespacial, métricas ambientales y soporte a la gestión costera sostenible
+                                        </h4>
+                                        <div class="referencia-item__meta">
+                                            <span>SIG · Gestión costera</span>
+                                        </div>
+                                        <p class="investigacion-item">
+                                            Generación de cartografía automatizada, sistemas de alerta temprana
+                                            y modelado en Sistemas de Información Geográfica (SIG) para
+                                            cuantificar la densidad, cobertura y distribución del sargazo
+                                            acumulado. Esta línea transforma el procesamiento de datos y la
+                                            visión computacional en herramientas directas para optimizar la
+                                            logística de limpieza, mitigar impactos ecológicos/socioeconómicos
+                                            y apoyar la toma de decisiones informadas en las comunidades e
+                                            instituciones encargadas del manejo costero.
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12 text-center" id="lineas-vacio"
+                                     style="display:none; padding:40px 0; color:#9ca3af;">
+                                    No se encontraron líneas de investigación que coincidan con tu búsqueda.
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @include('components.footer')
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/collective-view.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1200,
+            once: true,
+            offset: 120
+        });
+    </script>
+
+    <script>
+        (function () {
+            const items         = Array.from(document.querySelectorAll('#lineas-lista .linea-item-wrap'));
+            const vacio         = document.getElementById('lineas-vacio');
+            const buscador      = document.getElementById('lineas-buscador');
+            const buscadorClear = document.getElementById('lineas-buscador-clear');
+
+            function filtrar() {
+                const termino = buscador.value.toLowerCase().trim();
+                buscadorClear.style.display = termino.length > 0 ? 'inline-flex' : 'none';
+
+                let visibles = 0;
+
+                items.forEach(item => {
+                    const texto = item.textContent.toLowerCase();
+                    const coincide = termino === '' || texto.includes(termino);
+                    item.style.display = coincide ? '' : 'none';
+                    if (coincide) visibles++;
+                });
+
+                vacio.style.display = visibles === 0 ? 'block' : 'none';
+            }
+
+            buscador.addEventListener('input', filtrar);
+
+            buscadorClear.addEventListener('click', function () {
+                buscador.value = '';
+                buscadorClear.style.display = 'none';
+                filtrar();
+            });
+        })();
+    </script>
+</body>
+</html>

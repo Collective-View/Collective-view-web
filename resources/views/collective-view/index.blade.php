@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Collective View - Proyecto de ciencia ciudadana para el monitoreo del sargazo en las playas del Caribe mexicano desarrollado por investigadores de ECOSUR">
+    <meta name="author" content="Collective View - ECOSUR">
+    <meta name="keywords" content="sargazo, monitoreo, ciencia ciudadana, Caribe mexicano, ECOSUR, Collective View">
+
+    <title>Collective View</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+    <link href="css/swiper.css" rel="stylesheet">
+    <link href="css/magnific-popup.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/collective-view.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="icon" href="images/logo.png">
+</head>
+<body data-spy="scroll" data-target=".fixed-top">
+    <div class="spinner-wrapper">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
+        <a class="navbar-brand logo-container" href="#header">
+            <img src="images/logo.png" alt="Collective View" class="navbar-logo">
+            <span class="navbar-logo-text">
+                Collective View
+            </span>
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-awesome fas fa-bars"></span>
+            <span class="navbar-toggler-awesome fas fa-times"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#header">
+                        INICIO
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="publicaciones">
+                        PUBLICACIONES
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="datos">
+                        DATOS ABIERTOS
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="monitoreo">
+                        CALIDAD DEL AIRE
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../investigacion">
+                        LÍNEAS DE INVESTIGACIÓN
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="contactos">
+                        EQUIPO
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                    href="#"
+                    id="recursosDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                        RECURSOS
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown-custom" aria-labelledby="recursosDropdown">
+                        <a class="dropdown-item" href="referencias">REFERENCIAS</a>
+                        <a class="dropdown-item page-scroll" href="videos">VIDEOS</a>
+                        <a class="dropdown-item page-scroll" href="propiedad">PROPIEDAD INTELECTUAL</a>
+                        <a class="dropdown-item page-scroll" href="medios">MEDIOS</a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <header id="header" class="header">
+
+        <div id="headerCarousel" class="carousel slide carousel-fade header-carousel" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/carousel/DJI_0401.JPG" class="d-block w-100" alt="">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="images/carousel/DJI_0432.JPG" class="d-block w-100" alt="">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="images/carousel/DJI_0433.JPG" class="d-block w-100" alt="">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="images/carousel/DJI_0547.JPG" class="d-block w-100" alt="">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="images/carousel/DJI_0903.JPG" class="d-block w-100" alt="">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="images/carousel/DJI_0968.JPG" class="d-block w-100" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="header-overlay"></div>
+
+        <div class="header-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-container">
+                            <h1 data-aos="fade-up">
+                                COLLECTIVE VIEW
+                            </h1>
+
+                            <h3 data-aos="fade-up" data-aos-delay="200">
+                                <span id="js-rotating">
+                                    CIENCIA CIUDADANA, MONITOREO DE SARGAZO, PARTICIPACION COMUNITARIA, MAPEO COLECTIVO, CALIDAD DE PLAYAS
+                                </span>
+                            </h3>
+
+                            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="600">
+                                <a class="btn-solid-lg page-scroll" href="#intro">
+                                    CONOCER MÁS
+                                </a>
+
+                                <a class="btn-outline-lg page-scroll" href="#app-section">
+                                    PROBAR APP
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="intro" class="basic-1" data-aos="fade-up">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-container text-center">
+                        <div class="section-title">COLECTIVO CIENTÍFICO</div>
+                        <h2>Collective View</h2>
+                        <p class="large-text">Collective View es un proyecto desarrollado por investigadores de El Colegio de la Frontera Sur (ECOSUR), con el objetivo de promover acciones con base científica y tecnológica, que contribuyan al monitoreo del sargazo en las playas del Caribe mexicano. Collective view promueve el uso de la ciencia ciudadana como metodología para la captura de información, ciencias de la computación para el análisis de los resultados y sistemas de información geográfica para la visualización de los mismos. Los productos de la investigación generada se difunde de manera escrita a través de la publicación de artículos científicos, de divulgación y difusión de la ciencia; de manera audiovisual con videos didácticos en redes sociales y mediante la liberación de los conjuntos de datos utilizados en la investigación. Esta página electrónica es un acceso al acervo de productos desarrollados en el marco del proyecto Collective View, los cuales están a disposición de la sociedad en general.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="basic-2">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1200">
+                    <div class="text-container">
+                        <div class="section-title">¿QUÉ ES EL SARGAZO?</div>
+                        <h3>Macroalgas pardas que forman ecosistemas flotantes</h3>
+                        <p>El sargazo pelágico está formado por macroalgas pardas <em>S. fluitans</em> y <em>S. natans</em>, y constituye ecosistemas flotantes que sirven como hábitats y criaderos para especies marinas importantes como tortugas marinas, peces, invertebrados y micro y macroepífitas.</p>
+                        <div class="testimonial-text" data-aos="fade-up" data-aos-delay="300">"Cuando se acumulan grandes cantidades cerca de la playa, impiden el paso de la luz hacia el fondo marino, lo que afecta a la flora y fauna de las costas. Además, su descomposición desprende ácido sulfhídrico (de olor penetrante y riesgoso para la salud), entre otras problemáticas. Como es de suponerse, hay un efecto directo en la industria turística de la región, con pérdidas económicas y de empleos."</div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+                    <img class="img-fluid rounded shadow" src="images/IMG_3270.JPG" alt="Sargazo en el Caribe">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cards-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card" data-aos="zoom-in" data-aos-delay="100">
+                        <center><span class="fa-stack"><span class="hexagon"></span><i class="fas fa-camera fa-stack-1x"></i></span></center>
+                        <div class="card-body">
+                            <center><h4 class="card-title">Ciencia Ciudadana</h4></center>
+                            <p class="justify-text">Collective View funciona gracias a las fotografías que voluntarios toman durante su visita a las playas del mar Caribe.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card" data-aos="zoom-in" data-aos-delay="300">
+                        <center><span class="fa-stack"><span class="hexagon"></span><i class="fas fa-chart-line fa-stack-1x"></i></span></center>
+                        <div class="card-body">
+                            <center><h4 class="card-title">Análisis Computacional</h4></center>
+                            <p class="justify-text">Ciencias de la computación para el procesamiento y análisis de los resultados obtenidos.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="card">
+                        <center><span class="fa-stack"><span class="hexagon"></span><i class="fas fa-map-marker-alt fa-stack-1x"></i></i></span></center>
+                        <div class="card-body">
+                            <center><h4 class="card-title">Visualización GIS</h4></center>
+                            <p class="justify-text">Sistemas de información geográfica para la visualización espacial del fenómeno.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center" data-aos="fade-up">
+                    <div class="section-title">RECURSOS DIGITALES</div>
+                    <h2>¿Qué encontrará en esta página?</h2>
+                    <hr class="timeline-hr">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="timeline-wrapper">
+                        <div id="publicaciones" class="timeline-item right" data-aos="fade-left">
+                            <div class="timeline-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Publicaciones</h4>
+                                <p class="timeline-text">En esta sección encontrará las publicaciones realizadas por los investigadores del proyecto Collective View, que abordan su labor en el monitoreo del sargazo en las costas de Quintana Roo.</p>
+                                <a href="publicaciones" class="btn-timeline">Ver publicaciones →</a>
+                            </div>
+                        </div>
+
+                        <div id="datos" class="timeline-item left" data-aos="fade-right">
+                            <div class="timeline-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Datos Abiertos</h4>
+                                <p class="timeline-text">En esta sección encontrará los conjuntos de datos utilizados para el monitoreo y detección del sargazo, con el objetivo de poner a disposición de todo público los datos recopilados para que sean utilizados en otros proyectos o trabajos.</p>
+                                <a href="datos" class="btn-timeline">Descargar datos →</a>
+                            </div>
+                        </div>
+
+                        <div id="referencias" class="timeline-item right" data-aos="fade-left">
+                            <div class="timeline-icon">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Referencias</h4>
+                                <p class="timeline-text">En esta sección podrá encontrar las referencias bibliográficas consultadas en las publicaciones del proyecto Collective View.</p>
+                                <a href="referencias" class="btn-timeline">Ver referencias →</a>
+                            </div>
+                        </div>
+
+                        <div id="monitoreo" class="timeline-item left" data-aos="fade-right">
+                            <div class="timeline-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Monitoreo de gases</h4>
+                                <p class="timeline-text">En esta sección encontrará el seguimiento de gases asociados a la descomposición del sargazo en las costas del Caribe mexicano.</p>
+                                <a href="monitoreo" class="btn-timeline">Ver monitoreo →</a>
+                            </div>
+                        </div>
+
+                        <div id="videos" class="timeline-item right" data-aos="fade-left">
+                            <div class="timeline-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Videos</h4>
+                                <p class="timeline-text">En esta sección podrá encontrar videos informativos sobre Collective View, así como acceder a la aplicación web, donde puede contribuir con sus fotografías para apoyar el proyecto.</p>
+                                <a href="videos" class="btn-timeline">Ver videos →</a>
+                            </div>
+                        </div>
+
+                        <div id="propiedad" class="timeline-item left" data-aos="fade-right">
+                            <div class="timeline-icon">
+                                <i class="fas fa-copyright"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Propiedad Intelectual</h4>
+                                <p class="timeline-text">Sección en la que encontrará los certificados del proyecto, registradas ante el INDAUTOR México, en el que se incluyen los registros de obra de tipo software, base de datos y contenido audiovisual.</p>
+                                <a href="propiedad" class="btn-timeline">Ver certificados →</a>
+                            </div>
+                        </div>
+
+                        <div id="medios" class="timeline-item right" data-aos="fade-left">
+                            <div class="timeline-icon">
+                                <i class="fas fa-newspaper"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Medios</h4>
+                                <p class="timeline-text">Sección donde puede encontrar información sobre nosotros en otros medios, tales como distinciones, podcasts, prensa y conferencias.</p>
+                                <a href="medios" class="btn-timeline">Ver cobertura →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-section" class="app-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1200">
+                    <div class="text-container">
+                        <div class="section-title">APP WEB</div>
+                        <h2>Prueba Collective View Web App</h2>
+                        <p class="justify-text">Ya sea como invitado o registrándose, el voluntario puede tomar las fotografías en los días que va a la playa. Este acervo de imágenes sirve para la creación de conjuntos de datos cada vez más robustos, que pueden utilizarse para el entrenamiento de algoritmos.</p>
+                        <p class="justify-text">Si quiere saber más y utilizar Collective View, puede acceder a la aplicación web desde tu dispositivo móvil.</p>
+                        <div class="app-buttons" style="margin-top: 30px;" data-aos="fade-up" data-aos-delay="300">
+                            <a href="https://collective-view-app.web.app/" target="_blank" class="btn-solid-lg" rel="noopener noreferrer">IR A LA APP WEB</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+                    <div class="phone-mockup">
+                        <img src="images/app-mockup.png" alt="Collective View App" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">CONTACTO</div>
+                    <h2>¿Quieres saber más?</h2>
+                    <p class="p-heading">Si desea contactar a alguno de los investigadores, puede encontrar su información de contacto en esta sección.</p>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> ECOSUR - El Colegio de la Frontera Sur, Chetumal, QRoo, México</li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:collectiveview@ecosur.mx">collectiveview@ecosur.mx</a></li>
+                    </ul>
+                    <div class="social-icons-footer">
+                        <span class="fa-stack"><a href="https://www.facebook.com/CollectiveViewAPP/" target="_blank" rel="noopener noreferrer" aria-label="Facebook Collective View"><span class="hexagon"></span><i class="fab fa-facebook-f fa-stack-1x"></i></a></span>
+                        <span class="fa-stack"><a href="https://www.instagram.com/collectiveviewapp" target="_blank" rel="noopener noreferrer" aria-label="Instagram Collective View"><span class="hexagon"></span><i class="fab fa-instagram fa-stack-1x"></i></a></span>
+                        <span class="fa-stack"><a href="https://github.com/Collective-View" target="_blank" rel="noopener noreferrer" aria-label="GitHub Collective View"><span class="hexagon"></span><i class="fab fa-github fa-stack-1x"></i></a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @include('components.footer')
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/jquery.magnific-popup.js"></script>
+    <script src="js/morphext.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/validator.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/collective-view.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1200,
+            once: true,
+            offset: 120
+        });
+    </script>
+</body>
+</html>
