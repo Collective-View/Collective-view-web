@@ -70,10 +70,6 @@ class ReferenciaController extends Controller
         return redirect()->route('admin.referencias.index')->with('success', 'Referencia eliminada.');
     }
 
-    /**
-     * Importación masiva desde un archivo .ris (exportado de Zotero/Mendeley).
-     * Evita duplicados comparando por título exacto.
-     */
     public function importarRis(Request $request)
     {
         $request->validate([
