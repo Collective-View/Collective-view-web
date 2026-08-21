@@ -254,25 +254,25 @@
                             'nombre' => 'Dr. Fernando del Jesús Trejo Uco',
                             'cargo' => 'Profesor',
                             'correo' => 'fernando.trejo@utchetumal.edu.mx',
-                            'institucion' => 'UT Chetumal'
+                            'institucion' => 'Universidad Tecnologica de Chetumal'
                         ],
                         [
                             'nombre' => 'Lic. María Dolores Cruz Ac.',
                             'cargo' => 'Profesora',
                             'correo' => 'maria.dolores@utchetumal.edu.mx',
-                            'institucion' => 'UT Chetumal'
+                            'institucion' => 'Universidad Tecnologica de Chetumal'
                         ],
                         [
                             'nombre' => 'Dr. Martín Antonio Santos Romero',
                             'cargo' => 'Profesor investigador',
                             'correo' => 'masant@uqroo.edu.mx',
-                            'institucion' => 'UQROO'
+                            'institucion' => 'Universidad Autónoma del Estado de Quintana Roo'
                         ],
                         [
                             'nombre' => 'Mtra. Alicia Guadalupe Robertos Pinto',
                             'cargo' => 'Profesora',
                             'correo' => 'alirober@uqroo.edu.mx',
-                            'institucion' => 'UQROO'
+                            'institucion' => 'Universidad Autónoma del Estado de Quintana Roo'
                         ],
                         [
                             'nombre' => 'M. en C. Luis Arturo Trejo Morales',
@@ -329,26 +329,31 @@
                              [
                                 'nombre' => 'Victor Manuel Roman Figueroa',
                                 'correo' => '24040005@utchetumal.edu.mx',
+                                'institucion' => 'Universidad Tecnologica de Chetumal',
                                 'proyecto' => 'Rediseño y estandarización de la pagina de Collective View',
                             ],
                             [
                                 'nombre' => 'Areli Neftali Martínez López',
                                 'correo' => '2023062604@upb.edu.mx',
+                                'institucion' => 'Universidad Politécnica de Bacalar',
                                 'proyecto' => 'Creación de material audiovisual para la promoción del proyecto "Sistema integral de alerta sanitaria ante emisiones de gases por descomposición de sargazo"',
                             ],
                             [
                                 'nombre' => 'Jorge Jesús Caraveo Jimenez',
                                 'correo' => '2023062508@upb.edu.mx',
+                                'institucion' => 'Universidad Politécnica de Bacalar',
                                 'proyecto' => 'Creación de material audiovisual para la promoción del proyecto "Sistema integral de alerta sanitaria ante emisiones de gases por descomposición de sargazo"',
                             ],
                             [
                                 'nombre' => 'Glendi Onaydi Ruiz Carrera',
                                 'correo' => '2023062527@upb.edu.mx',
+                                'institucion' => 'Universidad Politécnica de Bacalar',
                                 'proyecto' => 'Creación de material audiovisual para la promoción del proyecto "Sistema integral de alerta sanitaria ante emisiones de gases por descomposición de sargazo"',
                             ],
                             [
                                 'nombre' => 'Alexis Calderon Pineda',
                                 'correo' => '2023062528@upb.edu.mx',
+                                'institucion' => 'Universidad Politécnica de Bacalar',
                                 'proyecto' => 'Creación de material audiovisual para la promoción del proyecto "Sistema integral de alerta sanitaria ante emisiones de gases por descomposición de sargazo"',
                             ],
                         ],
@@ -356,16 +361,19 @@
                             [
                                 'nombre' => 'Diego Alberto Beltrán Can',
                                 'correo' => '8123110123@utchetumal.edu.mx',
+                                'institucion' => 'Universidad Tecnologica de Chetumal',
                                 'proyecto' => 'Desarrollo de una librería en Python para la gestión de imágenes obtenidas mediante crowdsourcing',
                             ],
                             [
                                 'nombre' => 'Ariel Alejandro Rivero Moo',
                                 'correo' => '8123110047@utchetumal.edu.mx',
+                                'institucion' => 'Universidad Tecnologica de Chetumal',
                                 'proyecto' => 'Implementación de algoritmo YOLO para la detección automática de sargazo',
                             ],
                             [
                                 'nombre' => 'Pedro Rolando Dzul Alejandro',
                                 'correo' => '8123110192@utchetumal.edu.mx',
+                                'institucion' => 'Universidad Tecnologica de Chetumal',
                                 'proyecto' => 'Estandarización de un conjunto de imágenes de sargazo en el formato COCO',
                             ],
                         ],
@@ -413,6 +421,13 @@
                                 </div>
                             </div>
                             <div class="contact-info">
+                                @if(!empty($persona['institucion']))
+                                    <p>
+                                        <i class="fas fa-university"></i>
+                                        {{ $persona['institucion'] }}
+                                    </p>
+                                @endif
+
                                 @if(!empty($persona['correo']))
                                     <p>
                                         <i class="fas fa-envelope"></i>
