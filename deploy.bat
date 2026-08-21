@@ -9,6 +9,8 @@ echo Directorio actual: >> "%LOG%"
 cd >> "%LOG%"
 
 %GIT% init >> "%LOG%" 2>&1
+%GIT% config --global user.email "collective.view.ecosur@gmail.com"
+%GIT% config --global user.name "Collective-View"
 %GIT% remote remove origin >> "%LOG%" 2>&1
 %GIT% remote add origin https://github.com/Collective-View/Repositorio-Collective-view-web.git >> "%LOG%" 2>&1
 %GIT% branch -M main >> "%LOG%" 2>&1
