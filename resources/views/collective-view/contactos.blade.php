@@ -320,39 +320,36 @@
                         '2026' => [
                             [
                                 'nombre' => 'Berenice López González',
+                                'institucion' => 'Universidad Tecnologica de Chetumal',
                                 'proyecto' => 'Segmentación semántica en imágenes de sargazo',
                             ],
                             [
                                 'nombre' => 'Felipe Geovanny Villarreal Aguilar',
+                                'institucion' => 'Universidad Tecnologica de Chetumal',
                                 'proyecto' => 'Segmentación semántica en imágenes de sargazo',
                             ],
                              [
                                 'nombre' => 'Victor Manuel Roman Figueroa',
-                                'correo' => '24040005@utchetumal.edu.mx',
                                 'institucion' => 'Universidad Tecnologica de Chetumal',
                                 'proyecto' => 'Rediseño y estandarización de la pagina de Collective View',
                             ],
                             [
                                 'nombre' => 'Areli Neftali Martínez López',
-                                'correo' => '2023062604@upb.edu.mx',
                                 'institucion' => 'Universidad Politécnica de Bacalar',
                                 'proyecto' => 'Creación de material audiovisual para la promoción del proyecto "Sistema integral de alerta sanitaria ante emisiones de gases por descomposición de sargazo"',
                             ],
                             [
                                 'nombre' => 'Jorge Jesús Caraveo Jimenez',
-                                'correo' => '2023062508@upb.edu.mx',
                                 'institucion' => 'Universidad Politécnica de Bacalar',
                                 'proyecto' => 'Creación de material audiovisual para la promoción del proyecto "Sistema integral de alerta sanitaria ante emisiones de gases por descomposición de sargazo"',
                             ],
                             [
                                 'nombre' => 'Glendi Onaydi Ruiz Carrera',
-                                'correo' => '2023062527@upb.edu.mx',
                                 'institucion' => 'Universidad Politécnica de Bacalar',
                                 'proyecto' => 'Creación de material audiovisual para la promoción del proyecto "Sistema integral de alerta sanitaria ante emisiones de gases por descomposición de sargazo"',
                             ],
                             [
                                 'nombre' => 'Alexis Calderon Pineda',
-                                'correo' => '2023062528@upb.edu.mx',
                                 'institucion' => 'Universidad Politécnica de Bacalar',
                                 'proyecto' => 'Creación de material audiovisual para la promoción del proyecto "Sistema integral de alerta sanitaria ante emisiones de gases por descomposición de sargazo"',
                             ],
@@ -360,19 +357,16 @@
                         '2025' => [
                             [
                                 'nombre' => 'Diego Alberto Beltrán Can',
-                                'correo' => '8123110123@utchetumal.edu.mx',
                                 'institucion' => 'Universidad Tecnologica de Chetumal',
                                 'proyecto' => 'Desarrollo de una librería en Python para la gestión de imágenes obtenidas mediante crowdsourcing',
                             ],
                             [
                                 'nombre' => 'Ariel Alejandro Rivero Moo',
-                                'correo' => '8123110047@utchetumal.edu.mx',
                                 'institucion' => 'Universidad Tecnologica de Chetumal',
                                 'proyecto' => 'Implementación de algoritmo YOLO para la detección automática de sargazo',
                             ],
                             [
                                 'nombre' => 'Pedro Rolando Dzul Alejandro',
-                                'correo' => '8123110192@utchetumal.edu.mx',
                                 'institucion' => 'Universidad Tecnologica de Chetumal',
                                 'proyecto' => 'Estandarización de un conjunto de imágenes de sargazo en el formato COCO',
                             ],
@@ -380,20 +374,19 @@
                         '2024' => [
                             [
                                 'nombre' => 'Gerardo Antonio Villalobos Balam',
+                                'institucion' => 'Universidad Tecnologica de Chetumal',
                                 'proyecto' => 'Desarrollo del portal web del proyecto "Collective View para detección y monitoreo del sargazo"',
                             ],
                         ],
                         '2021' => [
                             [
                                 'nombre' => 'Saul Rodrigo Rosado Cime',
+                                'institucion' => 'Universidad Tecnologica de Chetumal',
                                 'proyecto' => 'Desarrollo de la aplicacion movil para el monitoreo de las playas de Mexico',
                             ],
                             [
-                                'nombre' => 'Liduvina Ubina Yahaira',
-                                'proyecto' => 'Producción de contenido audiovisual para la plataforma Collective View',
-                            ],
-                            [
                                 'nombre' => 'Diego Alberto Guzman Palacios',
+                                'institucion' => 'Universidad Politécnica de Bacalar',
                                 'proyecto' => 'Producción de contenido audiovisual para la plataforma Collective View',
                             ],
                         ],
@@ -425,13 +418,6 @@
                                     <p>
                                         <i class="fas fa-university"></i>
                                         {{ $persona['institucion'] }}
-                                    </p>
-                                @endif
-
-                                @if(!empty($persona['correo']))
-                                    <p>
-                                        <i class="fas fa-envelope"></i>
-                                        {{ $persona['correo'] }}
                                     </p>
                                 @endif
 

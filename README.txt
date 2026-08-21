@@ -40,20 +40,24 @@ INSTALACIÓN DEL PROYECTO
    npm run build
 
 
+BASE DE DATOS
+---------------------------------
+- Abrir XAMPP y encender los módulos Apache y MySQL.
+- Ir a http://localhost/phpmyadmin en el navegador.
+- Crear una nueva base de datos llamada "collective-view".
+- Seleccionar la base de datos recién creada y hacer clic en la pestaña "Importar".
+- Elegir el archivo "Collective-view.sql" y hacer clic en "Continuar" para importarlo.
+- Verificar que el archivo ".env" del proyecto tenga configurado el mismo nombre de base de datos (DB_DATABASE=collective-view), junto con el usuario y contraseña correspondientes (por defecto en XAMPP: usuario "root", sin contraseña).
+- La base de datos de XAMPP debe estar encendida para que el panel administrativo funcione correctamente.
+- Asimismo, ante cualquier cambio en el código, debe estar encendida para poder realizar la exportación correctamente.
+
+
 INICIAR EL PANEL ADMINISTRATIVO
 ------------------------------------
 - Abrir el panel con el comando:
    php artisan serve
 - Ingresar en el navegador a:
    http://127.0.0.1:8000/admin
-
-
-BASE DE DATOS
----------------------------------
-- La base de datos de XAMPP debe estar encendida para que el panel administrativo
-  funcione correctamente.
-- Asimismo, ante cualquier cambio en el código, debe estar encendida para poder
-  realizar la exportación correctamente.
 
 
 GENERACIÓN DE ARCHIVOS JSON
