@@ -10,7 +10,7 @@ cd >> "%LOG%"
 
 %GIT% init >> "%LOG%" 2>&1
 %GIT% remote remove origin >> "%LOG%" 2>&1
-%GIT% remote add origin https://github.com/Collective-View/Collective-view-web.git >> "%LOG%" 2>&1
+%GIT% remote add origin https://github.com/Collective-View/Repositorio-Collective-view-web.git >> "%LOG%" 2>&1
 %GIT% branch -M main >> "%LOG%" 2>&1
 %GIT% add . >> "%LOG%" 2>&1
 %GIT% commit -m "export automatico %date% %time%" >> "%LOG%" 2>&1

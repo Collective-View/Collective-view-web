@@ -9,8 +9,11 @@ REQUISITOS PREVIOS
   https://nodejs.org/
   (npm se instala automáticamente junto con Node.js)
 - Tener XAMPP instalado.
+   https://www.apachefriends.org/es/index.html
 - Tener Zotero instalado (para gestionar las referencias).
+   https://www.zotero.org/
 - Tener VOSviewer (versión de escritorio) instalado (para generar la red de referencias).
+   https://www.vosviewer.com/download
 
 
 INSTALACIÓN DEL PROYECTO
