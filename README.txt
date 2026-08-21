@@ -8,6 +8,8 @@ REQUISITOS PREVIOS
 - Tener Node.js y npm instalados. Si no los tienes, descárgalos desde la página oficial:
   https://nodejs.org/
   (npm se instala automáticamente junto con Node.js)
+- Tener Git instalado (necesario para el despliegue).
+   https://git-scm.com/downloads
 - Tener XAMPP instalado.
    https://www.apachefriends.org/es/index.html
 - Tener Zotero instalado (para gestionar las referencias).
