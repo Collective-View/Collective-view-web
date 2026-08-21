@@ -454,6 +454,10 @@
                         rel="noopener noreferrer">
                         Leer artículo
                     </a>
+                    <a class="btn-outline-reg" href="https://figshare.com/articles/dataset/sargassum_dataset_zip/13256174/5" target="_blank"
+                        rel="noopener noreferrer">
+                        Descargar dataset
+                    </a>
                 </div>
             </div>
 
@@ -548,6 +552,10 @@
                     <a class="btn-solid-reg" href="https://peerj.com/articles/13537/" target="_blank"
                         rel="noopener noreferrer">
                         Leer artículo
+                    </a>
+                    <a class="btn-outline-reg" href="https://doi.org/10.6084/m9.figshare.16550166" target="_blank"
+                        rel="noopener noreferrer">
+                        Descargar dataset
                     </a>
                 </div>
             </div>
@@ -951,7 +959,6 @@
                         rel="noopener noreferrer">
                         Leer artículo
                     </a>
-
                     <a class="btn-outline-reg" href="https://doi.org/10.6084/m9.figshare.32125996" target="_blank"
                         rel="noopener noreferrer">
                         Descargar dataset

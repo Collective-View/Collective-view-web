@@ -134,7 +134,7 @@
                                 </h4>
 
                                 <span>
-                                    Investigador
+                                    Investigador principal
                                 </span>
                             </div>
                         </div>
@@ -320,35 +320,59 @@
                         '2026' => [
                             [
                                 'nombre' => 'Berenice López González',
-                                'proyecto' => 'Ciencia ciudadana para la movilidad urbana',
+                                'proyecto' => 'Segmentación semántica en imágenes de sargazo',
                             ],
                             [
                                 'nombre' => 'Felipe Geovanny Villarreal Aguilar',
-                                'proyecto' => 'Sistema integrado de gestión de datos para algoritmos fotogramétricos',
+                                'proyecto' => 'Segmentación semántica en imágenes de sargazo',
+                            ],
+                             [
+                                'nombre' => 'Victor Manuel Roman Figueroa',
+                                'correo' => '24040005@utchetumal.edu.mx',
+                                'proyecto' => 'Rediseño y estandarización de la pagina de Collective View',
                             ],
                             [
-                                'nombre' => 'Victor Manuel Roman Figueroa',
-                                'proyecto' => 'Rediseño y migración del sitio web Collective View',
+                                'nombre' => 'Areli Neftali Martínez López',
+                                'correo' => '2023062604@upb.edu.mx',
+                                'proyecto' => 'Creación de material audiovisual para la promoción del proyecto "Sistema integral de alerta sanitaria ante emisiones de gases por descomposición de sargazo"',
+                            ],
+                            [
+                                'nombre' => 'Jorge Jesús Caraveo Jimenez',
+                                'correo' => '2023062508@upb.edu.mx',
+                                'proyecto' => 'Creación de material audiovisual para la promoción del proyecto "Sistema integral de alerta sanitaria ante emisiones de gases por descomposición de sargazo"',
+                            ],
+                            [
+                                'nombre' => 'Glendi Onaydi Ruiz Carrera',
+                                'correo' => '2023062527@upb.edu.mx',
+                                'proyecto' => 'Creación de material audiovisual para la promoción del proyecto "Sistema integral de alerta sanitaria ante emisiones de gases por descomposición de sargazo"',
+                            ],
+                            [
+                                'nombre' => 'Alexis Calderon Pineda',
+                                'correo' => '2023062528@upb.edu.mx',
+                                'proyecto' => 'Creación de material audiovisual para la promoción del proyecto "Sistema integral de alerta sanitaria ante emisiones de gases por descomposición de sargazo"',
                             ],
                         ],
                         '2025' => [
                             [
                                 'nombre' => 'Diego Alberto Beltrán Can',
+                                'correo' => '8123110123@utchetumal.edu.mx',
                                 'proyecto' => 'Desarrollo de una librería en Python para la gestión de imágenes obtenidas mediante crowdsourcing',
                             ],
                             [
                                 'nombre' => 'Ariel Alejandro Rivero Moo',
+                                'correo' => '8123110047@utchetumal.edu.mx',
                                 'proyecto' => 'Implementación de algoritmo YOLO para la detección automática de sargazo',
                             ],
                             [
                                 'nombre' => 'Pedro Rolando Dzul Alejandro',
+                                'correo' => '8123110192@utchetumal.edu.mx',
                                 'proyecto' => 'Estandarización de un conjunto de imágenes de sargazo en el formato COCO',
                             ],
                         ],
                         '2024' => [
                             [
                                 'nombre' => 'Gerardo Antonio Villalobos Balam',
-                                'proyecto' => 'Desarrollo del portal web del proyecto Collective View para detección y monitoreo del sargazo',
+                                'proyecto' => 'Desarrollo del portal web del proyecto "Collective View para detección y monitoreo del sargazo"',
                             ],
                         ],
                         '2021' => [
@@ -389,13 +413,20 @@
                                 </div>
                             </div>
                             <div class="contact-info">
+                                @if(!empty($persona['correo']))
+                                    <p>
+                                        <i class="fas fa-envelope"></i>
+                                        {{ $persona['correo'] }}
+                                    </p>
+                                @endif
+
                                 @if(!empty($persona['proyecto']))
-                                <p>
-                                    <i class="fas fa-flask"></i>
-                                    {{ $persona['proyecto'] }}
-                                </p>
+                                    <p class="project-text">
+                                        <i class="fas fa-flask"></i>
+                                        {{ $persona['proyecto'] }}
+                                    </p>
                                 @else
-                                <p>Proyecto por confirmar</p>
+                                    <p>Proyecto por confirmar</p>
                                 @endif
                             </div>
                         </div>
