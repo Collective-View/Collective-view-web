@@ -16,6 +16,13 @@ REQUISITOS PREVIOS
    https://www.zotero.org/
 - Tener VOSviewer (versión de escritorio) instalado (para generar la red de referencias).
    https://www.vosviewer.com/download
+- Habilitar las extensiones necesarias de PHP: abrir el archivo "php.ini"
+  (ubicado en C:\xampp\php\php.ini) y quitar el "#" al inicio de las líneas
+  de las extensiones requeridas por el proyecto (por ejemplo extension=zip,
+  extension=fileinfo, extension=gd, extension=curl, extension=mbstring,
+  extension=openssl, extension=pdo_mysql), guardar el archivo y reiniciar
+  Apache desde XAMPP. Sin este paso, Composer puede fallar o descargar el
+  proyecto de forma incompleta.
 
 
 INSTALACIÓN DEL PROYECTO
@@ -73,3 +80,10 @@ EXPORTACIÓN DE DATOS
   archivo "export.php" ubicado en la carpeta "config".
 - Para exportar, ejecutar el siguiente comando desde la ruta del proyecto:
   C:\xampp\htdocs\collective-view> php artisan export
+- La primera vez que se ejecute "php artisan export" (o la primera vez que
+  se corra el script de despliegue "deploy.bat" en una PC nueva), Git pedirá
+  autenticación con GitHub para poder hacer el push del sitio exportado.
+  En ese momento se debe usar el token de acceso personal proporcionado
+  (Personal Access Token) en lugar de la contraseña normal de la cuenta.
+  Una vez autenticado, Windows guardará esa credencial y no debería volver
+  a pedirla en las siguientes exportaciones.
