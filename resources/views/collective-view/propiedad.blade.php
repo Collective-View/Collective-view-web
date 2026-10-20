@@ -55,10 +55,16 @@
                         DATOS ABIERTOS
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../monitoreo">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="calidadDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         CALIDAD DEL AIRE
                     </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown-custom"
+                        aria-labelledby="calidadDropdown">
+                        <a class="dropdown-item" href="../monitoreo">INFORMACIÓN</a>
+                        <a class="dropdown-item" href="../campañas">CAMPAÑAS DE MONITOREO</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../investigacion">

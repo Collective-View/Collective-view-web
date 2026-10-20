@@ -19,6 +19,7 @@ Route::view('/contactos', 'collective-view.contactos')->name('contactos');
 Route::view('/referencias', 'collective-view.referencias')->name('referencias');
 Route::view('/monitoreo', 'collective-view.monitoreo')->name('monitoreo');
 Route::view('/investigacion', 'collective-view.investigacion')->name('investigacion');
+Route::view('/campañas', 'collective-view.campañas')->name('campañas');
 
 Route::get('/publicaciones', [PublicacionController::class, 'publicas'])
     ->name('publicaciones.index');
