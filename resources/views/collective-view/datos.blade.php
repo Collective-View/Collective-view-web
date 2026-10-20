@@ -70,7 +70,7 @@
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown-custom"
                         aria-labelledby="calidadDropdown">
                         <a class="dropdown-item" href="../monitoreo">INFORMACIÓN</a>
-                        <a class="dropdown-item" href="../campañas">CAMPAÑAS DE MONITOREO</a>
+                        <a class="dropdown-item" href="../campanas">CAMPAÑAS DE MONITOREO</a>
                     </div>
                 </li>
                 <li class="nav-item">
