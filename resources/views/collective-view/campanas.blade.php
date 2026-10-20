@@ -27,7 +27,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="js/campañas.js"></script>
+    <script src="../js/campañas.js"></script>
 </head>
 
 <body>
@@ -874,16 +874,16 @@
 
     @include('components.footer')
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/swiper.min.js"></script>
-    <script src="js/jquery.magnific-popup.js"></script>
-    <script src="js/morphext.min.js"></script>
-    <script src="js/isotope.pkgd.min.js"></script>
-    <script src="js/validator.min.js"></script>
-    <script src="js/scripts.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.easing.min.js"></script>
+    <script src="../js/swiper.min.js"></script>
+    <script src="../js/jquery.magnific-popup.js"></script>
+    <script src="../js/morphext.min.js"></script>
+    <script src="../js/isotope.pkgd.min.js"></script>
+    <script src="../js/validator.min.js"></script>
+    <script src="../js/scripts.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
     AOS.init({
