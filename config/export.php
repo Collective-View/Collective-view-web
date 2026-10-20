@@ -23,6 +23,7 @@ return [
         'referencias',
         'monitoreo',
         'investigacion',
+        'campanas',
     ],
 
     /*
