@@ -672,8 +672,6 @@ input[type='checkbox'] {
 	width: 100%;
 	justify-content: right;
 	align-items: center;
-	font-size: 1.3rem;
-	line-height: 1.5rem;
 }
 
 /* Asegura que el texto y la flecha no se separen */
@@ -719,7 +717,7 @@ input[type='checkbox'] {
 }
 
 .navbar-custom .dropdown-item{
-	font-size: 0.9rem;
+	font-size: 0.45rem;
 }
 
 .navbar-custom .dropdown-item:hover,
