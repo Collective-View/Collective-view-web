@@ -669,6 +669,31 @@ input[type='checkbox'] {
 .navbar-custom .navbar-nav {
 	margin-top: 0.75rem;
 	margin-bottom: 0.5rem;
+	width: 100%;
+	justify-content: right;
+	align-items: center;
+	font-size: 1.3rem;
+	line-height: 1.5rem;
+}
+
+/* Asegura que el texto y la flecha no se separen */
+.navbar-custom .nav-link.dropdown-toggle {
+	display: inline-flex;
+	align-items: flex-start;
+	/* Alinea al inicio (arriba) */
+	flex-wrap: nowrap;
+	/* Evita que la flecha salte a la siguiente línea */
+	text-align: left;
+	/* Mantiene el texto alineado a la izquierda */
+	gap: 0.3rem;
+	/* Separación entre texto y flecha */
+}
+
+/* Ajusta la flecha para que no herede márgenes raros */
+.navbar-custom .dropdown-toggle::after {
+	margin-left: 0;
+	margin-top: 0.5rem;
+	/* La baja un poco para que quede a la altura de la primera línea de texto */
 }
 
 .navbar-custom .nav-item .nav-link {
@@ -676,6 +701,9 @@ input[type='checkbox'] {
 	color: #fff;
 	text-decoration: none;
 	transition: all 0.2s ease;
+	white-space: normal;
+	word-wrap: break-word;
+	text-align: center;
 }
 
 .navbar-custom .nav-item .nav-link:hover,
@@ -691,7 +719,7 @@ input[type='checkbox'] {
 }
 
 .navbar-custom .dropdown-item{
-	font-size: 0.8rem;
+	font-size: 0.9rem;
 }
 
 .navbar-custom .dropdown-item:hover,
