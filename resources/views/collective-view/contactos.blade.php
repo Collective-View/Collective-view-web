@@ -269,6 +269,24 @@
                             'institucion' => 'Universidad Tecnologica de Chetumal'
                         ],
                         [
+                            'nombre' => 'Gerardo Morfin Jiménez',
+                            'cargo' => 'Estudiante de ingeniería',
+                            'correo' => '24040002@utchetumal.edu.mx',
+                            'institucion' => 'Universidad Tecnologica de Chetumal'
+                        ],
+                        [
+                            'nombre' => 'Edward Nain Lopez Castro',
+                            'cargo' => 'Estudiante de ingeniería',
+                            'correo' => '24040010@utchetumal.edu.mx',
+                            'institucion' => 'Universidad Tecnologica de Chetumal'
+                        ],
+                        [
+                            'nombre' => 'Miguel Ibrahin Estrella Dzib',
+                            'cargo' => 'Estudiante de ingeniería',
+                            'correo' => '24040008@utchetumal.edu.mx',
+                            'institucion' => 'Universidad Tecnologica de Chetumal'
+                        ],
+                        [
                             'nombre' => 'Dr. Martín Antonio Santos Romero',
                             'cargo' => 'Profesor investigador',
                             'correo' => 'masant@uqroo.edu.mx',
