@@ -5,37 +5,35 @@ const PATH = "data";
 
 // Mapeo: campo del CSV -> id del elemento de la card (value/max/min)
 const CAMPOS = [
-    "wind_ms",
-    "wind_dir_10_mean",
-    "out_feels_like_c",
-    "a_hum",
-    "pres_rel_hpa",
-    "solar_rad_wm2",
-    "uv_index",
-    "rain_rate_mmhr",
-    "out_temp_c",
-    "out_hum",
-    "nh3",
-    "temp_nh3",
-    "hum_nh3",
-    "h2s",
-    "o2",
-    "co",
-    "lel"
+    "wind_ms", // Velocidad del viento
+    "wind_dir_10_mean", // Dirección del viento
+    "out_temp_c", // Temperatura (Ambiente)
+    "out_hum", // Humedad (Ambiente)
+    "out_feels_like_c", // Sensación Térmica
+    "pres_rel_hpa", // Presión barométrica
+    "solar_rad_wm2", // Radiación Solar
+    "uv_index", // Índice UV
+    "rain_rate_mmhr", // Lluvia
+    "nh3", // Amoniaco
+    "temp_nh3", // Temperatura (Amoniaco)
+    "hum_nh3", // Humedad (Amoniaco)
+    "h2s", // Ácido sulfhídrico
+    "o2", // Oxígeno
+    "co", // Monóxido de carbono
+    "lel" // Límite Inferior de Explosividad
 ];
 
 // Diccionario para nombres legibles en las gráficas
 const NOMBRES_VARIABLES = {
     wind_ms: "Velocidad del viento",
     wind_dir_10_mean: "Dirección del viento",
-    out_feels_like_c: "Temperatura",
-    a_hum: "Humedad",
+    out_temp_c: "Temperatura",
+    out_hum: "Humedad",
+    out_feels_like_c: "Sensación Térmica",
     pres_rel_hpa: "Presión barométrica",
     solar_rad_wm2: "Radiación solar",
     uv_index: "Índice UV",
     rain_rate_mmhr: "Lluvia",
-    out_temp_c: "Temperatura del suelo",
-    out_hum: "Humedad del suelo",
     nh3: "Amoniaco (NH3)",
     temp_nh3: "Temperatura (NH3)",
     hum_nh3: "Humedad (NH3)",
@@ -50,16 +48,17 @@ const CHART_MAP = {
     ambiente: [
         { campo: "wind_ms",chartId: "chart-ambiente-viento" },
         { campo: "wind_dir_10_mean",chartId: "chart-ambiente-direccion" },
-        { campo: "out_feels_like_c",chartId: "chart-ambiente-temperatura" },
-        { campo: "a_hum",chartId: "chart-ambiente-humedad" },
+        { campo: "out_temp_c",chartId: "chart-ambiente-temperatura" },
+        { campo: "out_hum",chartId: "chart-ambiente-humedad" },
+        { campo: "out_feels_like_c",chartId: "chart-ambiente-sensacion" },
         { campo: "pres_rel_hpa",chartId: "chart-ambiente-presion" },
         { campo: "solar_rad_wm2",chartId: "chart-ambiente-luz" },
         { campo: "uv_index",chartId: "chart-ambiente-uv" },
         { campo: "rain_rate_mmhr",chartId: "chart-ambiente-lluvia" }
     ],
     suelo: [
-        { campo: "out_hum",chartId: "chart-suelo-humedad" },
-        { campo: "out_temp_c",chartId: "chart-suelo-temperatura" }
+        { campo: "Humedad del suelo",chartId: "chart-suelo-humedad" },
+        { campo: "Temperatura del suelo",chartId: "chart-suelo-temperatura" }
     ],
     gases: [
         { campo: "h2s",chartId: "chart-gases-h2s" },

@@ -87,7 +87,7 @@
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown-custom"
                         aria-labelledby="calidadDropdown">
                         <a class="dropdown-item" href="../monitoreo">INFORMACIÓN</a>
-                        <a class="dropdown-item" href="../campañas">CAMPAÑAS DE MONITOREO</a>
+                        <a class="dropdown-item" href="../campanas">CAMPAÑAS DE MONITOREO</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -380,15 +380,15 @@
                                             </span>
                                         </div>
                                         <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="out_feels_like_c-value">?</span>
+                                            <span class="cv-card-value" id="out_temp_c-value">?</span>
                                             <span class="cv-card-unit">°C</span>
                                         </div>
                                         <div class="cv-card-range">
                                             <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="out_feels_like_c-max"></i>
+                                                <i class="fas fa-arrow-up mr-1" id="out_temp_c-max"></i>
                                             </span>
                                             <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="out_feels_like_c-min"></i>
+                                                <i class="fas fa-arrow-down mr-1" id="out_temp_c-min"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -404,15 +404,39 @@
                                             </span>
                                         </div>
                                         <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="a_hum-value">?</span>
+                                            <span class="cv-card-value" id="out_hum-value">?</span>
                                             <span class="cv-card-unit">%</span>
                                         </div>
                                         <div class="cv-card-range">
                                             <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="a_hum-max"></i>
+                                                <i class="fas fa-arrow-up mr-1" id="out_hum-max"></i>
                                             </span>
                                             <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="a_hum-min"></i>
+                                                <i class="fas fa-arrow-down mr-1" id="out_hum-min"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Card : Sensación térmica -->
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="cv-metric-card">
+                                        <div class="cv-card-header">
+                                            <span class="cv-card-title">
+                                                <i class="fas fa-fire cv-card-icon"></i>
+                                                Sensación Térmica
+                                            </span>
+                                        </div>
+                                        <div class="cv-card-main-val">
+                                            <span class="cv-card-value" id="out_feels_like_c-value">?</span>
+                                            <span class="cv-card-unit">°C</span>
+                                        </div>
+                                        <div class="cv-card-range">
+                                            <span class="cv-range-item cv-range-high">
+                                                <i class="fas fa-arrow-up mr-1" id="out_feels_like_c-max"></i>
+                                            </span>
+                                            <span class="cv-range-item cv-range-low">
+                                                <i class="fas fa-arrow-down mr-1" id="out_feels_like_c-min"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -562,6 +586,18 @@
                                         <div id="chart-ambiente-humedad" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
+                                
+                                <div class="col-12 col-xl-6" data-aos="fade-up">
+                                    <div class="cv-chart-card cv-chart-card--single">
+                                        <div class="cv-chart-header">
+                                            <h4 class="cv-chart-title">
+                                                <i class="fas fa-tint mr-2"></i>Sensación Térmica
+                                            </h4>
+                                            <span class="cv-chart-badge">Unidad: °C</span>
+                                        </div>
+                                        <div id="chart-ambiente-sensacion" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                    </div>
+                                </div>
 
                                 <div class="col-12 col-xl-6" data-aos="fade-up">
                                     <div class="cv-chart-card cv-chart-card--single">
@@ -628,15 +664,15 @@
                                             </span>
                                         </div>
                                         <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="out_temp_c-value">?</span>
+                                            <span class="cv-card-value" id="placeholder-value">0.00</span>
                                             <span class="cv-card-unit">°C</span>
                                         </div>
                                         <div class="cv-card-range">
                                             <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="out_temp_c-max"></i>
+                                                <i class="fas fa-arrow-up mr-1" id="placeholder-max">0.00</i>
                                             </span>
                                             <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="out_temp_c-min"></i>
+                                                <i class="fas fa-arrow-down mr-1" id="placeholder-min">0.00</i>
                                             </span>
                                         </div>
                                     </div>
@@ -652,15 +688,15 @@
                                             </span>
                                         </div>
                                         <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="out_hum-value">?</span>
+                                            <span class="cv-card-value" id="placeholder-value">0.00</span>
                                             <span class="cv-card-unit">%</span>
                                         </div>
                                         <div class="cv-card-range">
                                             <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="out_hum-max"></i>
+                                                <i class="fas fa-arrow-up mr-1" id="placeholder-max">0.00</i>
                                             </span>
                                             <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="out_hum-min"></i>
+                                                <i class="fas fa-arrow-down mr-1" id="placeholder-min">0.00</i>
                                             </span>
                                         </div>
                                     </div>
@@ -1021,6 +1057,7 @@
                 { id: 'chart-ambiente-direccion',   name: 'Dirección del viento', unit: '°',    color: '#78909C', data: [], min: 0, max: 360, tickAmount: 4, decimals: 0 },
                 { id: 'chart-ambiente-temperatura', name: 'Temperatura',          unit: '°C',   color: '#FF7043', data: [], decimals: 1 },
                 { id: 'chart-ambiente-humedad',     name: 'Humedad',              unit: '%',    color: '#29B6F6', data: [], min: 0, max: 100, decimals: 0 },
+                { id: 'chart-ambiente-sensacion',   name: 'Sensación Térmica',    unit: '°C',   color: '#af3009', data: [], decimals: 1 },
                 { id: 'chart-ambiente-presion',     name: 'Presión barométrica',  unit: 'hPa',  color: '#7E57C2', data: [], decimals: 1 },
                 { id: 'chart-ambiente-luz',         name: 'Luz',                  unit: 'W/m²', color: '#FFA726', data: [], decimals: 0 },
                 { id: 'chart-ambiente-uv',          name: 'Índice UV',            unit: 'UV',   color: '#EC407A', data: [], min: 0, max: 12, decimals: 1 },
