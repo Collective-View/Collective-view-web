@@ -4,15 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Contacto de investigadores y colaboradores del proyecto Collective View">
+    <meta name="description" content="Información de campañas de monitoreo">
     <meta name="author" content="Collective View - ECOSUR">
 
     <title>Campañas - Collective View</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
     <link href="../css/bootstrap.css" rel="stylesheet">
     <link href="../css/fontawesome-all.css" rel="stylesheet">
     <link href="../css/swiper.css" rel="stylesheet">
@@ -23,18 +21,6 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <link rel="icon" href="../images/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-
-    <!-- Anti-flicker script para Modo Oscuro -->
-    <script>
-        (function() {
-            var savedTheme = localStorage.getItem('cv_theme');
-            var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-            if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
-                document.documentElement.classList.remove('cv-dark-mode');
-            }
-        })();
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -172,10 +158,10 @@
 
                         <!-- Filtro 3: Ciudad (Chetumal, Mahahual) -->
                         <div class="cv-filter-group mb-3">
-                            <label class="cv-filter-label" for="filter-city">
+                            <label class="cv-filter-label" for="filter-location">
                                 <i class="fas fa-map-marker-alt mr-1"></i> Localidad
                             </label>
-                            <select id="filter-city" class="form-control cv-filter-input">
+                            <select id="filter-location" class="form-control cv-filter-input">
                                 <option value="">Todas las localidades</option>
                             </select>
                         </div>
@@ -524,15 +510,13 @@
                                             </span>
                                         </div>
                                         <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="rain_rate_mmhr-value">?</span>
-                                            <span class="cv-card-unit">%</span>
+                                            <span class="cv-card-value" id="event_rain_mm-value">?</span>
+                                            <span class="cv-card-unit">mm</span>
                                         </div>
                                         <div class="cv-card-range">
                                             <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="rain_rate_mmhr-max"></i>
                                             </span>
                                             <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="rain_rate_mmhr-min"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -547,7 +531,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: mph</span>
                                         </div>
-                                        <div id="chart-ambiente-viento" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-wind_ms" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -559,7 +543,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: °</span>
                                         </div>
-                                        <div id="chart-ambiente-direccion" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-wind_dir_10_mean" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -571,7 +555,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: °C</span>
                                         </div>
-                                        <div id="chart-ambiente-temperatura" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-out_temp_c" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -583,7 +567,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: %</span>
                                         </div>
-                                        <div id="chart-ambiente-humedad" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-out_hum" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
                                 
@@ -595,7 +579,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: °C</span>
                                         </div>
-                                        <div id="chart-ambiente-sensacion" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-out_feels_like_c" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -607,7 +591,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: hPa</span>
                                         </div>
-                                        <div id="chart-ambiente-presion" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-pres_rel_hpa" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -619,7 +603,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: W/m²</span>
                                         </div>
-                                        <div id="chart-ambiente-luz" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-solar_rad_wm2" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -631,7 +615,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: UV</span>
                                         </div>
-                                        <div id="chart-ambiente-uv" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-uv_index" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -641,9 +625,9 @@
                                             <h4 class="cv-chart-title">
                                                 <i class="fas fa-cloud-rain mr-2"></i>Lluvia
                                             </h4>
-                                            <span class="cv-chart-badge">Unidad: %</span>
+                                            <span class="cv-chart-badge">Unidad: mm</span>
                                         </div>
-                                        <div id="chart-ambiente-lluvia" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-event_rain_mm" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
                             </div>
@@ -913,7 +897,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: ppm</span>
                                         </div>
-                                        <div id="chart-gases-h2s" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-h2s" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -925,7 +909,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: ppm</span>
                                         </div>
-                                        <div id="chart-gases-nh3" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-nh3" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
                                 
@@ -937,7 +921,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: °C</span>
                                         </div>
-                                        <div id="chart-gases-temp_nh3" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-temp_nh3" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -949,7 +933,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: %</span>
                                         </div>
-                                        <div id="chart-gases-hum_nh3" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-hum_nh3" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -961,7 +945,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: ppm</span>
                                         </div>
-                                        <div id="chart-gases-co" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-co" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -973,7 +957,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: ppm</span>
                                         </div>
-                                        <div id="chart-gases-o2" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-o2" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -985,7 +969,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: ppb</span>
                                         </div>
-                                        <div id="chart-gases-lel" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-lel" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
                             </div>
@@ -1009,385 +993,12 @@
     <script src="../js/scripts.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-    AOS.init({
-        duration: 1200,
-        once: true,
-        offset: 120
-    });
-
-    /* ============================================================
-       Helper global: dirección del viento dinámica
-       ============================================================ */
-    window.setWindDirection = function(degrees, cardinalName) {
-        degrees = parseFloat(degrees) || 0;
-        const normalized = ((degrees % 360) + 360) % 360;
-        const CARDINALS = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSO','SO','OSO','O','ONO','NO','NNO']
-        const cardinalIndex = Math.round(normalized / 22.5) % 16;
-        const cardinal = cardinalName || CARDINALS[cardinalIndex];
-
-        const wheel = document.getElementById('cv-wind-wheel');
-        if (wheel) wheel.style.setProperty('--cv-wind-deg', normalized + 'deg');
-
-        const degEl = document.getElementById('cv-wind-deg');
-        if (degEl) degEl.innerText = Math.round(normalized);
-
-        const cardEl = document.getElementById('cv-wind-cardinal');
-        if (cardEl) cardEl.innerText = cardinal;
-    };
-
-    /* ============================================================
-       INICIALIZACIÓN: ApexCharts, sidebar, filtros, tema
-       ============================================================ */
-    document.addEventListener('DOMContentLoaded', function() {
-        if (typeof ApexCharts === 'undefined') {
-            console.warn('ApexCharts no está disponible.');
-            return;
-        }
-
-        const defaultHours = ['06:00','08:00','10:00','12:00','14:00','16:00','18:00','20:00'];
-        const isCurrentlyDark = document.documentElement.classList.contains('cv-dark-mode');
-
-        // ---------------------------------------------------------
-        // Configuración de cada gráfica individual
-        // (mismo orden que las cards de cada pestaña)
-        // ---------------------------------------------------------
-        const chartConfigs = {
-            ambiente: [
-                { id: 'chart-ambiente-viento',      name: 'Velocidad del viento', unit: 'mph',  color: '#0B7A5C', data: [], decimals: 1 },
-                { id: 'chart-ambiente-direccion',   name: 'Dirección del viento', unit: '°',    color: '#78909C', data: [], min: 0, max: 360, tickAmount: 4, decimals: 0 },
-                { id: 'chart-ambiente-temperatura', name: 'Temperatura',          unit: '°C',   color: '#FF7043', data: [], decimals: 1 },
-                { id: 'chart-ambiente-humedad',     name: 'Humedad',              unit: '%',    color: '#29B6F6', data: [], min: 0, max: 100, decimals: 0 },
-                { id: 'chart-ambiente-sensacion',   name: 'Sensación Térmica',    unit: '°C',   color: '#af3009', data: [], decimals: 1 },
-                { id: 'chart-ambiente-presion',     name: 'Presión barométrica',  unit: 'hPa',  color: '#7E57C2', data: [], decimals: 1 },
-                { id: 'chart-ambiente-luz',         name: 'Luz',                  unit: 'W/m²', color: '#FFA726', data: [], decimals: 0 },
-                { id: 'chart-ambiente-uv',          name: 'Índice UV',            unit: 'UV',   color: '#EC407A', data: [], min: 0, max: 12, decimals: 1 },
-                { id: 'chart-ambiente-lluvia',      name: 'Lluvia',               unit: '%',    color: '#26A69A', data: [], min: 0, max: 100, decimals: 0 }
-            ],
-            suelo: [
-                { id: 'chart-suelo-humedad',     name: 'Humedad del suelo',     unit: '%',  color: '#0B7A5C', data: [], min: 0,  max: 100, decimals: 0 },
-                { id: 'chart-suelo-temperatura', name: 'Temperatura del suelo', unit: '°C', color: '#FF7043', data: [], min: 15, max: 35,  decimals: 1 }
-            ],
-            gases: [
-                { id: 'chart-gases-h2s',      name: 'Sulfuro de hidrógeno (H2S)', unit: 'ppm', color: '#26A69A', data: [], decimals: 1 },
-                { id: 'chart-gases-nh3',      name: 'Amoniaco (NH3)',             unit: 'ppm', color: '#FFA726', data: [], decimals: 1 },
-                { id: 'chart-gases-co',       name: 'Monóxido de carbono (CO)',   unit: 'ppm', color: '#EF5350', data: [], decimals: 0 },
-                { id: 'chart-gases-o2',       name: 'Oxígeno (O)',                unit: 'ppm', color: '#42A5F5', data: [], decimals: 1 },
-                { id: 'chart-gases-lel',      name: 'LEL',                        unit: 'ppb', color: '#AB47BC', data: [], decimals: 0 },
-                { id: 'chart-gases-temp_nh3', name: 'Temperatura NH3',            unit: '°C',  color: '#FF7043', data: [], decimals: 1 },
-                { id: 'chart-gases-hum_nh3',  name: 'Humedad NH3',                unit: '%',   color: '#29B6F6', data: [], min: 0, max: 100, decimals: 0 }
-            ]
-        };
-
-        function buildChartOptions(cfg, dark) {
-            const fmt = (v) => (v === undefined || v === null) ? '--' : Number(v).toFixed(cfg.decimals);
-            return {
-                chart: {
-                    height: 280,
-                    type: 'line',
-                    toolbar: {
-                        show: true,
-                        tools: { download: true, selection: false, zoom: true, zoomin: true, zoomout: true, pan: true, reset: true }
-                    },
-                    animations: { enabled: true, easing: 'easeinout', speed: 700 }
-                },
-                theme: { mode: dark ? 'dark' : 'light' },
-                colors: [cfg.color],
-                series: [{ name: cfg.name, data: cfg.data }],
-                stroke: { curve: 'smooth', width: 2.5 },
-                markers: { size: 3.5, strokeWidth: 1.5, hover: { size: 6 } },
-                grid: {
-                    borderColor: dark ? '#23334D' : '#EEF4F2',
-                    strokeDashArray: 4,
-                    padding: { left: 15, right: 15 }
-                },
-                legend: { show: false },
-                xaxis: {
-                    type: 'datetime',
-                    labels: {
-                        datetimeUTC: false,
-                        style: {
-                            fontFamily: 'Open Sans, sans-serif',
-                            fontSize: '11px',
-                            colors: dark ? '#94A3B8' : '#627D98'
-                        },
-                        formatter: function (value) {
-                            const d = new Date(value);
-                            const hh = String(d.getHours()).padStart(2, '0');
-                            const mm = String(d.getMinutes()).padStart(2, '0');
-                            return `${hh}:${mm}`;
-                        }
-                    },
-                    tooltip: {
-                        enabled: true,
-                        formatter: function (value) {
-                            const d = new Date(value);
-                            const hh = String(d.getHours()).padStart(2, '0');
-                            const mm = String(d.getMinutes()).padStart(2, '0');
-                            return `${hh}:${mm}`;
-                        }
-                    }
-                },
-                yaxis: {
-                    title: { text: cfg.name + ' (' + cfg.unit + ')', style: { color: cfg.color, fontSize: '11px' } },
-                    min: cfg.min,
-                    max: cfg.max,
-                    tickAmount: cfg.tickAmount,
-                    labels: { style: { colors: cfg.color }, formatter: fmt }
-                },
-                tooltip: {
-                    theme: dark ? 'dark' : 'light',
-                    style: { fontSize: '12px', fontFamily: 'Open Sans, sans-serif' },
-                    y: { formatter: (v) => (v === undefined || v === null) ? '--' : fmt(v) + ' ' + cfg.unit }
-                }
-            };
-        }
-
-        // Crear gráficas
-        const dashboardCharts = { ambiente: [], suelo: [], gases: [] };
-        window.chartById = {}; 
-        
-        Object.keys(chartConfigs).forEach(function(group) {
-            chartConfigs[group].forEach(function(cfg) {
-                const el = document.getElementById(cfg.id);
-                if (!el) return;
-                const chart = new ApexCharts(el, buildChartOptions(cfg, isCurrentlyDark));
-                chart.render();
-                dashboardCharts[group].push(chart);
-                window.chartById[cfg.id] = chart;
-            });
+        AOS.init({
+            duration: 1200,
+            once: true,
+            offset: 120
         });
-        const allCharts = [].concat(dashboardCharts.ambiente, dashboardCharts.suelo, dashboardCharts.gases);
-        window.dashboardCharts = dashboardCharts;
-
-        // Actualización dinámica (API legacy por si se necesita)
-        function updateGroup(group, categories, seriesData) {
-            dashboardCharts[group].forEach(function(chart, i) {
-                if (categories) chart.updateOptions({ xaxis: { categories: categories } }, false, true);
-                if (seriesData && seriesData[i] !== undefined) {
-                    const s = seriesData[i];
-                    chart.updateSeries([Array.isArray(s) ? { data: s } : s]);
-                }
-            });
-        }
-        window.updateAmbienteChart = function(c, s) { updateGroup('ambiente', c, s); };
-        window.updateSueloChart   = function(c, s) { updateGroup('suelo',    c, s); };
-        window.updateGasesChart   = function(c, s) { updateGroup('gases',    c, s); };
-
-        // Redimensionar al cambiar de pestaña
-        if (typeof $ !== 'undefined') {
-            $('a[data-toggle="pill"]').on('shown.bs.tab', function() {
-                setTimeout(function() {
-                    allCharts.forEach(function(chart) { chart.windowResizeHandler(); });
-                    window.dispatchEvent(new Event('resize'));
-                }, 60);
-            });
-        }
-
-        // ---------------------------------------------------------
-        // SIDEBAR
-        // ---------------------------------------------------------
-        const dashContainer  = document.querySelector('.cv-dashboard');
-        const sidebarToggle  = document.getElementById('cvSidebarToggle');
-        const sidebarBackdrop = document.getElementById('cvSidebarBackdrop');
-
-        function triggerChartResize() {
-            setTimeout(function() {
-                allCharts.forEach(chart => chart.windowResizeHandler());
-                window.dispatchEvent(new Event('resize'));
-            }, 360);
-        }
-
-        function toggleSidebar() {
-            if (window.innerWidth < 992) {
-                dashContainer.classList.toggle('cv-sidebar-open-mobile');
-                if (dashContainer.classList.contains('cv-sidebar-open-mobile')) {
-                    document.body.classList.add('cv-sidebar-is-open');
-                } else {
-                    document.body.classList.remove('cv-sidebar-is-open');
-                }
-            } else {
-                dashContainer.classList.toggle('cv-sidebar-collapsed');
-                const isCollapsed = dashContainer.classList.contains('cv-sidebar-collapsed');
-                localStorage.setItem('cv_sidebar_collapsed', isCollapsed ? '1' : '0');
-            }
-            triggerChartResize();
-        }
-
-        function closeSidebar() {
-            if (window.innerWidth < 992) {
-                dashContainer.classList.remove('cv-sidebar-open-mobile');
-                document.body.classList.remove('cv-sidebar-is-open');
-            } else {
-                dashContainer.classList.add('cv-sidebar-collapsed');
-                localStorage.setItem('cv_sidebar_collapsed', '1');
-            }
-            triggerChartResize();
-        }
-
-        if (sidebarToggle)   sidebarToggle.addEventListener('click', toggleSidebar);
-        if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', closeSidebar);
-
-        dashContainer.classList.remove('cv-sidebar-collapsed');
-
-        // ---------------------------------------------------------
-        // FILTROS (UI + disparo de eventos; lógica en campañas.js)
-        // ---------------------------------------------------------
-        const filterBtn       = document.getElementById('cvSidebarFilterBtn');
-        const filterPanel     = document.getElementById('cvSidebarFiltersPanel');
-        const filterCloseBtn  = document.getElementById('cvFiltersCloseBtn');
-        const btnApplyFilters = document.getElementById('btn-apply-filters');
-        const btnResetFilters = document.getElementById('btn-reset-filters');
-        const filterDateFrom  = document.getElementById('filter-date-from');
-        const filterDateTo    = document.getElementById('filter-date-to');
-        const filterStation   = document.getElementById('filter-station');
-        const filterCity      = document.getElementById('filter-city');
-        const filterDot       = document.getElementById('cvFilterDot');
-        const filterFeedback  = document.getElementById('cvFiltersFeedback');
-        const filterSummary   = document.getElementById('cvFiltersSummary');
-
-        function toggleFilterPanel() {
-            if (!filterPanel) return;
-            const isOpen = filterPanel.classList.toggle('cv-panel-open');
-            if (filterBtn) filterBtn.classList.toggle('active', isOpen);
-        }
-
-        function closeFilterPanel() {
-            if (!filterPanel) return;
-            filterPanel.classList.remove('cv-panel-open');
-            if (filterBtn) filterBtn.classList.remove('active');
-        }
-
-        if (filterBtn)      filterBtn.addEventListener('click', toggleFilterPanel);
-        if (filterCloseBtn) filterCloseBtn.addEventListener('click', closeFilterPanel);
-
-        function updateFilterSummary() {
-            const hasDateFrom = filterDateFrom && filterDateFrom.value.trim() !== '';
-            const hasDateTo   = filterDateTo   && filterDateTo.value.trim() !== '';
-            const hasStation  = filterStation  && filterStation.value.trim() !== '';
-            const hasCity     = filterCity     && filterCity.value.trim() !== '';
-
-            const isActive = hasDateFrom || hasDateTo || hasStation || hasCity;
-
-            if (filterDot) filterDot.style.display = isActive ? 'block' : 'none';
-
-            if (filterFeedback && filterSummary) {
-                if (isActive) {
-                    let tags = [];
-                    if (hasDateFrom && hasDateTo)      tags.push(`${filterDateFrom.value} al ${filterDateTo.value}`);
-                    else if (hasDateFrom)              tags.push(`Desde ${filterDateFrom.value}`);
-                    else if (hasDateTo)                tags.push(`Hasta ${filterDateTo.value}`);
-                    if (hasStation) tags.push(`Estación ${filterStation.value}`);
-                    if (hasCity)    tags.push(filterCity.value);
-
-                    filterSummary.innerHTML = `<i class="fas fa-filter mr-1 text-primary"></i> ${tags.join(' • ')}`;
-                    filterFeedback.style.display = 'block';
-                } else {
-                    filterFeedback.style.display = 'none';
-                }
-            }
-
-            return {
-                dateFrom: filterDateFrom ? filterDateFrom.value : '',
-                dateTo:   filterDateTo   ? filterDateTo.value   : '',
-                station:  filterStation  ? filterStation.value  : '',
-                city:     filterCity     ? filterCity.value     : ''
-            };
-        }
-
-        if (btnApplyFilters) {
-            btnApplyFilters.addEventListener('click', function() {
-                updateFilterSummary();
-                const filters = {
-                    dateFrom: filterDateFrom ? filterDateFrom.value : '',
-                    dateTo:   filterDateTo   ? filterDateTo.value   : '',
-                    station:  filterStation  ? filterStation.value  : '',
-                    city:     filterCity     ? filterCity.value     : ''
-                };
-                // campañas.js escucha este evento y aplica los filtros
-                window.dispatchEvent(new CustomEvent('cv:filters-applied', { detail: filters }));
-            });
-        }
-
-        if (btnResetFilters) {
-            btnResetFilters.addEventListener('click', function() {
-                if (filterDateFrom) filterDateFrom.value = '';
-                if (filterDateTo)   filterDateTo.value   = '';
-                if (filterStation)  filterStation.value  = '';
-                if (filterCity)     filterCity.value     = '';
-                updateFilterSummary();
-                window.dispatchEvent(new CustomEvent('cv:filters-cleared'));
-            });
-        }
-
-        // ---------------------------------------------------------
-        // TEMA OSCURO / CLARO
-        // ---------------------------------------------------------
-        const themeBtn   = document.getElementById('cvThemeToggle');
-        const themeIcon  = document.getElementById('cvThemeIcon');
-        const themeLabel = document.getElementById('cvThemeModeLabel');
-        const themeSub   = document.getElementById('cvThemeModeSub');
-
-        function setDarkMode(isDark) {
-            const dash = document.querySelector('.cv-dashboard');
-
-            if (isDark) {
-                document.documentElement.classList.add('cv-dark-mode');
-                document.body.classList.add('cv-dark-mode');
-                if (dash) dash.classList.add('cv-dark');
-                localStorage.setItem('cv_theme', 'dark');
-
-                if (themeIcon)  themeIcon.className = 'fas fa-sun';
-                if (themeLabel) themeLabel.innerText = 'Modo';
-                if (themeSub)   themeSub.innerText   = 'Claro';
-
-                if (window.dashboardCharts) {
-                    allCharts.forEach(chart => {
-                        if (chart) {
-                            chart.updateOptions({
-                                theme: { mode: 'dark' },
-                                grid: { borderColor: '#23334D' },
-                                xaxis: { labels: { style: { colors: '#94A3B8' } } }
-                            }, false, false);
-                        }
-                    });
-                }
-            } else {
-                document.documentElement.classList.remove('cv-dark-mode');
-                document.body.classList.remove('cv-dark-mode');
-                if (dash) dash.classList.remove('cv-dark');
-                localStorage.setItem('cv_theme', 'light');
-
-                if (themeIcon)  themeIcon.className = 'fas fa-moon';
-                if (themeLabel) themeLabel.innerText = 'Modo';
-                if (themeSub)   themeSub.innerText   = 'Oscuro';
-
-                if (window.dashboardCharts) {
-                    allCharts.forEach(chart => {
-                        if (chart) {
-                            chart.updateOptions({
-                                theme: { mode: 'light' },
-                                grid: { borderColor: '#EEF4F2' },
-                                xaxis: { labels: { style: { colors: '#627D98' } } }
-                            }, false, false);
-                        }
-                    });
-                }
-            }
-        }
-
-        const currentSavedTheme = localStorage.getItem('cv_theme');
-        const sysPrefersDark    = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const initialIsDark     = (currentSavedTheme === 'dark') || (!currentSavedTheme && sysPrefersDark);
-        setDarkMode(initialIsDark);
-
-        if (themeBtn) {
-            themeBtn.addEventListener('click', function() {
-                setDarkMode(!document.body.classList.contains('cv-dark-mode'));
-            });
-        }
-    });
     </script>
-
 </body>
 
 </html>

@@ -1,30 +1,51 @@
+// ---------------
+// GLOBAL CONSTANTS
+// ---------------
+
 const OWNER = "Collective-View";
 const REPO = "Sargassum_Air_Quality";
 const PATH = "data";
 
+const defaultHours = ['06:00','08:00','10:00','12:00','14:00','16:00','18:00','20:00'];
+const dashboardCharts = { ambiente: [],suelo: [],gases: [] };
+window.chartById = {};
 
-// Mapeo: campo del CSV -> id del elemento de la card (value/max/min)
-const CAMPOS = [
+const state = {
+    activePath: null,
+    filters: { dateFrom: "",dateTo: "",station: "",city: "" },
+    campaigns: []
+};
+
+// Variables que se van a mostrar (Poner el nombre que aparece en el .CSV)
+const VARIABLES = [
+    
+    // SECCIÓN AMBIENTE
     "wind_ms", // Velocidad del viento
     "wind_dir_10_mean", // Dirección del viento
-    "out_temp_c", // Temperatura (Ambiente)
-    "out_hum", // Humedad (Ambiente)
+    "out_temp_c", // Temperatura
+    "out_hum", // Humedad
     "out_feels_like_c", // Sensación Térmica
     "pres_rel_hpa", // Presión barométrica
     "solar_rad_wm2", // Radiación Solar
     "uv_index", // Índice UV
-    "rain_rate_mmhr", // Lluvia
+    "event_rain_mm", // Lluvia en MM durante el evento
+    
+    // SECCIÓN SUELO (Por el momento no existen las variables)
+    
+    // SECCIÓN GASES
     "nh3", // Amoniaco
-    "temp_nh3", // Temperatura (Amoniaco)
-    "hum_nh3", // Humedad (Amoniaco)
+    "temp_nh3", // Temperatura
+    "hum_nh3", // Humedad
     "h2s", // Ácido sulfhídrico
     "o2", // Oxígeno
     "co", // Monóxido de carbono
     "lel" // Límite Inferior de Explosividad
 ];
 
-// Diccionario para nombres legibles en las gráficas
-const NOMBRES_VARIABLES = {
+// Nombres de cada variable para las gráficas
+const VARIABLE_NAMES = {
+    
+    // SECCIÓN AMBIENTE
     wind_ms: "Velocidad del viento",
     wind_dir_10_mean: "Dirección del viento",
     out_temp_c: "Temperatura",
@@ -33,7 +54,11 @@ const NOMBRES_VARIABLES = {
     pres_rel_hpa: "Presión barométrica",
     solar_rad_wm2: "Radiación solar",
     uv_index: "Índice UV",
-    rain_rate_mmhr: "Lluvia",
+    event_rain_mm: "Lluvia",
+    
+    // SECCIÓN SUELO (Por el momento no existen las variables)
+    
+    // SECCIÓN GASES
     nh3: "Amoniaco (NH3)",
     temp_nh3: "Temperatura (NH3)",
     hum_nh3: "Humedad (NH3)",
@@ -43,37 +68,161 @@ const NOMBRES_VARIABLES = {
     lel: "Límite inferior de explosividad (LEL)"
 };
 
-// Mapeo: campo del CSV -> id de la gráfica individual
+// Asignar una gráfica a cada variable
 const CHART_MAP = {
     ambiente: [
-        { campo: "wind_ms",chartId: "chart-ambiente-viento" },
-        { campo: "wind_dir_10_mean",chartId: "chart-ambiente-direccion" },
-        { campo: "out_temp_c",chartId: "chart-ambiente-temperatura" },
-        { campo: "out_hum",chartId: "chart-ambiente-humedad" },
-        { campo: "out_feels_like_c",chartId: "chart-ambiente-sensacion" },
-        { campo: "pres_rel_hpa",chartId: "chart-ambiente-presion" },
-        { campo: "solar_rad_wm2",chartId: "chart-ambiente-luz" },
-        { campo: "uv_index",chartId: "chart-ambiente-uv" },
-        { campo: "rain_rate_mmhr",chartId: "chart-ambiente-lluvia" }
+        { campo: "wind_ms", chartId: "chart-wind_ms" },
+        { campo: "wind_dir_10_mean", chartId: "chart-wind_dir_10_mean" },
+        { campo: "out_temp_c", chartId: "chart-out_temp_c" },
+        { campo: "out_hum", chartId: "chart-out_hum" },
+        { campo: "out_feels_like_c", chartId: "chart-out_feels_like_c" },
+        { campo: "pres_rel_hpa", chartId: "chart-pres_rel_hpa" },
+        { campo: "solar_rad_wm2", chartId: "chart-solar_rad_wm2" },
+        { campo: "uv_index", chartId: "chart-uv_index" },
+        { campo: "event_rain_mm", chartId: "chart-event_rain_mm" }
     ],
     suelo: [
-        { campo: "Humedad del suelo",chartId: "chart-suelo-humedad" },
-        { campo: "Temperatura del suelo",chartId: "chart-suelo-temperatura" }
+        { campo: "Humedad del suelo", chartId: "chart-suelo-humedad" },
+        { campo: "Temperatura del suelo", chartId: "chart-suelo-temperatura" }
     ],
     gases: [
-        { campo: "h2s",chartId: "chart-gases-h2s" },
-        { campo: "nh3",chartId: "chart-gases-nh3" },
-        { campo: "co",chartId: "chart-gases-co" },
-        { campo: "o2",chartId: "chart-gases-o2" },
-        { campo: "lel",chartId: "chart-gases-lel" },
-        { campo: "temp_nh3",chartId: "chart-gases-temp_nh3" },
-        { campo: "hum_nh3",chartId: "chart-gases-hum_nh3" }
+        { campo: "nh3", chartId: "chart-nh3" },
+        { campo: "temp_nh3", chartId: "chart-temp_nh3" },
+        { campo: "hum_nh3", chartId: "chart-hum_nh3" },
+        { campo: "h2s", chartId: "chart-h2s" },
+        { campo: "co", chartId: "chart-co" },
+        { campo: "o2", chartId: "chart-o2" },
+        { campo: "lel", chartId: "chart-lel" }
     ]
 };
 
-/* ============================================================
-   DESCARGA DE LA CAMPAÑA ACTIVA EN .ZIP
-   ============================================================ */
+// Gráficas para cada variable
+
+const chartConfigs = {
+    ambiente: [
+        { id: 'chart-wind_ms',name: 'Velocidad del viento',unit: 'mph',color: '#0B7A5C',data: [],decimals: 1 },
+        { id: 'chart-wind_dir_10_mean',name: 'Dirección del viento',unit: '°',color: '#78909C',data: [],min: 0,max: 360,tickAmount: 4,decimals: 0 },
+        { id: 'chart-out_temp_c',name: 'Temperatura',unit: '°C',color: '#FF7043',data: [],decimals: 1 },
+        { id: 'chart-out_hum',name: 'Humedad',unit: '%',color: '#29B6F6',data: [],min: 0,max: 100,decimals: 0 },
+        { id: 'chart-out_feels_like_c',name: 'Sensación Térmica',unit: '°C',color: '#af3009',data: [],decimals: 1 },
+        { id: 'chart-pres_rel_hpa',name: 'Presión barométrica',unit: 'hPa',color: '#7E57C2',data: [],decimals: 1 },
+        { id: 'chart-solar_rad_wm2',name: 'Luz',unit: 'W/m²',color: '#FFA726',data: [],decimals: 0 },
+        { id: 'chart-uv_index',name: 'Índice UV',unit: 'UV',color: '#EC407A',data: [],min: 0,max: 12,decimals: 1 },
+        { id: 'chart-event_rain_mm',name: 'Lluvia',unit: 'mm',color: '#26A69A',data: [],min: 0,max: 100,decimals: 0 }
+    ],
+    suelo: [
+        { id: 'chart-suelo-humedad',name: 'Humedad del suelo',unit: '%',color: '#0B7A5C',data: [],min: 0,max: 100,decimals: 0 },
+        { id: 'chart-suelo-temperatura',name: 'Temperatura del suelo',unit: '°C',color: '#FF7043',data: [],min: 15,max: 35,decimals: 1 }
+    ],
+    gases: [
+        { id: 'chart-h2s',name: 'Sulfuro de hidrógeno (H2S)',unit: 'ppm',color: '#26A69A',data: [],decimals: 1 },
+        { id: 'chart-nh3',name: 'Amoniaco (NH3)',unit: 'ppm',color: '#FFA726',data: [],decimals: 1 },
+        { id: 'chart-co',name: 'Monóxido de carbono (CO)',unit: 'ppm',color: '#EF5350',data: [],decimals: 0 },
+        { id: 'chart-o2',name: 'Oxígeno (O)',unit: 'ppm',color: '#42A5F5',data: [],decimals: 1 },
+        { id: 'chart-lel',name: 'LEL',unit: 'ppb',color: '#AB47BC',data: [],decimals: 0 },
+        { id: 'chart-temp_nh3',name: 'Temperatura NH3',unit: '°C',color: '#FF7043',data: [],decimals: 1 },
+        { id: 'chart-hum_nh3',name: 'Humedad NH3',unit: '%',color: '#29B6F6',data: [],min: 0,max: 100,decimals: 0 }
+    ]
+};
+
+// ---------------
+// MAIN
+// ---------------
+
+document.addEventListener('DOMContentLoaded', async function () {
+    const dashContainer = document.querySelector('.cv-dashboard');
+    dashContainer.classList.remove('cv-sidebar-collapsed');
+    setSidebarEvents();
+    setFilterEvents();
+    setThemeEvent();
+    setDarkMode(true);
+    window.state = state;
+    setupFilterListeners();
+    setupZipDownload();
+    setupCharts();
+    await loadContent();
+});
+
+// ---------------
+// BASE FUNCTIONS
+// ---------------
+
+async function loadContent() {
+    await showCampaigns();
+}
+
+async function showCampaigns() {
+    const folders = await getFolders();
+    const campaigns = await getSortedCampaigns(folders);
+    await listCampaigns(campaigns);
+    establishFilters(campaigns);
+    setCampaignEvent();
+    await showFirstCampaign();
+}
+
+function listCampaigns(campaigns) {
+    const campaignContainer = document.getElementById("file-container");
+    let html = '';
+    
+    campaigns.forEach(campaign => {
+        const displayName = formatCampaignName(campaign.name);
+        const meta = parseCampaignName(campaign.name);
+
+        html += `
+        <a class="nav-link" href="javascript:void(0);" 
+           data-path="${campaign.path}"
+           data-date="${meta.date || ''}"
+           data-station="${meta.station || ''}"
+           data-city="${meta.location || ''}">
+            <span>${displayName}</span>
+        </a>`;
+    });
+    
+    campaignContainer.innerHTML = html;
+}
+
+function establishFilters(campaigns) {
+    const stations = new Set();
+    const locations = new Set();
+
+    campaigns.forEach(campaign => {
+        const meta = parseCampaignName(campaign.name);
+        if (meta.station) stations.add(meta.station);
+        if (meta.location) locations.add(meta.location);
+    });
+
+    fillStationSelect(stations);
+    fillLocationSelect(locations);
+}
+
+function setCampaignEvent() {
+    const campaignContainer = document.getElementById("file-container");
+    
+    campaignContainer.addEventListener("click",async (e) => {
+        const link = e.target.closest(".nav-link");
+        if (!link) return;
+
+        campaignContainer.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
+        link.classList.add("active");
+        state.activePath = link.dataset.path;
+        await renderCampaign(state.activePath);
+    });
+}
+
+async function renderCampaign(path) {
+    try {
+        const csvItem = await getCSV(path);
+        establishCampaignName(path);
+
+        const variables = await readCsv(csvItem.download_url);
+        updateCards(variables);
+        updateWindCompass(variables);
+        updateAllCharts(variables);
+    } catch (err) {
+        console.error("Error cargando campaña:",err);
+    }
+}
+
 function setupZipDownload() {
     const btn = document.getElementById('btn-download-zip');
     if (!btn) return;
@@ -84,7 +233,7 @@ function setupZipDownload() {
             return;
         }
         if (typeof JSZip === 'undefined') {
-            alert('JSZip no está disponible.');
+            alert('La descarga no está disponible.');
             return;
         }
 
@@ -141,269 +290,6 @@ function setupZipDownload() {
     });
 }
 
-// Estado global
-const state = {
-    allRows: [],          // todas las filas de la campaña activa
-    filteredRows: [],     // filas después de aplicar filtros
-    activePath: null,
-    filters: { dateFrom: "",dateTo: "",station: "",city: "" },
-    campaigns: []   // ← nuevo: [{ name, path, date, station, city }]
-};
-
-document.addEventListener('DOMContentLoaded',async function () {
-    applyDarkMode();
-    window.state = state;
-    setupFilterListeners();
-    setupZipDownload();   
-    await loadFolders();
-});
-
-function applyDarkMode() {
-    const themeBtn = document.getElementById('cvThemeToggle');
-    const themeIcon = document.getElementById('cvThemeIcon');
-    const themeLabel = document.getElementById('cvThemeModeLabel');
-    const themeSub = document.getElementById('cvThemeModeSub');
-    const dash = document.querySelector('.cv-dashboard');
-    document.documentElement.classList.add('cv-dark-mode');
-    document.body.classList.add('cv-dark-mode');
-    if (dash) dash.classList.add('cv-dark');
-    localStorage.setItem('cv_theme','dark');
-
-    if (themeIcon) themeIcon.className = 'fas fa-sun';
-    if (themeLabel) themeLabel.innerText = 'Modo';
-    if (themeSub) themeSub.innerText = 'Claro';
-
-    if (window.dashboardCharts) {
-        allCharts.forEach(chart => {
-            if (chart) {
-                chart.updateOptions({
-                    theme: { mode: 'dark' },
-                    grid: { borderColor: '#23334D' },
-                    xaxis: { labels: { style: { colors: '#94A3B8' } } }
-                },false,false);
-            }
-        });
-    }
-}
-
-/* ============================================================
-   CARGA DE CAMPAÑAS
-   ============================================================ */
-async function loadFolders() {
-    const items = await getContents(PATH);
-    let folders = items.filter(item => item.type === "dir");
-    
-    folders.sort((a,b) => b.name.localeCompare(a.name));
-
-    const container = document.getElementById("file-container");
-    if (!container) return;
-
-    // 1. Llenar los filtros dinámicamente
-    populateDynamicFilters(folders);
-
-    let html = '';
-    folders.forEach(folder => {
-        const displayName = formatFolderName(folder.name);
-        const meta = parseFolderName(folder.name); // Extraemos los datos
-
-        // 2. Guardar la info en atributos data-* para poder filtrarlos después
-        html += `
-        <a class="nav-link" href="javascript:void(0);" 
-           data-path="${folder.path}"
-           data-date="${meta.date || ''}"
-           data-station="${meta.station || ''}"
-           data-city="${meta.city || ''}">
-            <span>${displayName}</span>
-        </a>`;
-    });
-    container.innerHTML = html;
-
-    container.addEventListener("click",async (e) => {
-        const link = e.target.closest(".nav-link");
-        if (!link) return;
-
-        container.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
-        link.classList.add("active");
-
-        state.activePath = link.dataset.path;
-        await renderCampaign(state.activePath);
-    });
-
-    const first = container.querySelector(".nav-link");
-    if (first) first.click();
-}
-
-function parseFolderName(folderName) {
-    const parts = folderName.split('_');
-    let date = null,station = "",city = "";
-
-    // Fecha: "20261019" → "2026-10-19"
-    if (parts[0] && /^\d{8}$/.test(parts[0])) {
-        date = `${parts[0].slice(0,4)}-${parts[0].slice(4,6)}-${parts[0].slice(6,8)}`;
-    }
-
-    // Estación: "id1" → "1"
-    if (parts[1]) {
-        const m = parts[1].match(/id(\d+)/i);
-        if (m) station = m[1];
-    }
-
-    // Ciudad: "chetumal" → "Chetumal"
-    if (parts[2]) {
-        city = parts[2].charAt(0).toUpperCase() + parts[2].slice(1).toLowerCase();
-    }
-
-    return { date,station,city };
-}
-
-// Llena los <select> dinámicamente según lo que haya en las carpetas
-function populateDynamicFilters(folders) {
-    const stations = new Set();
-    const cities = new Set();
-
-    folders.forEach(folder => {
-        const meta = parseFolderName(folder.name);
-        if (meta.station) stations.add(meta.station);
-        if (meta.city) cities.add(meta.city);
-    });
-
-    // Llenar selector de Estaciones
-    const stationSelect = document.getElementById('filter-station');
-    if (stationSelect) {
-        // Conservar solo la primera opción ("Todas las estaciones")
-        stationSelect.innerHTML = '<option value="">Todas las estaciones</option>';
-
-        // Ordenar numéricamente (1, 2, 3...)
-        Array.from(stations).sort((a,b) => a - b).forEach(st => {
-            const opt = document.createElement('option');
-            opt.value = st;
-            opt.textContent = `Estación ${st}`;
-            stationSelect.appendChild(opt);
-        });
-    }
-
-    // Llenar selector de Ciudades
-    const citySelect = document.getElementById('filter-city');
-    if (citySelect) {
-        citySelect.innerHTML = '<option value="">Todas las ciudades</option>';
-
-        // Ordenar alfabéticamente
-        Array.from(cities).sort().forEach(city => {
-            const opt = document.createElement('option');
-            opt.value = city;
-            opt.textContent = city;
-            citySelect.appendChild(opt);
-        });
-    }
-}
-
-function formatFolderName(folderName) {
-    const meta = parseFolderName(folderName);
-    if (!meta.date) return folderName;
-    const [year,month,day] = meta.date.split('-');
-    const meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
-    const mesNombre = meses[parseInt(month) - 1];
-    const yearShort = year.slice(-2);
-
-    const fechaFormateada = `${day}/${mesNombre}/${yearShort}`;
-
-    // Si hay estación, la agregamos. Si no, solo mostramos la fecha.
-    if (meta.station) {
-        return `${fechaFormateada} - Estación ${meta.station}`;
-    }
-
-    return fechaFormateada;
-}
-
-async function getContents(path) {
-    const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`GitHub respondió ${res.status}`);
-    return res.json();
-}
-
-/* ============================================================
-   CARGA Y RENDER DE UNA CAMPAÑA
-   ============================================================ */
-async function renderCampaign(path) {
-    try {
-        const items = await getContents(path);
-        // Buscar el primer CSV dentro del folder
-        const csvItem = items.find(i => i.type === "file" && /\.csv$/i.test(i.name));
-        if (!csvItem) {
-            console.warn(`No se encontró CSV en ${path}`);
-            return;
-        }
-        
-        // Extraer metadatos del nombre de la carpeta
-        const folderName = path.split('/').pop(); // saca "20261019_id1_chetumal" de "data/20261019_id1_chetumal"
-        const meta = parseFolderName(folderName);
-
-        state.campaignMeta = meta;
-
-        const rows = await readCsv(csvItem.download_url);
-        state.allRows = rows;
-        state.filteredRows = rows;
-
-        // Render inicial (sin filtros)
-        applyFilters(state.filters,rows);
-    } catch (err) {
-        console.error("Error cargando campaña:",err);
-    }
-}
-
-async function readCsv(downloadUrl) {
-    const res = await fetch(downloadUrl);
-    if (!res.ok) throw new Error(`No se pudo descargar el CSV (${res.status})`);
-    const text = await res.text();
-
-    const result = Papa.parse(text,{
-        header: true,
-        skipEmptyLines: true,
-        dynamicTyping: true
-    });
-
-    // Limpiar headers: quitar espacios, BOM y comillas
-    const cleaned = result.data.map(row => {
-        const out = {};
-        Object.keys(row).forEach(k => {
-            const key = k
-                .replace(/^\ufeff/,'')   // BOM
-                .trim()                    // ← esto arregla "time "
-                .replace(/^"|"$/g,'')     // comillas
-                .toLowerCase();
-            out[key] = row[k];
-        });
-        return out;
-    });
-
-    // Forzar columnas de tiempo a string
-    cleaned.forEach(r => {
-        ['time','timestamp','date','datetime','fecha'].forEach(k => {
-            if (r[k] !== undefined && r[k] !== null) r[k] = String(r[k]);
-        });
-    });
-
-    if (result.errors.length) console.warn("Avisos al parsear:",result.errors);
-    return cleaned;
-}
-
-/* ============================================================
-   FILTROS
-   ============================================================ */
-function setupFilterListeners() {
-    window.addEventListener('cv:filters-applied',(e) => {
-        const filters = e.detail || {};
-        state.filters = filters;
-        filterSidebar(filters);   // ← SOLO oculta/muestra campañas
-    });
-
-    window.addEventListener('cv:filters-cleared',() => {
-        state.filters = { dateFrom: "",dateTo: "",station: "",city: "" };
-        filterSidebar(state.filters);   // ← SOLO resetea la lista
-    });
-}
-
 function filterSidebar(filters) {
     const links = document.querySelectorAll('#file-container .nav-link');
 
@@ -411,7 +297,6 @@ function filterSidebar(filters) {
         const folderDate = link.dataset.date || '';
         const folderStation = link.dataset.station || '';
         const folderCity = link.dataset.city || '';
-
         let visible = true;
 
         // Filtro de fecha
@@ -421,7 +306,7 @@ function filterSidebar(filters) {
         // Filtro de estación
         if (filters.station && folderStation !== filters.station) visible = false;
 
-        // Filtro de ciudad
+        // Filtro de localidad
         if (filters.city && folderCity.toLowerCase() !== filters.city.toLowerCase()) visible = false;
 
         // Ocultar/mostrar
@@ -432,26 +317,539 @@ function filterSidebar(filters) {
     if (!activeStillVisible && firstVisibleLink) {
         firstVisibleLink.click();
     } else if (!firstVisibleLink) {
-        // Si no hay ninguna campaña que coincida con los filtros
         updateCards([]);
         updateAllCharts([]);
     }
 }
 
-function readFilterInputs() {
+function calculateMode(values) {
+    if (!values.length) return null;
+
+    const frequencies = {};
+    let maxFrequency = 0;
+    let moda = values[0];
+
+    values.forEach(val => {
+        frequencies[val] = (frequencies[val] || 0) + 1;
+
+        if (frequencies[val] > maxFrequency) {
+            maxFrequency = frequencies[val];
+            moda = val;
+        }
+    });
+
+    return moda;
+}
+
+function updateCards(csvRows) {
+    VARIABLES.forEach(variable => {
+        const values = csvRows
+            .map(row => row[variable])
+            .filter(v => v !== null && v !== undefined && v !== '' && !isNaN(v))
+            .map(Number);
+        
+        const avgText = document.getElementById(`${variable}-value`);
+        const maxText = document.getElementById(`${variable}-max`);
+        const minText = document.getElementById(`${variable}-min`);
+        
+        if (variable === 'event_rain_mm') {
+            if (avgText) avgText.textContent = values.length ? Math.max(...values) : "N/A";
+            return;
+        }
+        
+        if (variable === 'wind_dir_10_mean') {
+            const moda = calculateMode(values);
+            if (avgText) avgText.textContent = moda !== null ? moda.toFixed(0) : "N/A"
+            return;
+        }
+        
+        if (variable === 'solar_rad_wm2') {
+            if (avgText) avgText.textContent = values.length ? Math.max(...values) : "N/A";
+            return;
+        }
+
+        const finalValues = calculateFinalValues(values);
+
+        if (avgText) avgText.textContent = values.length ? finalValues.promedio.toFixed(2) : "N/A";
+        if (maxText) maxText.textContent = values.length ? finalValues.maximo.toFixed(2) : "--";
+        if (minText) minText.textContent = values.length ? finalValues.minimo.toFixed(2) : "--";
+    });
+}
+
+function updateAllCharts(csvRows) {
+    if (!window.chartById) return;
+
+    const hasTimestamps = csvRows.some(r => extractTimestamp(r) !== null);
+    const total = csvRows.length;
+    const markerSize = total > 500 ? 0 : (total > 200 ? 1.5 : 3.5);
+
+    Object.keys(CHART_MAP).forEach(group => {
+        CHART_MAP[group].forEach(({ campo,chartId }) => {
+            const chart = window.chartById[chartId];
+            if (!chart) return;
+            const readableName = VARIABLE_NAMES[campo] || campo;
+            let seriesData;
+            let xaxisOpts;
+
+            if (hasTimestamps) {
+                seriesData = csvRows
+                    .map(r => {
+                        const ts = extractTimestamp(r);
+                        const v = r[campo];
+                        if (!ts || v === null || v === undefined || v === '' || isNaN(v)) return null;
+                        return { x: ts.getTime(),y: Number(v) };
+                    })
+                    .filter(Boolean);
+
+                xaxisOpts = {
+                    type: 'datetime',
+                    labels: {
+                        datetimeUTC: false,
+                        style: { fontSize: '11px' },
+                        formatter: function (value) {
+                            const d = new Date(value);
+                            const hh = String(d.getHours()).padStart(2,'0');
+                            const mm = String(d.getMinutes()).padStart(2,'0');
+                            return `${hh}:${mm}`;
+                        }
+                    }
+                };
+            } else {
+                seriesData = csvRows.map(r => {
+                    const v = r[campo];
+                    return (v === null || v === undefined || v === '' || isNaN(v)) ? null : Number(v);
+                });
+                xaxisOpts = {
+                    type: 'category',
+                    categories: csvRows.map((_,i) => `#${i + 1}`)
+                };
+            }
+
+            // Actualizar el título del eje Y con el nombre legible
+            chart.updateOptions({
+                xaxis: xaxisOpts,
+                yaxis: {
+                    title: { text: readableName }
+                },
+                markers: { size: markerSize }
+            },false,false);
+
+            // Actualizar la serie con el nombre legible
+            chart.updateSeries([{ name: readableName,data: seriesData }],true);
+        });
+    });
+}
+
+// ---------------
+// GRAPHS
+// ---------------
+
+function setupCharts() {
+    const isCurrentlyDark = document.body.classList.contains('cv-dark-mode');
+    
+    Object.keys(chartConfigs).forEach(function (group) {
+        chartConfigs[group].forEach(function (cfg) {
+            const el = document.getElementById(cfg.id);
+            if (!el) return;
+            const chart = new ApexCharts(el,buildChartOptions(cfg,isCurrentlyDark));
+            chart.render();
+            dashboardCharts[group].push(chart);
+            window.chartById[cfg.id] = chart;
+        });
+    });
+
+    const allCharts = [].concat(dashboardCharts.ambiente,dashboardCharts.suelo,dashboardCharts.gases);
+    window.dashboardCharts = dashboardCharts;
+
+    window.updateAmbienteChart = function (c,s) { updateGroup('ambiente',c,s); };
+    window.updateSueloChart = function (c,s) { updateGroup('suelo',c,s); };
+    window.updateGasesChart = function (c,s) { updateGroup('gases',c,s); };
+
+    if (typeof $ !== 'undefined') {
+        $('a[data-toggle="pill"]').on('shown.bs.tab',function () {
+            setTimeout(function () {
+                allCharts.forEach(function (chart) { chart.windowResizeHandler(); });
+                window.dispatchEvent(new Event('resize'));
+            },60);
+        });
+    }
+}
+
+function buildChartOptions(cfg,dark) {
+    const fmt = (v) => (v === undefined || v === null) ? '--' : Number(v).toFixed(cfg.decimals);
     return {
-        dateFrom: (document.getElementById('filter-date-from')?.value || '').trim(),
-        dateTo: (document.getElementById('filter-date-to')?.value || '').trim(),
-        station: (document.getElementById('filter-station')?.value || '').trim(),
-        city: (document.getElementById('filter-city')?.value || '').trim()
+        chart: {
+            height: 280,
+            type: 'line',
+            toolbar: {
+                show: true,
+                tools: { download: true,selection: false,zoom: true,zoomin: true,zoomout: true,pan: true,reset: true }
+            },
+            animations: { enabled: true,easing: 'easeinout',speed: 700 }
+        },
+        theme: { mode: dark ? 'dark' : 'light' },
+        colors: [cfg.color],
+        series: [{ name: cfg.name,data: cfg.data }],
+        stroke: { curve: 'smooth',width: 2.5 },
+        markers: { size: 3.5,strokeWidth: 1.5,hover: { size: 6 } },
+        grid: {
+            borderColor: dark ? '#23334D' : '#EEF4F2',
+            strokeDashArray: 4,
+            padding: { left: 15,right: 15 }
+        },
+        legend: { show: false },
+        xaxis: {
+            type: 'datetime',
+            labels: {
+                datetimeUTC: false,
+                style: {
+                    fontFamily: 'Open Sans, sans-serif',
+                    fontSize: '11px',
+                    colors: dark ? '#94A3B8' : '#627D98'
+                },
+                formatter: function (value) {
+                    const d = new Date(value);
+                    const hh = String(d.getHours()).padStart(2,'0');
+                    const mm = String(d.getMinutes()).padStart(2,'0');
+                    return `${hh}:${mm}`;
+                }
+            },
+            tooltip: {
+                enabled: true,
+                formatter: function (value) {
+                    const d = new Date(value);
+                    const hh = String(d.getHours()).padStart(2,'0');
+                    const mm = String(d.getMinutes()).padStart(2,'0');
+                    return `${hh}:${mm}`;
+                }
+            }
+        },
+        yaxis: {
+            title: { text: cfg.name + ' (' + cfg.unit + ')',style: { color: cfg.color,fontSize: '11px' } },
+            min: cfg.min,
+            max: cfg.max,
+            tickAmount: cfg.tickAmount,
+            labels: { style: { colors: cfg.color },formatter: fmt }
+        },
+        tooltip: {
+            theme: dark ? 'dark' : 'light',
+            style: { fontSize: '12px',fontFamily: 'Open Sans, sans-serif' },
+            y: { formatter: (v) => (v === undefined || v === null) ? '--' : fmt(v) + ' ' + cfg.unit }
+        }
     };
 }
 
-function clearFilterInputs() {
-    const ids = ['filter-date-from','filter-date-to','filter-station','filter-city'];
-    ids.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.value = '';
+function updateGroup(group,categories,seriesData) {
+    dashboardCharts[group].forEach(function (chart,i) {
+        if (categories) chart.updateOptions({ xaxis: { categories: categories } },false,true);
+        if (seriesData && seriesData[i] !== undefined) {
+            const s = seriesData[i];
+            chart.updateSeries([Array.isArray(s) ? { data: s } : s]);
+        }
+    });
+}
+
+// ---------------
+// HELPERS
+// ---------------
+
+function updateFilterSummary() {
+    const filterDateFrom = document.getElementById('filter-date-from');
+    const filterDateTo = document.getElementById('filter-date-to');
+    const filterStation = document.getElementById('filter-station');
+    const filterCity = document.getElementById('filter-location');
+    const filterDot = document.getElementById('cvFilterDot');
+    const filterFeedback = document.getElementById('cvFiltersFeedback');
+    const filterSummary = document.getElementById('cvFiltersSummary');
+
+    const hasDateFrom = filterDateFrom && filterDateFrom.value.trim() !== '';
+    const hasDateTo = filterDateTo && filterDateTo.value.trim() !== '';
+    const hasStation = filterStation && filterStation.value.trim() !== '';
+    const hasCity = filterCity && filterCity.value.trim() !== '';
+
+    const isActive = hasDateFrom || hasDateTo || hasStation || hasCity;
+
+    if (filterDot) filterDot.style.display = isActive ? 'block' : 'none';
+
+    if (filterFeedback && filterSummary) {
+        if (isActive) {
+            let tags = [];
+            if (hasDateFrom && hasDateTo) tags.push(`${filterDateFrom.value} al ${filterDateTo.value}`);
+            else if (hasDateFrom) tags.push(`Desde ${filterDateFrom.value}`);
+            else if (hasDateTo) tags.push(`Hasta ${filterDateTo.value}`);
+            if (hasStation) tags.push(`Estación ${filterStation.value}`);
+            if (hasCity) tags.push(filterCity.value);
+
+            filterSummary.innerHTML = `<i class="fas fa-filter mr-1 text-primary"></i> ${tags.join(' • ')}`;
+            filterFeedback.style.display = 'block';
+        } else {
+            filterFeedback.style.display = 'none';
+        }
+    }
+
+    return {
+        dateFrom: filterDateFrom ? filterDateFrom.value : '',
+        dateTo: filterDateTo ? filterDateTo.value : '',
+        station: filterStation ? filterStation.value : '',
+        city: filterCity ? filterCity.value : ''
+    };
+}
+
+function toggleFilterPanel() {
+    const filterBtn = document.getElementById('cvSidebarFilterBtn');
+    const filterPanel = document.getElementById('cvSidebarFiltersPanel');
+
+    if (!filterPanel) return;
+    const isOpen = filterPanel.classList.toggle('cv-panel-open');
+    if (filterBtn) filterBtn.classList.toggle('active',isOpen);
+}
+
+function closeFilterPanel() {
+    const filterBtn = document.getElementById('cvSidebarFilterBtn');
+    const filterPanel = document.getElementById('cvSidebarFiltersPanel');
+
+    if (!filterPanel) return;
+    filterPanel.classList.remove('cv-panel-open');
+    if (filterBtn) filterBtn.classList.remove('active');
+}
+
+function triggerChartResize() {
+    setTimeout(function () {
+        allCharts.forEach(chart => chart.windowResizeHandler());
+        window.dispatchEvent(new Event('resize'));
+    },360);
+}
+
+function toggleSidebar() {
+    if (window.innerWidth < 992) {
+        dashContainer.classList.toggle('cv-sidebar-open-mobile');
+        if (dashContainer.classList.contains('cv-sidebar-open-mobile')) {
+            document.body.classList.add('cv-sidebar-is-open');
+        } else {
+            document.body.classList.remove('cv-sidebar-is-open');
+        }
+    } else {
+        dashContainer.classList.toggle('cv-sidebar-collapsed');
+        const isCollapsed = dashContainer.classList.contains('cv-sidebar-collapsed');
+        localStorage.setItem('cv_sidebar_collapsed',isCollapsed ? '1' : '0');
+    }
+    triggerChartResize();
+}
+
+function closeSidebar() {
+    if (window.innerWidth < 992) {
+        dashContainer.classList.remove('cv-sidebar-open-mobile');
+        document.body.classList.remove('cv-sidebar-is-open');
+    } else {
+        dashContainer.classList.add('cv-sidebar-collapsed');
+        localStorage.setItem('cv_sidebar_collapsed','1');
+    }
+    triggerChartResize();
+}
+
+async function getContents(path) {
+    const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`GitHub respondió ${res.status}`);
+    return res.json();
+}
+
+function showFirstCampaign() {
+    const campaignContainer = document.getElementById("file-container");
+    const first = campaignContainer.querySelector(".nav-link");
+    if (first) first.click();
+}
+
+async function getFolders() {
+    return await getContents(PATH);
+}
+
+function getSortedCampaigns(folders) {
+    let campaigns = folders.filter(folder => folder.type === "dir");
+    campaigns.sort((a,b) => b.name.localeCompare(a.name));
+    return campaigns;
+}
+
+function parseCampaignName(campaignName) {
+    const parts = campaignName.split('_');
+    let date = null,station = "",location = "";
+
+    // Fecha: "20261019" => "2026-10-19"
+    if (parts[0] && /^\d{8}$/.test(parts[0])) {
+        date = `${parts[0].slice(0,4)}-${parts[0].slice(4,6)}-${parts[0].slice(6,8)}`;
+    }
+
+    // Estación: "id1" => "1"
+    if (parts[1]) {
+        const m = parts[1].match(/id(\d+)/i);
+        if (m) station = m[1];
+    }
+
+    // Localidad: "chetumal" => "Chetumal"
+    if (parts[2]) {
+        location = parts[2].charAt(0).toUpperCase() + parts[2].slice(1).toLowerCase();
+    }
+
+    return { date,station,location };
+}
+
+function fillStationSelect(stationSet) {
+    const stationSelect = document.getElementById('filter-station');
+    stationSelect.innerHTML = '<option value="">Todas las estaciones</option>';
+    Array.from(stationSet).sort((a,b) => a - b).forEach(st => {
+        const opt = document.createElement('option');
+        opt.value = st;
+        opt.textContent = `Estación ${st}`;
+        stationSelect.appendChild(opt);
+    });
+}
+
+function fillLocationSelect(locationSet) {
+    const locationSelect = document.getElementById('filter-location');
+    locationSelect.innerHTML = '<option value="">Todas las localidades</option>';
+
+    Array.from(locationSet).sort().forEach(location => {
+        const opt = document.createElement('option');
+        opt.value = location;
+        opt.textContent = location;
+        locationSelect.appendChild(opt);
+    });
+}
+
+function formatCampaignName(campaignName) {
+    const meta = parseCampaignName(campaignName);
+    if (!meta.date) return campaignName;
+    const [year,month,day] = meta.date.split('-');
+    const meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+    const mesNombre = meses[parseInt(month) - 1];
+    const yearShort = year.slice(-2);
+    const fechaFormateada = `${day}/${mesNombre}/${yearShort} - Estación ${meta.station}`;
+    return fechaFormateada;
+}
+
+async function getCSV(campaignPath) {
+    const items = await getContents(campaignPath);
+    const csvItem = items.find(i => i.type === "file" && /\.csv$/i.test(i.name));
+    if (!csvItem) {
+        console.warn(`No se encontró CSV en ${campaignPath}`);
+        return;
+    }
+    return csvItem;
+}
+
+function establishCampaignName(path) {
+    const campaignName = path.split('/').pop();
+    const meta = parseCampaignName(campaignName);
+    state.campaignMeta = meta;
+}
+
+function polishCsv(csvContent) {
+    return csvContent.data.map(row => {
+        const out = {};
+        Object.keys(row).forEach(k => {
+            const key = k
+                .replace(/^\ufeff/,'')
+                .trim()
+                .replace(/^"|"$/g,'')
+                .toLowerCase();
+            out[key] = row[k];
+        });
+        return out;
+    });
+}
+
+async function getRawTextFromCsv(csvUrl) {
+    const res = await fetch(csvUrl);
+    if (!res.ok) throw new Error(`No se pudo descargar el CSV (${res.status})`);
+    return await res.text();
+}
+
+function parseRawText(csvText) {
+    return Papa.parse(csvText,{
+        header: true,
+        skipEmptyLines: true,
+        dynamicTyping: true
+    });
+}
+
+async function readCsv(csvUrl) {
+    const text = await getRawTextFromCsv(csvUrl);
+    const csvContent = await parseRawText(text);
+    const cleanedCsv = await polishCsv(csvContent);
+
+    // Forzar columnas de tiempo a string
+    cleanedCsv.forEach(r => {
+        ['time','timestamp','date','datetime','fecha'].forEach(k => {
+            if (r[k] !== undefined && r[k] !== null) r[k] = String(r[k]);
+        });
+    });
+    return cleanedCsv;
+}
+
+function setDarkMode(isDark) {
+    const themeBtn = document.getElementById('cvThemeToggle');
+    const themeIcon = document.getElementById('cvThemeIcon');
+    const themeLabel = document.getElementById('cvThemeModeLabel');
+    const themeSub = document.getElementById('cvThemeModeSub');
+    const dash = document.querySelector('.cv-dashboard');
+    const allCharts = [].concat(dashboardCharts.ambiente,dashboardCharts.suelo,dashboardCharts.gases);
+    window.dashboardCharts = dashboardCharts;
+
+    if (isDark) {
+        document.documentElement.classList.add('cv-dark-mode');
+        document.body.classList.add('cv-dark-mode');
+        if (dash) dash.classList.add('cv-dark');
+        localStorage.setItem('cv_theme','dark');
+
+        if (themeIcon) themeIcon.className = 'fas fa-sun';
+        if (themeLabel) themeLabel.innerText = 'Modo';
+        if (themeSub) themeSub.innerText = 'Claro';
+
+        if (window.dashboardCharts) {
+            allCharts.forEach(chart => {
+                if (chart) {
+                    chart.updateOptions({
+                        theme: { mode: 'dark' },
+                        grid: { borderColor: '#23334D' },
+                        xaxis: { labels: { style: { colors: '#94A3B8' } } }
+                    },false,false);
+                }
+            });
+        }
+    } else {
+        document.documentElement.classList.remove('cv-dark-mode');
+        document.body.classList.remove('cv-dark-mode');
+        if (dash) dash.classList.remove('cv-dark');
+        localStorage.setItem('cv_theme','light');
+
+        if (themeIcon) themeIcon.className = 'fas fa-moon';
+        if (themeLabel) themeLabel.innerText = 'Modo';
+        if (themeSub) themeSub.innerText = 'Oscuro';
+
+        if (window.dashboardCharts) {
+            allCharts.forEach(chart => {
+                if (chart) {
+                    chart.updateOptions({
+                        theme: { mode: 'light' },
+                        grid: { borderColor: '#EEF4F2' },
+                        xaxis: { labels: { style: { colors: '#627D98' } } }
+                    },false,false);
+                }
+            });
+        }
+    }
+}
+
+function setupFilterListeners() {
+    window.addEventListener('cv:filters-applied',(e) => {
+        const filters = e.detail || {};
+        state.filters = filters;
+        filterSidebar(filters);
+    });
+
+    window.addEventListener('cv:filters-cleared',() => {
+        state.filters = { dateFrom: "",dateTo: "",station: "",city: "" };
+        filterSidebar(state.filters);
     });
 }
 
@@ -462,15 +860,7 @@ function toLocalDateString(d) {
     return `${y}-${m}-${day}`;
 }
 
-// Y applyFilters ahora solo se encarga de pintar los datos:
-function applyFilters(filters,rows) {
-    state.filteredRows = rows;
-    updateCards(rows);
-    updateAllCharts(rows);
-}
-
 function extractTimestamp(row) {
-    // Prioridad: 'time' primero porque es la columna real de estos CSVs
     const candidates = ['time','timestamp','date','datetime','fecha'];
     for (const key of candidates) {
         const raw = row[key];
@@ -487,7 +877,6 @@ function parseDateString(raw) {
 
     // Si es número (epoch en segundos o milisegundos)
     if (typeof raw === 'number') {
-        // heurística: < 1e12 → segundos
         const ms = raw < 1e12 ? raw * 1000 : raw;
         const d = new Date(ms);
         return isNaN(d.getTime()) ? null : d;
@@ -521,41 +910,7 @@ function parseDateString(raw) {
     return isNaN(d.getTime()) ? null : d;
 }
 
-/* ============================================================
-   CARDS
-   ============================================================ */
-function updateCards(rows) {
-    CAMPOS.forEach(campo => {
-        const valores = rows
-            .map(row => row[campo])
-            .filter(v => v !== null && v !== undefined && v !== '' && !isNaN(v))
-            .map(Number);
-
-        const stats = calcularStats(valores);
-
-        const valueEl = document.getElementById(`${campo}-value`);
-        const maxEl = document.getElementById(`${campo}-max`);
-        const minEl = document.getElementById(`${campo}-min`);
-
-        if (valueEl) valueEl.textContent = valores.length ? stats.promedio.toFixed(2) : "N/A";
-        if (maxEl) maxEl.textContent = valores.length ? stats.maximo.toFixed(2) : "--";
-        if (minEl) minEl.textContent = valores.length ? stats.minimo.toFixed(2) : "--";
-    });
-
-    // Actualizar también el dial del viento con el promedio de wind_dir_10_mean
-    const dirVals = rows.map(r => r.wind_dir_10_mean)
-        .filter(v => v !== null && v !== undefined && !isNaN(v))
-        .map(Number);
-    if (dirVals.length && typeof window.setWindDirection === 'function') {
-        const avg = dirVals.reduce((a,b) => a + b,0) / dirVals.length;
-        window.setWindDirection(avg);
-        // Sincronizar el número mostrado en el centro del dial
-        const degEl = document.getElementById('wind_dir_10_mean-value');
-        if (degEl) degEl.textContent = avg.toFixed(1);
-    }
-}
-
-function calcularStats(valores) {
+function calculateFinalValues(valores) {
     if (!valores.length) return { actual: 0,promedio: 0,maximo: 0,minimo: 0 };
     const promedio = valores.reduce((a,b) => a + b,0) / valores.length;
     return {
@@ -566,73 +921,89 @@ function calcularStats(valores) {
     };
 }
 
-/* ============================================================
-   GRÁFICAS (ApexCharts)
-   ============================================================ */
-function updateAllCharts(rows) {
-    if (!window.chartById) return;
+function updateWindCompass(csvRows) {
+    const dirVals = csvRows.map(r => r.wind_dir_10_mean)
+        .filter(v => v !== null && v !== undefined && !isNaN(v))
+        .map(Number);
 
-    const hasTimestamps = rows.some(r => extractTimestamp(r) !== null);
-    const total = rows.length;
-    const markerSize = total > 500 ? 0 : (total > 200 ? 1.5 : 3.5);
-
-    Object.keys(CHART_MAP).forEach(group => {
-        CHART_MAP[group].forEach(({ campo,chartId }) => {
-            const chart = window.chartById[chartId];
-            if (!chart) return;
-
-            const nombreLegible = NOMBRES_VARIABLES[campo] || campo;
-            
-            let seriesData;
-            let xaxisOpts;
-
-            if (hasTimestamps) {
-                // Modo datetime
-                seriesData = rows
-                    .map(r => {
-                        const ts = extractTimestamp(r);
-                        const v = r[campo];
-                        if (!ts || v === null || v === undefined || v === '' || isNaN(v)) return null;
-                        return { x: ts.getTime(),y: Number(v) };
-                    })
-                    .filter(Boolean);
-
-                xaxisOpts = {
-                    type: 'datetime',
-                    labels: {
-                        datetimeUTC: false,
-                        style: { fontSize: '11px' },
-                        formatter: function (value) {
-                            const d = new Date(value);
-                            const hh = String(d.getHours()).padStart(2,'0');
-                            const mm = String(d.getMinutes()).padStart(2,'0');
-                            return `${hh}:${mm}`;
-                        }
-                    }
-                };
-            } else {
-                // Fallback: índice
-                seriesData = rows.map(r => {
-                    const v = r[campo];
-                    return (v === null || v === undefined || v === '' || isNaN(v)) ? null : Number(v);
-                });
-                xaxisOpts = {
-                    type: 'category',
-                    categories: rows.map((_,i) => `#${i + 1}`)
-                };
-            }
-
-            // Actualizar el título del eje Y con el nombre legible
-            chart.updateOptions({
-                xaxis: xaxisOpts,
-                yaxis: {
-                    title: { text: nombreLegible }
-                },
-                markers: { size: markerSize }
-            },false,false);
-
-            // Actualizar la serie con el nombre legible (así el tooltip muestra "Amoniaco" en lugar de "nh3")
-            chart.updateSeries([{ name: nombreLegible,data: seriesData }],true);
-        });
-    });
+    if (dirVals.length && typeof window.setWindDirection === 'function') {
+        const avg = dirVals.reduce((a,b) => a + b,0) / dirVals.length;
+        window.setWindDirection(avg);
+        const degEl = document.getElementById('wind_dir_10_mean-value');
+        if (degEl) degEl.textContent = avg.toFixed(1);
+    }
 }
+
+window.setWindDirection = function (degrees,cardinalName) {
+    degrees = parseFloat(degrees) || 0;
+    const normalized = ((degrees % 360) + 360) % 360;
+    const CARDINALS = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSO','SO','OSO','O','ONO','NO','NNO']
+    const cardinalIndex = Math.round(normalized / 22.5) % 16;
+    const cardinal = cardinalName || CARDINALS[cardinalIndex];
+
+    const wheel = document.getElementById('cv-wind-wheel');
+    if (wheel) wheel.style.setProperty('--cv-wind-deg',normalized + 'deg');
+
+    const degEl = document.getElementById('cv-wind-deg');
+    if (degEl) degEl.innerText = Math.round(normalized);
+
+    const cardEl = document.getElementById('cv-wind-cardinal');
+    if (cardEl) cardEl.innerText = cardinal;
+};
+
+function setSidebarEvents() {
+    const sidebarToggle = document.getElementById('cvSidebarToggle');
+    const sidebarBackdrop = document.getElementById('cvSidebarBackdrop');
+
+    if (sidebarToggle) sidebarToggle.addEventListener('click',toggleSidebar);
+    if (sidebarBackdrop) sidebarBackdrop.addEventListener('click',closeSidebar);
+}
+
+function setFilterEvents() {
+    const filterDateFrom = document.getElementById('filter-date-from');
+    const filterDateTo = document.getElementById('filter-date-to');
+    const filterStation = document.getElementById('filter-station');
+    const filterCity = document.getElementById('filter-location');
+    const filterBtn = document.getElementById('cvSidebarFilterBtn');
+    const filterCloseBtn = document.getElementById('cvFiltersCloseBtn');
+    const btnApplyFilters = document.getElementById('btn-apply-filters');
+    const btnResetFilters = document.getElementById('btn-reset-filters');
+
+
+    if (filterBtn) filterBtn.addEventListener('click',toggleFilterPanel);
+    if (filterCloseBtn) filterCloseBtn.addEventListener('click',closeFilterPanel);
+
+    if (btnApplyFilters) {
+        btnApplyFilters.addEventListener('click',function () {
+            updateFilterSummary();
+            const filters = {
+                dateFrom: filterDateFrom ? filterDateFrom.value : '',
+                dateTo: filterDateTo ? filterDateTo.value : '',
+                station: filterStation ? filterStation.value : '',
+                city: filterCity ? filterCity.value : ''
+            };
+            window.dispatchEvent(new CustomEvent('cv:filters-applied',{ detail: filters }));
+        });
+    }
+
+    if (btnResetFilters) {
+        btnResetFilters.addEventListener('click',function () {
+            if (filterDateFrom) filterDateFrom.value = '';
+            if (filterDateTo) filterDateTo.value = '';
+            if (filterStation) filterStation.value = '';
+            if (filterCity) filterCity.value = '';
+            updateFilterSummary();
+            window.dispatchEvent(new CustomEvent('cv:filters-cleared'));
+        });
+    }
+}
+
+function setThemeEvent() {
+    const themeBtn = document.getElementById('cvThemeToggle');
+    if (themeBtn) {
+        themeBtn.addEventListener('click',function () {
+            setDarkMode(!document.body.classList.contains('cv-dark-mode'));
+        });
+    }
+}
+
