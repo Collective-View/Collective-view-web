@@ -7,7 +7,7 @@ const REPO = "Sargassum_Air_Quality";
 const PATH = "data";
 
 const defaultHours = ['06:00','08:00','10:00','12:00','14:00','16:00','18:00','20:00'];
-const dashboardCharts = { ambiente: [],suelo: [],gases: [] };
+const dashboardCharts = { ambiente: [], aire: [], suelo: [],gases: [] };
 window.chartById = {};
 
 const state = {
@@ -21,17 +21,37 @@ const VARIABLES = [
     
     // SECCIÓN AMBIENTE
     "wind_ms", // Velocidad del viento
-    "wind_dir_10_mean", // Dirección del viento
+    "wind_dir_10min_deg", // Dirección del viento
     "out_temp_c", // Temperatura
     "out_hum", // Humedad
     "out_feels_like_c", // Sensación Térmica
-    "pres_rel_hpa", // Presión barométrica
+    "rel_pres_hpa", // Presión barométrica
     "solar_rad_wm2", // Radiación Solar
     "uv_index", // Índice UV
     "event_rain_mm", // Lluvia en MM durante el evento
     
+    // SECCIÓN CALIDAD DEL AIRE
+    "a_temp_c", // Temperatura (AQIN)
+    "a_hum", // Humedad (AQIN)
+    "a_co2_ppm", // Dióxido de carbono (AQIN)
+    "a_pm2_5_ugm3", // PM2.5 (AQIN)
+    "a_pm10_ugm3", // PM10 (AQIN)
+    "a_pm1_ugm3", // PM1.0 (AQIN)
+    "a_pm4_ugm3", // PM4.0 (AQIN)
+    
     // SECCIÓN SUELO (Por el momento no existen las variables)
 
+];
+
+const OLD_GAS_VARIABLES = [
+    // SECCIÓN GASES
+    "nh3", // Amoniaco
+    "temp_nh3", // Temperatura
+    "hum_nh3", // Humedad
+    "h2s", // Ácido sulfhídrico
+    "o2", // Oxígeno
+    "co", // Monóxido de carbono
+    "lel" // Límite Inferior de Explosividad
 ];
 
 const GAS_VARIABLES = [
@@ -50,14 +70,23 @@ const VARIABLE_NAMES = {
     
     // SECCIÓN AMBIENTE
     wind_ms: "Velocidad del viento",
-    wind_dir_10_mean: "Dirección del viento",
+    wind_dir_10min_deg: "Dirección del viento",
     out_temp_c: "Temperatura",
     out_hum: "Humedad",
     out_feels_like_c: "Sensación Térmica",
-    pres_rel_hpa: "Presión barométrica",
+    rel_pres_hpa: "Presión barométrica",
     solar_rad_wm2: "Radiación solar",
     uv_index: "Índice UV",
     event_rain_mm: "Lluvia",
+    
+    // SECCIÓN CALIDAD DEL AIRE
+    a_temp_c: "Temperatura (AQIN)",
+    a_hum: "Humedad (AQIN)",
+    a_co2_ppm: "Dióxido de carbono (AQIN)",
+    a_pm2_5_ugm3: "PM2.5 (AQIN)",
+    a_pm10_ugm3: "PM10 (AQIN)",
+    a_pm1_ugm3: "PM1.0 (AQIN)",
+    a_pm4_ugm3: "PM4.0 (AQIN)",
     
     // SECCIÓN SUELO (Por el momento no existen las variables)
     
@@ -75,14 +104,23 @@ const VARIABLE_NAMES = {
 const CHART_MAP = {
     ambiente: [
         { campo: "wind_ms", chartId: "chart-wind_ms" },
-        { campo: "wind_dir_10_mean", chartId: "chart-wind_dir_10_mean" },
+        { campo: "wind_dir_10min_deg", chartId: "chart-wind_dir_10min_deg" },
         { campo: "out_temp_c", chartId: "chart-out_temp_c" },
         { campo: "out_hum", chartId: "chart-out_hum" },
         { campo: "out_feels_like_c", chartId: "chart-out_feels_like_c" },
-        { campo: "pres_rel_hpa", chartId: "chart-pres_rel_hpa" },
+        { campo: "rel_pres_hpa", chartId: "chart-rel_pres_hpa" },
         { campo: "solar_rad_wm2", chartId: "chart-solar_rad_wm2" },
         { campo: "uv_index", chartId: "chart-uv_index" },
         { campo: "event_rain_mm", chartId: "chart-event_rain_mm" }
+    ],
+    aire: [
+        { campo: "a_temp_c",chartId: "chart-a_temp_c" },
+        { campo: "a_hum",chartId: "chart-a_hum" },
+        { campo: "a_co2_ppm",chartId: "chart-a_co2_ppm" },
+        { campo: "a_pm2_5_ugm3",chartId: "chart-a_pm2_5_ugm3" },
+        { campo: "a_pm10_ugm3",chartId: "chart-a_pm10_ugm3" },
+        { campo: "a_pm1_ugm3",chartId: "chart-a_pm1_ugm3" },
+        { campo: "a_pm4_ugm3",chartId: "chart-a_pm4_ugm3" }  
     ],
     suelo: [
         { campo: "Humedad del suelo", chartId: "chart-suelo-humedad" },
@@ -90,7 +128,6 @@ const CHART_MAP = {
     ]
 };
 
-// Asignar una gráfica a cada variable
 const GAS_CHART_MAP = {
     gases: [
         { campo: "amon",chartId: "chart-amon" },
@@ -108,14 +145,23 @@ const GAS_CHART_MAP = {
 const chartConfigs = {
     ambiente: [
         { id: 'chart-wind_ms',name: 'Velocidad del viento',unit: 'mph',color: '#0B7A5C',data: [],decimals: 1 },
-        { id: 'chart-wind_dir_10_mean',name: 'Dirección del viento',unit: '°',color: '#78909C',data: [],min: 0,max: 360,tickAmount: 4,decimals: 0 },
+        { id: 'chart-wind_dir_10min_deg',name: 'Dirección del viento',unit: '°',color: '#78909C',data: [],min: 0,max: 360,tickAmount: 4,decimals: 0 },
         { id: 'chart-out_temp_c',name: 'Temperatura',unit: '°C',color: '#FF7043',data: [],decimals: 1 },
         { id: 'chart-out_hum',name: 'Humedad',unit: '%',color: '#29B6F6',data: [],min: 0,max: 100,decimals: 0 },
         { id: 'chart-out_feels_like_c',name: 'Sensación Térmica',unit: '°C',color: '#af3009',data: [],decimals: 1 },
-        { id: 'chart-pres_rel_hpa',name: 'Presión barométrica',unit: 'hPa',color: '#7E57C2',data: [],decimals: 1 },
-        { id: 'chart-solar_rad_wm2',name: 'Luz',unit: 'W/m²',color: '#FFA726',data: [],decimals: 0 },
+        { id: 'chart-rel_pres_hpa',name: 'Presión barométrica',unit: 'hPa',color: '#7E57C2',data: [],decimals: 1 },
+        { id: 'chart-solar_rad_wm2',name: 'Radiación Solar',unit: 'W/m²',color: '#FFA726',data: [],decimals: 0 },
         { id: 'chart-uv_index',name: 'Índice UV',unit: 'UV',color: '#EC407A',data: [],min: 0,max: 12,decimals: 1 },
         { id: 'chart-event_rain_mm',name: 'Lluvia',unit: 'mm',color: '#26A69A',data: [],min: 0,max: 100,decimals: 0 }
+    ],
+    aire: [
+        { id: 'chart-a_temp_c',name: 'Temperatura (AQIN)',unit: '°C',color: '#0B7A5C',data: [],decimals: 1 },
+        { id: 'chart-a_hum',name: 'Humedad (AQIN)',unit: '%',color: '#78909C',data: [],min: 0, max: 100, decimals: 0 },
+        { id: 'chart-a_co2_ppm',name: 'Dióxido de carbono (AQIN)',unit: 'ppm',color: '#FF7043',data: [],decimals: 1 },
+        { id: 'chart-a_pm2_5_ugm3',name: 'PM2.5 (AQIN)',unit: 'μm/m³',color: '#29B6F6',data: [],min: 0,max: 100,decimals: 1 },
+        { id: 'chart-a_pm10_ugm3',name: 'PM10 (AQIN)',unit: 'μm/m³',color: '#af3009',data: [],decimals: 1 },
+        { id: 'chart-a_pm1_ugm3',name: 'PM1.0 (AQIN)',unit: 'μm/m³',color: '#7E57C2',data: [],decimals: 1 },
+        { id: 'chart-a_pm4_ugm3',name: 'PM4.0 (AQIN)',unit: 'μm/m³',color: '#FFA726',data: [],decimals: 0 },
     ],
     suelo: [
         { id: 'chart-suelo-humedad',name: 'Humedad del suelo',unit: '%',color: '#0B7A5C',data: [],min: 0,max: 100,decimals: 0 },
@@ -224,7 +270,6 @@ async function renderCampaign(path) {
         
         const gasCsv = await getCSV(path,"gases.csv")
         if (gasCsv) {
-            console.log("si we si hay gas");
             const gasVariables = await readCsv(gasCsv.download_url);
             updateGasCards(gasVariables);
             updateGasCharts(gasVariables);
@@ -377,8 +422,39 @@ function updateCards(csvRows, theresGas=true) {
             return;
         }
         
-        if (variable === 'wind_dir_10_mean') {
-            const moda = calculateMode(values);
+        if (variable === 'rel_pres_hpa') {
+            let secondChance;
+
+            if (!values.length) {
+                secondChance = csvRows
+                    .map(row => row['pres_rel_hpa'])
+                    .filter(v => v !== null && v !== undefined && v !== '' && !isNaN(v))
+                    .map(Number);
+            } else {
+                secondChance = values;
+            }
+
+            const finalValues = calculateFinalValues(secondChance);
+
+            if (avgText) avgText.textContent = secondChance.length ? finalValues.promedio.toFixed(2) : "N/A";
+            if (maxText) maxText.textContent = secondChance.length ? finalValues.maximo.toFixed(2) : "--";
+            if (minText) minText.textContent = secondChance.length ? finalValues.minimo.toFixed(2) : "--";
+            return;
+        }
+        
+        if (variable === 'wind_dir_10min_deg') {
+            let secondChance;
+            
+            if (!values.length) {
+                secondChance = csvRows
+                    .map(row => row['wind_dir_10_mean'])
+                    .filter(v => v !== null && v !== undefined && v !== '' && !isNaN(v))
+                    .map(Number);
+            } else {
+                secondChance = values;
+            }
+            
+            const moda = calculateMode(secondChance);
             if (avgText) avgText.textContent = moda !== null ? moda.toFixed(0) : "N/A"
             return;
         }
@@ -408,6 +484,33 @@ function updateGasCards(csvRows) {
         const avgText = document.getElementById(`${variable}-value`);
         const maxText = document.getElementById(`${variable}-max`);
         const minText = document.getElementById(`${variable}-min`);
+
+        if (variable === 'amon' || variable === 'temp_f' || variable === 'hum') {
+            let secondChance,newRow;
+            
+            if (variable === 'amon') {1
+                newRow = 'nh3';
+            } else if (variable === 'temp_f') {
+                newRow = 'temp_nh3';
+            } else {
+                newRow = 'hum_nh3';
+            }
+            
+            if (!values.length) {
+                secondChance = csvRows
+                    .map(row => row[newRow])
+                    .filter(v => v !== null && v !== undefined && v !== '' && !isNaN(v))
+                    .map(Number);
+            } else {
+                secondChance = values;
+            }
+            
+            const finalValues = calculateFinalValues(secondChance);
+            if (avgText) avgText.textContent = secondChance.length ? finalValues.promedio.toFixed(2) : "N/A";
+            if (maxText) maxText.textContent = secondChance.length ? finalValues.maximo.toFixed(2) : "--";
+            if (minText) minText.textContent = secondChance.length ? finalValues.minimo.toFixed(2) : "--";
+            return;
+        }
 
         const finalValues = calculateFinalValues(values);
 
@@ -721,6 +824,7 @@ function closeFilterPanel() {
 }
 
 function triggerChartResize() {
+    const allCharts = [].concat(dashboardCharts.ambiente,dashboardCharts.suelo,dashboardCharts.gases);
     setTimeout(function () {
         allCharts.forEach(chart => chart.windowResizeHandler());
         window.dispatchEvent(new Event('resize'));
@@ -728,6 +832,7 @@ function triggerChartResize() {
 }
 
 function toggleSidebar() {
+    const dashContainer = document.querySelector('.cv-dashboard');
     if (window.innerWidth < 992) {
         dashContainer.classList.toggle('cv-sidebar-open-mobile');
         if (dashContainer.classList.contains('cv-sidebar-open-mobile')) {
@@ -1045,14 +1150,20 @@ function calculateFinalValues(valores) {
 }
 
 function updateWindCompass(csvRows) {
-    const dirVals = csvRows.map(r => r.wind_dir_10_mean)
+    let dirVals = csvRows.map(r => r.wind_dir_10min_deg)
         .filter(v => v !== null && v !== undefined && !isNaN(v))
         .map(Number);
+
+    if (!dirVals.length) {
+        dirVals = csvRows.map(r => r.wind_dir_10_mean)
+            .filter(v => v !== null && v !== undefined && !isNaN(v))
+            .map(Number);
+    }
 
     if (dirVals.length && typeof window.setWindDirection === 'function') {
         const avg = dirVals.reduce((a,b) => a + b,0) / dirVals.length;
         window.setWindDirection(avg);
-        const degEl = document.getElementById('wind_dir_10_mean-value');
+        const degEl = document.getElementById('wind_dir_10min_deg-value');
         if (degEl) degEl.textContent = avg.toFixed(1);
     }
 }

@@ -264,7 +264,7 @@
                             aria-labelledby="tab-ambiente-link">
                             <div class="row">
                                 <!-- Card 1: Velocidad del viento -->
-                                <div class="col-12 col-md-6 col-xl-4">
+                                <div class="col-12 col-md-6 col-xl-3">
                                     <div class="cv-metric-card">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
@@ -289,7 +289,7 @@
                                 </div>
 
                                 <!-- Card 2: Direccion del viento -->
-                                <div class="col-12 col-md-6 col-xl-4">
+                                <div class="col-12 col-md-6 col-xl-3">
                                     <div class="cv-metric-card">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
@@ -338,7 +338,7 @@
                                             <div class="cv-wind-dial-center">
                                                 <span class="cv-wind-realtime-label">Real-Time</span>
                                                 <div class="cv-wind-main-val">
-                                                    <span class="cv-wind-deg-num" id="wind_dir_10_mean-value">?</span>
+                                                    <span class="cv-wind-deg-num" id="wind_dir_10min_deg-value">?</span>
                                                     <span class="cv-wind-deg-sym">°</span>
                                                 </div>
                                                 <div class="cv-wind-cardinal-badge">
@@ -349,17 +349,17 @@
 
                                         <div class="cv-card-range">
                                             <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="wind_dir_10_mean-max"></i>
+                                                <i class="fas fa-arrow-up mr-1" id="wind_dir_10min_deg-max"></i>
                                             </span>
                                             <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="wind_dir_10_mean-min"></i>
+                                                <i class="fas fa-arrow-down mr-1" id="wind_dir_10min_deg-min"></i>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Card 3: Temperatura -->
-                                <div class="col-12 col-md-6 col-xl-4">
+                                <div class="col-12 col-md-6 col-xl-3">
                                     <div class="cv-metric-card">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
@@ -383,7 +383,7 @@
                                 </div>
 
                                 <!-- Card 4: Humedad -->
-                                <div class="col-12 col-md-6 col-xl-4">
+                                <div class="col-12 col-md-6 col-xl-3">
                                     <div class="cv-metric-card">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
@@ -406,8 +406,8 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Card : Sensación térmica -->
-                                <div class="col-12 col-md-6 col-xl-4">
+                                <!-- Card 5: Sensación térmica -->
+                                <div class="col-12 col-md-6 col-xl-3">
                                     <div class="cv-metric-card">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
@@ -430,8 +430,8 @@
                                     </div>
                                 </div>
 
-                                <!-- Card 5: Presion barometrica -->
-                                <div class="col-12 col-md-6 col-xl-4">
+                                <!-- Card 6: Presion barometrica -->
+                                <div class="col-12 col-md-6 col-xl-3">
                                     <div class="cv-metric-card">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
@@ -440,26 +440,26 @@
                                             </span>
                                         </div>
                                         <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="pres_rel_hpa-value">?</span>
+                                            <span class="cv-card-value" id="rel_pres_hpa-value">?</span>
                                             <span class="cv-card-unit">hPa</span>
                                         </div>
                                         <div class="cv-card-range">
                                             <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="pres_rel_hpa-max"></i>
+                                                <i class="fas fa-arrow-up mr-1" id="rel_pres_hpa-max"></i>
                                             </span>
                                             <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="pres_rel_hpa-min"></i>
+                                                <i class="fas fa-arrow-down mr-1" id="rel_pres_hpa-min"></i>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Card 6: Radiación Solar -->
-                                <div class="col-12 col-md-6 col-xl-4">
+                                <!-- Card 7: Radiación Solar -->
+                                <div class="col-12 col-md-6 col-xl-3">
                                     <div class="cv-metric-card">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-lightbulb cv-card-icon"></i>
+                                                <i class="fas fa-sun cv-card-icon"></i>
                                                 Radiación Solar
                                             </span>
                                         </div>
@@ -478,12 +478,12 @@
                                     </div>
                                 </div>
 
-                                <!-- Card 7: Indice UV -->
-                                <div class="col-12 col-md-6 col-xl-4">
+                                <!-- Card 8: Indice UV -->
+                                <div class="col-12 col-md-6 col-xl-3">
                                     <div class="cv-metric-card">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-sun cv-card-icon"></i>
+                                                <i class="fas fa-lightbulb cv-card-icon"></i>
                                                 Indice UV
                                             </span>
                                         </div>
@@ -502,8 +502,8 @@
                                     </div>
                                 </div>
 
-                                <!-- Card 8: Lluvia -->
-                                <div class="col-12 col-md-6 col-xl-4">
+                                <!-- Card 9: Lluvia -->
+                                <div class="col-12 col-md-6 col-xl-3">
                                     <div class="cv-metric-card">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
@@ -523,6 +523,182 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+                                <!-- Card 10: Temperatura (AQIN) -->
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="cv-metric-card">
+                                        <div class="cv-card-header">
+                                            <span class="cv-card-title">
+                                                <i class="fas fa-thermometer-half cv-card-icon"></i>
+                                                Temperatura (AQIN)
+                                            </span>
+                                        </div>
+                                        <div class="cv-card-main-val">
+                                            <span class="cv-card-value" id="a_temp_c-value">?</span>
+                                            <span class="cv-card-unit">°C</span>
+                                        </div>
+
+                                        <div class="cv-card-range">
+                                            <span class="cv-range-item cv-range-high">
+                                                <i class="fas fa-arrow-up mr-1" id="a_temp_c-max"></i>
+                                            </span>
+                                            <span class="cv-range-item cv-range-low">
+                                                <i class="fas fa-arrow-down mr-1" id="a_temp_c-min"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Card 11: Humedad (AQIN) -->
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="cv-metric-card">
+                                        <div class="cv-card-header">
+                                            <span class="cv-card-title">
+                                                <i class="fas fa-tint cv-card-icon"></i>
+                                                Humedad (AQIN)
+                                            </span>
+                                        </div>
+                                        <div class="cv-card-main-val">
+                                            <span class="cv-card-value" id="a_hum-value">?</span>
+                                            <span class="cv-card-unit">%</span>
+                                        </div>
+
+                                        <div class="cv-card-range">
+                                            <span class="cv-range-item cv-range-high">
+                                                <i class="fas fa-arrow-up mr-1" id="a_hum-max"></i>
+                                            </span>
+                                            <span class="cv-range-item cv-range-low">
+                                                <i class="fas fa-arrow-down mr-1" id="a_hum-min"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Card 12: Dióxido de carbono (AQIN) -->
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="cv-metric-card">
+                                        <div class="cv-card-header">
+                                            <span class="cv-card-title">
+                                                <i class="fas fa-smog cv-card-icon"></i>
+                                                Dióxido de carbono (AQIN)
+                                            </span>
+                                        </div>
+                                        <div class="cv-card-main-val">
+                                            <span class="cv-card-value" id="a_co2_ppm-value">?</span>
+                                            <span class="cv-card-unit">ppm</span>
+                                        </div>
+
+                                        <div class="cv-card-range">
+                                            <span class="cv-range-item cv-range-high">
+                                                <i class="fas fa-arrow-up mr-1" id="a_co2_ppm-max"></i>
+                                            </span>
+                                            <span class="cv-range-item cv-range-low">
+                                                <i class="fas fa-arrow-down mr-1" id="a_co2_ppm-min"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Card 13: PM2.5 (AQIN) -->
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="cv-metric-card">
+                                        <div class="cv-card-header">
+                                            <span class="cv-card-title">
+                                                <i class="fas fa-smog cv-card-icon"></i>
+                                                PM2.5 (AQIN)
+                                            </span>
+                                        </div>
+                                        <div class="cv-card-main-val">
+                                            <span class="cv-card-value" id="a_pm2_5_ugm3-value">?</span>
+                                            <span class="cv-card-unit">μm/m³</span>
+                                        </div>
+
+                                        <div class="cv-card-range">
+                                            <span class="cv-range-item cv-range-high">
+                                                <i class="fas fa-arrow-up mr-1" id="a_pm2_5_ugm3-max"></i>
+                                            </span>
+                                            <span class="cv-range-item cv-range-low">
+                                                <i class="fas fa-arrow-down mr-1" id="a_pm2_5_ugm3-min"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Card 14: PM10 (AQIN) -->
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="cv-metric-card">
+                                        <div class="cv-card-header">
+                                            <span class="cv-card-title">
+                                                <i class="fas fa-smog cv-card-icon"></i>
+                                                PM10 (AQIN)
+                                            </span>
+                                        </div>
+                                        <div class="cv-card-main-val">
+                                            <span class="cv-card-value" id="a_pm10_ugm3-value">?</span>
+                                            <span class="cv-card-unit">μm/m³</span>
+                                        </div>
+
+                                        <div class="cv-card-range">
+                                            <span class="cv-range-item cv-range-high">
+                                                <i class="fas fa-arrow-up mr-1" id="a_pm10_ugm3-max"></i>
+                                            </span>
+                                            <span class="cv-range-item cv-range-low">
+                                                <i class="fas fa-arrow-down mr-1" id="a_pm10_ugm3-min"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Card 15: PM1.0 (AQIN) -->
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="cv-metric-card">
+                                        <div class="cv-card-header">
+                                            <span class="cv-card-title">
+                                                <i class="fas fa-smog cv-card-icon"></i>
+                                                PM1.0 (AQIN)
+                                            </span>
+                                        </div>
+                                        <div class="cv-card-main-val">
+                                            <span class="cv-card-value" id="a_pm1_ugm3-value">?</span>
+                                            <span class="cv-card-unit">μm/m³</span>
+                                        </div>
+
+                                        <div class="cv-card-range">
+                                            <span class="cv-range-item cv-range-high">
+                                                <i class="fas fa-arrow-up mr-1" id="a_pm1_ugm3-max"></i>
+                                            </span>
+                                            <span class="cv-range-item cv-range-low">
+                                                <i class="fas fa-arrow-down mr-1" id="a_pm1_ugm3-min"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Card 16: PM4.0 (AQIN) -->
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="cv-metric-card">
+                                        <div class="cv-card-header">
+                                            <span class="cv-card-title">
+                                                <i class="fas fa-smog cv-card-icon"></i>
+                                                PM4.0 (AQIN)
+                                            </span>
+                                        </div>
+                                        <div class="cv-card-main-val">
+                                            <span class="cv-card-value" id="a_pm4_ugm3-value">?</span>
+                                            <span class="cv-card-unit">μm/m³</span>
+                                        </div>
+
+                                        <div class="cv-card-range">
+                                            <span class="cv-range-item cv-range-high">
+                                                <i class="fas fa-arrow-up mr-1" id="a_pm4_ugm3-max"></i>
+                                            </span>
+                                            <span class="cv-range-item cv-range-low">
+                                                <i class="fas fa-arrow-down mr-1" id="a_pm4_ugm3-min"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <!-- Gráficas individuales: Ambiente -->
                                 <div class="col-12 col-xl-6" data-aos="fade-up">
@@ -545,7 +721,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: °</span>
                                         </div>
-                                        <div id="chart-wind_dir_10_mean" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-wind_dir_10min_deg" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -593,7 +769,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: hPa</span>
                                         </div>
-                                        <div id="chart-pres_rel_hpa" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-rel_pres_hpa" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -601,7 +777,7 @@
                                     <div class="cv-chart-card cv-chart-card--single">
                                         <div class="cv-chart-header">
                                             <h4 class="cv-chart-title">
-                                                <i class="fas fa-lightbulb mr-2"></i>Luz
+                                                <i class="fas fa-lightbulb mr-2"></i>Radiación Solar
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: W/m²</span>
                                         </div>
@@ -632,6 +808,87 @@
                                         <div id="chart-event_rain_mm" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
+                                
+                                <!-- Calidad del aire -->
+                                
+                                <div class="col-12 col-xl-6" data-aos="fade-up">
+                                    <div class="cv-chart-card cv-chart-card--single">
+                                        <div class="cv-chart-header">
+                                            <h4 class="cv-chart-title">
+                                                <i class="fas fa-thermometer-half mr-2"></i>Temperatura (AQIN)
+                                            </h4>
+                                            <span class="cv-chart-badge">Unidad: °C</span>
+                                        </div>
+                                        <div id="chart-a_temp_c" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-6" data-aos="fade-up">
+                                    <div class="cv-chart-card cv-chart-card--single">
+                                        <div class="cv-chart-header">
+                                            <h4 class="cv-chart-title">
+                                                <i class="fas fa-tint mr-2"></i>Humedad (AQIN)
+                                            </h4>
+                                            <span class="cv-chart-badge">Unidad: %</span>
+                                        </div>
+                                        <div id="chart-a_hum" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-6" data-aos="fade-up">
+                                    <div class="cv-chart-card cv-chart-card--single">
+                                        <div class="cv-chart-header">
+                                            <h4 class="cv-chart-title">
+                                                <i class="fas fa-smog mr-2"></i>Dioxido de carbono (AQIN)
+                                            </h4>
+                                            <span class="cv-chart-badge">Unidad: ppm</span>
+                                        </div>
+                                        <div id="chart-a_co2_ppm" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-6" data-aos="fade-up">
+                                    <div class="cv-chart-card cv-chart-card--single">
+                                        <div class="cv-chart-header">
+                                            <h4 class="cv-chart-title">
+                                                <i class="fas fa-smog mr-2"></i>PM2.5 (AQIN)
+                                            </h4>
+                                            <span class="cv-chart-badge">Unidad: μm/m³</span>
+                                        </div>
+                                        <div id="chart-a_pm2_5_ugm3" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-6" data-aos="fade-up">
+                                    <div class="cv-chart-card cv-chart-card--single">
+                                        <div class="cv-chart-header">
+                                            <h4 class="cv-chart-title">
+                                                <i class="fas fa-smog mr-2"></i>PM10 (AQIN)
+                                            </h4>
+                                            <span class="cv-chart-badge">Unidad: μm/m³</span>
+                                        </div>
+                                        <div id="chart-a_pm10_ugm3" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-6" data-aos="fade-up">
+                                    <div class="cv-chart-card cv-chart-card--single">
+                                        <div class="cv-chart-header">
+                                            <h4 class="cv-chart-title">
+                                                <i class="fas fa-smog mr-2"></i>PM1.0 (AQIN)
+                                            </h4>
+                                            <span class="cv-chart-badge">Unidad: μm/m³</span>
+                                        </div>
+                                        <div id="chart-a_pm1_ugm3" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-6" data-aos="fade-up">
+                                    <div class="cv-chart-card cv-chart-card--single">
+                                        <div class="cv-chart-header">
+                                            <h4 class="cv-chart-title">
+                                                <i class="fas fa-smog mr-2"></i>PM4.0 (AQIN)
+                                            </h4>
+                                            <span class="cv-chart-badge">Unidad: μm/m³</span>
+                                        </div>
+                                        <div id="chart-a_pm4_ugm3" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
 
