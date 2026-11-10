@@ -238,12 +238,14 @@
                                 <i class="fas fa-sun"></i> Ambiente
                             </a>
                         </li>
+                    <!--
                         <li class="nav-item">
                             <a class="nav-link" id="tab-suelo-link" data-toggle="pill" href="#tab-suelo" role="tab"
                                 aria-controls="tab-suelo" aria-selected="false">
                                 <i class="fas fa-seedling"></i> Suelo
                             </a>
                         </li>
+                    -->
                         <li class="nav-item">
                             <a class="nav-link" id="tab-gases-link" data-toggle="pill" href="#tab-gases" role="tab"
                                 aria-controls="tab-gases" aria-selected="false">
@@ -728,15 +730,15 @@
                                             </span>
                                         </div>
                                         <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="nh3-value">?</span>
+                                            <span class="cv-card-value" id="amon-value">?</span>
                                             <span class="cv-card-unit">ppm</span>
                                         </div>
                                         <div class="cv-card-range">
                                             <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="nh3-max"></i>
+                                                <i class="fas fa-arrow-up mr-1" id="amon-max"></i>
                                             </span>
                                             <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="nh3-min"></i>
+                                                <i class="fas fa-arrow-down mr-1" id="amon-min"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -752,15 +754,15 @@
                                             </span>
                                         </div>
                                         <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="temp_nh3-value">?</span>
+                                            <span class="cv-card-value" id="temp_f-value">?</span>
                                             <span class="cv-card-unit">°C</span>
                                         </div>
                                         <div class="cv-card-range">
                                             <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="temp_nh3-max"></i>
+                                                <i class="fas fa-arrow-up mr-1" id="temp_f-max"></i>
                                             </span>
                                             <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="temp_nh3-min"></i>
+                                                <i class="fas fa-arrow-down mr-1" id="temp_f-min"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -776,15 +778,15 @@
                                             </span>
                                         </div>
                                         <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="hum_nh3-value">?</span>
+                                            <span class="cv-card-value" id="hum-value">?</span>
                                             <span class="cv-card-unit">%</span>
                                         </div>
                                         <div class="cv-card-range">
                                             <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="hum_nh3-max"></i>
+                                                <i class="fas fa-arrow-up mr-1" id="hum-max"></i>
                                             </span>
                                             <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="hum_nh3-min"></i>
+                                                <i class="fas fa-arrow-down mr-1" id="hum-min"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -909,7 +911,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: ppm</span>
                                         </div>
-                                        <div id="chart-nh3" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-amon" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
                                 
@@ -921,7 +923,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: °C</span>
                                         </div>
-                                        <div id="chart-temp_nh3" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-temp_f" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -933,7 +935,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: %</span>
                                         </div>
-                                        <div id="chart-hum_nh3" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-hum" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 

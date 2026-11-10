@@ -31,11 +31,14 @@ const VARIABLES = [
     "event_rain_mm", // Lluvia en MM durante el evento
     
     // SECCIÓN SUELO (Por el momento no existen las variables)
-    
+
+];
+
+const GAS_VARIABLES = [
     // SECCIÓN GASES
-    "nh3", // Amoniaco
-    "temp_nh3", // Temperatura
-    "hum_nh3", // Humedad
+    "amon", // Amoniaco
+    "temp_f", // Temperatura
+    "hum", // Humedad
     "h2s", // Ácido sulfhídrico
     "o2", // Oxígeno
     "co", // Monóxido de carbono
@@ -59,9 +62,9 @@ const VARIABLE_NAMES = {
     // SECCIÓN SUELO (Por el momento no existen las variables)
     
     // SECCIÓN GASES
-    nh3: "Amoniaco (NH3)",
-    temp_nh3: "Temperatura (NH3)",
-    hum_nh3: "Humedad (NH3)",
+    amon: "Amoniaco (NH3)",
+    temp_f: "Temperatura (NH3)",
+    hum: "Humedad (NH3)",
     h2s: "Sulfuro de hidrógeno (H2S)",
     o2: "Oxígeno (O)",
     co: "Monóxido de carbono (CO)",
@@ -84,15 +87,19 @@ const CHART_MAP = {
     suelo: [
         { campo: "Humedad del suelo", chartId: "chart-suelo-humedad" },
         { campo: "Temperatura del suelo", chartId: "chart-suelo-temperatura" }
-    ],
+    ]
+};
+
+// Asignar una gráfica a cada variable
+const GAS_CHART_MAP = {
     gases: [
-        { campo: "nh3", chartId: "chart-nh3" },
-        { campo: "temp_nh3", chartId: "chart-temp_nh3" },
-        { campo: "hum_nh3", chartId: "chart-hum_nh3" },
-        { campo: "h2s", chartId: "chart-h2s" },
-        { campo: "co", chartId: "chart-co" },
-        { campo: "o2", chartId: "chart-o2" },
-        { campo: "lel", chartId: "chart-lel" }
+        { campo: "amon",chartId: "chart-amon" },
+        { campo: "temp_f",chartId: "chart-temp_f" },
+        { campo: "hum",chartId: "chart-hum" },
+        { campo: "h2s",chartId: "chart-h2s" },
+        { campo: "co",chartId: "chart-co" },
+        { campo: "o2",chartId: "chart-o2" },
+        { campo: "lel",chartId: "chart-lel" }
     ]
 };
 
@@ -116,12 +123,12 @@ const chartConfigs = {
     ],
     gases: [
         { id: 'chart-h2s',name: 'Sulfuro de hidrógeno (H2S)',unit: 'ppm',color: '#26A69A',data: [],decimals: 1 },
-        { id: 'chart-nh3',name: 'Amoniaco (NH3)',unit: 'ppm',color: '#FFA726',data: [],decimals: 1 },
+        { id: 'chart-amon',name: 'Amoniaco (NH3)',unit: 'ppm',color: '#FFA726',data: [],decimals: 1 },
         { id: 'chart-co',name: 'Monóxido de carbono (CO)',unit: 'ppm',color: '#EF5350',data: [],decimals: 0 },
         { id: 'chart-o2',name: 'Oxígeno (O)',unit: 'ppm',color: '#42A5F5',data: [],decimals: 1 },
         { id: 'chart-lel',name: 'LEL',unit: 'ppb',color: '#AB47BC',data: [],decimals: 0 },
-        { id: 'chart-temp_nh3',name: 'Temperatura NH3',unit: '°C',color: '#FF7043',data: [],decimals: 1 },
-        { id: 'chart-hum_nh3',name: 'Humedad NH3',unit: '%',color: '#29B6F6',data: [],min: 0,max: 100,decimals: 0 }
+        { id: 'chart-temp_f',name: 'Temperatura NH3',unit: '°C',color: '#FF7043',data: [],decimals: 1 },
+        { id: 'chart-hum',name: 'Humedad NH3',unit: '%',color: '#29B6F6',data: [],min: 0,max: 100,decimals: 0 }
     ]
 };
 
@@ -211,13 +218,26 @@ function setCampaignEvent() {
 
 async function renderCampaign(path) {
     try {
-        const csvItem = await getCSV(path);
         establishCampaignName(path);
-
+        const csvItem = await getCSV(path);
         const variables = await readCsv(csvItem.download_url);
+        
+        const gasCsv = await getCSV(path,"gases.csv")
+        if (gasCsv) {
+            console.log("si we si hay gas");
+            const gasVariables = await readCsv(gasCsv.download_url);
+            updateGasCards(gasVariables);
+            updateGasCharts(gasVariables);
+        } else {
+            updateCards(variables, theresGas=false);
+            updateAllCharts(variables,theresGas=false);
+            updateWindCompass(variables);
+            return;
+        }
+        
         updateCards(variables);
-        updateWindCompass(variables);
         updateAllCharts(variables);
+        updateWindCompass(variables);
     } catch (err) {
         console.error("Error cargando campaña:",err);
     }
@@ -341,7 +361,7 @@ function calculateMode(values) {
     return moda;
 }
 
-function updateCards(csvRows) {
+function updateCards(csvRows, theresGas=true) {
     VARIABLES.forEach(variable => {
         const values = csvRows
             .map(row => row[variable])
@@ -374,9 +394,30 @@ function updateCards(csvRows) {
         if (maxText) maxText.textContent = values.length ? finalValues.maximo.toFixed(2) : "--";
         if (minText) minText.textContent = values.length ? finalValues.minimo.toFixed(2) : "--";
     });
+    
+    if (!theresGas) updateGasCards(csvRows);
 }
 
-function updateAllCharts(csvRows) {
+function updateGasCards(csvRows) {
+    GAS_VARIABLES.forEach(variable => {
+        const values = csvRows
+            .map(row => row[variable])
+            .filter(v => v !== null && v !== undefined && v !== '' && !isNaN(v))
+            .map(Number);
+
+        const avgText = document.getElementById(`${variable}-value`);
+        const maxText = document.getElementById(`${variable}-max`);
+        const minText = document.getElementById(`${variable}-min`);
+
+        const finalValues = calculateFinalValues(values);
+
+        if (avgText) avgText.textContent = values.length ? finalValues.promedio.toFixed(2) : "N/A";
+        if (maxText) maxText.textContent = values.length ? finalValues.maximo.toFixed(2) : "--";
+        if (minText) minText.textContent = values.length ? finalValues.minimo.toFixed(2) : "--";
+    });
+}
+
+function updateAllCharts(csvRows, theresGas=true) {
     if (!window.chartById) return;
 
     const hasTimestamps = csvRows.some(r => extractTimestamp(r) !== null);
@@ -385,6 +426,72 @@ function updateAllCharts(csvRows) {
 
     Object.keys(CHART_MAP).forEach(group => {
         CHART_MAP[group].forEach(({ campo,chartId }) => {
+            const chart = window.chartById[chartId];
+            if (!chart) return;
+            const readableName = VARIABLE_NAMES[campo] || campo;
+            let seriesData;
+            let xaxisOpts;
+
+            if (hasTimestamps) {
+                seriesData = csvRows
+                    .map(r => {
+                        const ts = extractTimestamp(r);
+                        const v = r[campo];
+                        if (!ts || v === null || v === undefined || v === '' || isNaN(v)) return null;
+                        return { x: ts.getTime(),y: Number(v) };
+                    })
+                    .filter(Boolean);
+
+                xaxisOpts = {
+                    type: 'datetime',
+                    labels: {
+                        datetimeUTC: false,
+                        style: { fontSize: '11px' },
+                        formatter: function (value) {
+                            const d = new Date(value);
+                            const hh = String(d.getHours()).padStart(2,'0');
+                            const mm = String(d.getMinutes()).padStart(2,'0');
+                            return `${hh}:${mm}`;
+                        }
+                    }
+                };
+            } else {
+                seriesData = csvRows.map(r => {
+                    const v = r[campo];
+                    return (v === null || v === undefined || v === '' || isNaN(v)) ? null : Number(v);
+                });
+                xaxisOpts = {
+                    type: 'category',
+                    categories: csvRows.map((_,i) => `#${i + 1}`)
+                };
+            }
+
+            // Actualizar el título del eje Y con el nombre legible
+            chart.updateOptions({
+                xaxis: xaxisOpts,
+                yaxis: {
+                    title: { text: readableName }
+                },
+                markers: { size: markerSize }
+            },false,false);
+
+            // Actualizar la serie con el nombre legible
+            chart.updateSeries([{ name: readableName,data: seriesData }],true);
+        });
+    });
+    
+    if (!theresGas) updateGasCharts(csvRows);
+}
+
+function updateGasCharts(csvRows) {
+    if (!window.chartById) return;
+
+    const hasTimestamps = csvRows.some(r => extractTimestamp(r) !== null);
+    const total = csvRows.length;
+    const markerSize = total > 500 ? 0 : (total > 200 ? 1.5 : 3.5);
+
+    Object.keys(GAS_CHART_MAP).forEach(group => {
+        GAS_CHART_MAP[group].forEach(({ campo,chartId }) => {
             const chart = window.chartById[chartId];
             if (!chart) return;
             const readableName = VARIABLE_NAMES[campo] || campo;
@@ -727,13 +834,29 @@ function formatCampaignName(campaignName) {
     return fechaFormateada;
 }
 
-async function getCSV(campaignPath) {
+async function getCSV(campaignPath, fileName) {
     const items = await getContents(campaignPath);
-    const csvItem = items.find(i => i.type === "file" && /\.csv$/i.test(i.name));
+    let csvItem;
+    
+    if (fileName) {
+        csvItem = items.find(i => {
+            if (i.type !== "file") return false;
+            if (!/\.csv$/i.test(i.name)) return false;
+
+            if (fileName instanceof RegExp) return fileName.test(i.name);
+
+            return i.name.toLowerCase() === fileName.toLowerCase()
+                || i.name.toLowerCase().includes(fileName.toLowerCase());
+        });
+    } else {
+        csvItem = items.find(i => i.type === "file" && /\.csv$/i.test(i.name));
+    }
+    
     if (!csvItem) {
         console.warn(`No se encontró CSV en ${campaignPath}`);
         return;
     }
+    
     return csvItem;
 }
 
