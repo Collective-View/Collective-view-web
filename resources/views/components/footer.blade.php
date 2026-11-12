@@ -9,6 +9,7 @@
                 <div class="footer-logos">
                     <img src="../images/logo-ecosur.png" alt="ECOSUR">
                     <img src="../images/logo-conahcyt.png" alt="CONAHCYT">
+                    <img src="../images/logo-upb.png" alt="UPB">
                     <img src="../images/logo-utchetumal.png" alt="UTChetumal">
                     <img src="../images/logo-uqroo.png" alt="UQROO">
                 </div>
