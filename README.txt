@@ -48,7 +48,7 @@ INSTALACIÓN DEL PROYECTO
 
 
 BASE DE DATOS
----------------------------------
+----------------------------------
 - Abrir XAMPP y encender los módulos Apache y MySQL.
 - Ir a http://localhost/phpmyadmin en el navegador.
 - Crear una nueva base de datos llamada "collective-view".
