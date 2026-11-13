@@ -107,6 +107,14 @@
     <div class="cv-dashboard">
         <div class="container-fluid px-0">
             <div class="cv-layout-wrapper">
+                <!-- BOTÓN MOSTRAR / OCULTAR CAMPAÑAS: fijo en pantalla, siempre visible al hacer scroll -->
+                <button class="cv-sidebar-toggle-btn" id="cvSidebarToggle" type="button"
+                    title="Mostrar / ocultar campañas" aria-label="Mostrar u ocultar la lista de campañas" aria-controls="cvSidebar">
+                    <i class="fas fa-chevron-left cv-toggle-icon-desktop" aria-hidden="true"></i>
+                    <i class="fas fa-folder-open cv-toggle-icon-mobile" aria-hidden="true"></i>
+                    <span class="cv-sidebar-toggle-label">Campañas</span>
+                </button>
+
                 <!-- SIDEBAR RETRÁCTIL ("Campañas") FIJO AL HACER SCROLL -->
                 <aside class="cv-sidebar" id="cvSidebar">
                     <div class="cv-sidebar-top-header">
@@ -114,18 +122,24 @@
                             <i class="fas fa-folder-open text-muted mr-1"></i>
                             <span>Campañas</span>
                         </div>
-                        <!-- Botón de filtros de búsqueda -->
-                        <button class="cv-sidebar-filter-btn" id="cvSidebarFilterBtn" type="button" title="Filtros de búsqueda" aria-label="Abrir filtros de búsqueda">
-                            <i class="fas fa-filter"></i>
-                            <span class="cv-filter-indicator-dot" id="cvFilterDot" style="display: none;"></span>
-                        </button>
+                        <div class="cv-sidebar-header-actions">
+                            <!-- Botón de filtros de búsqueda -->
+                            <button class="cv-sidebar-filter-btn" id="cvSidebarFilterBtn" type="button" title="Filtros de búsqueda" aria-label="Abrir filtros de búsqueda">
+                                <i class="fas fa-filter"></i>
+                                <span class="cv-filter-indicator-dot" id="cvFilterDot" style="display: none;"></span>
+                            </button>
+                            <!-- Cerrar la lista (solo tablet / celular) -->
+                            <button class="cv-sidebar-filter-btn cv-sidebar-close-btn" id="cvSidebarClose" type="button" title="Cerrar" aria-label="Cerrar la lista de campañas">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- PANEL DESPLEGABLE DE FILTROS DE BÚSQUEDA -->
                     <div class="cv-sidebar-filters-panel" id="cvSidebarFiltersPanel">
                         <div class="cv-filters-panel-header">
                             <span class="cv-filters-panel-title">
-                                <i class="fas fa-sliders-h mr-1 text-primary"></i> Filtros
+                                <i class="fas fa-sliders-h mr-1 cv-filters-panel-icon"></i> Filtros
                             </span>
                             <button type="button" class="cv-filters-close-btn" id="cvFiltersCloseBtn" title="Cerrar filtros">
                                 <i class="fas fa-times"></i>
@@ -167,7 +181,7 @@
                         </div>
 
                         <!-- Botones de Acción -->
-                        <div class="d-flex align-items-center justify-content-between pt-1">
+                        <div class="cv-filter-actions">
                             <button type="button" class="btn btn-sm cv-btn-filter-apply" id="btn-apply-filters">
                                 <i class="fas fa-check mr-1"></i> Aplicar
                             </button>
@@ -192,21 +206,18 @@
                 <!-- MAIN CONTENT -->
                 <main class="cv-main" id="cvMain">
                     <!-- HEADER -->
-                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-start mb-4">
+                    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-start mb-4">
                         <div class="d-flex align-items-center">
-                            <button class="cv-sidebar-toggle-btn mr-3" id="cvSidebarToggle" type="button" title="Ocultar / Mostrar Campañas" aria-label="Toggle campañas">
-                                <i class="fas fa-bars" id="cvSidebarToggleIcon"></i>
-                            </button>
                             <div>
                                 <h1 class="cv-title">MONITOREO AMBIENTAL</h1>
                             </div>
                         </div>
 
-                        <div class="cv-header-actions mt-3 mt-md-0 d-flex flex-wrap align-items-center">
+                        <div class="cv-header-actions mt-3 mt-lg-0">
                             <!-- Botón Modo Oscuro / Claro -->
                             <button class="cv-btn-download cv-btn-theme-toggle mr-2" id="cvThemeToggle" type="button" title="Alternar Modo Oscuro / Modo Claro">
                                 <i class="fas fa-moon" id="cvThemeIcon"></i>
-                                <div>
+                                <div class="cv-btn-label">
                                     <div id="cvThemeModeLabel">Modo</div>
                                     <div style="font-size: 0.75rem; opacity: 0.9; text-transform: uppercase;" id="cvThemeModeSub">Oscuro</div>
                                 </div>
@@ -254,6 +265,31 @@
                         </li>
                     </ul>
 
+                    <!-- BARRA DESLIZADORA: recorrer las lecturas de la campaña (solo diseño).
+                         Para conectarla (backend):
+                           #cvTimeSlider          -> min = 1, max = total de lecturas, value = lectura mostrada
+                           #cvTimeSliderStart/End -> hora de la primera / última lectura
+                           #cvTimeSliderCurrent   -> hora de la lectura seleccionada (va bajo el punto)
+                           #cvTimeSliderDate      -> fecha de la campaña
+                           "Lectura X de Y" se calcula solo desde min/max/value.
+                           Si cambian min/max/value o los textos por código, llamar window.cvUpdateTimeSliderUI().
+                         Los valores escritos abajo son de EJEMPLO. -->
+                    <div class="cv-time-slider" id="cvTimeSliderWrap">
+                        <div class="cv-time-slider-row">
+                            <span class="cv-time-slider-edge" id="cvTimeSliderStart">10:15</span>
+                            <div class="cv-time-slider-track" id="cvTimeSliderTrack" style="--cv-slider-p: 0.4035;">
+                                <input type="range" class="cv-time-slider-input" id="cvTimeSlider"
+                                    min="1" max="58" step="1" value="24"
+                                    aria-label="Recorrer las lecturas de la campaña" aria-describedby="cvTimeSliderCaption">
+                                <output class="cv-time-slider-current" id="cvTimeSliderCurrent" for="cvTimeSlider">11:21</output>
+                            </div>
+                            <span class="cv-time-slider-edge" id="cvTimeSliderEnd">12:58</span>
+                        </div>
+                        <p class="cv-time-slider-caption" id="cvTimeSliderCaption">
+                            Lectura <strong id="cvTimeSliderIndex">24</strong> de <span id="cvTimeSliderTotal">58</span> - <span id="cvTimeSliderDate">03/Nov/26</span>
+                        </p>
+                    </div>
+
                     <!-- TABS CONTENT -->
                     <div class="tab-content" id="cvDashboardContent">
 
@@ -275,15 +311,6 @@
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="wind_ms-value">?</span>
                                             <span class="cv-card-unit">mph</span>
-                                        </div>
-
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="wind_ms-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="wind_ms-min"></i>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -346,15 +373,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="wind_dir_10min_deg-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="wind_dir_10min_deg-min"></i>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -370,14 +388,6 @@
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="out_temp_c-value">?</span>
                                             <span class="cv-card-unit">°C</span>
-                                        </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="out_temp_c-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="out_temp_c-min"></i>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -395,14 +405,6 @@
                                             <span class="cv-card-value" id="out_hum-value">?</span>
                                             <span class="cv-card-unit">%</span>
                                         </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="out_hum-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="out_hum-min"></i>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
                                 
@@ -418,14 +420,6 @@
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="out_feels_like_c-value">?</span>
                                             <span class="cv-card-unit">°C</span>
-                                        </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="out_feels_like_c-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="out_feels_like_c-min"></i>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -443,14 +437,6 @@
                                             <span class="cv-card-value" id="rel_pres_hpa-value">?</span>
                                             <span class="cv-card-unit">hPa</span>
                                         </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="rel_pres_hpa-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="rel_pres_hpa-min"></i>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -466,14 +452,6 @@
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="solar_rad_wm2-value">?</span>
                                             <span class="cv-card-unit">W/m²</span>
-                                        </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="solar_rad_wm2-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="solar_rad_wm2-min"></i>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -491,14 +469,6 @@
                                             <span class="cv-card-value" id="uv_index-value">?</span>
                                             <span class="cv-card-unit">UV</span>
                                         </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="uv_index-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="uv_index-min"></i>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -514,12 +484,6 @@
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="event_rain_mm-value">?</span>
                                             <span class="cv-card-unit">mm</span>
-                                        </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -537,15 +501,6 @@
                                             <span class="cv-card-value" id="a_temp_c-value">?</span>
                                             <span class="cv-card-unit">°C</span>
                                         </div>
-
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="a_temp_c-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="a_temp_c-min"></i>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
                                 
@@ -561,15 +516,6 @@
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="a_hum-value">?</span>
                                             <span class="cv-card-unit">%</span>
-                                        </div>
-
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="a_hum-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="a_hum-min"></i>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -587,15 +533,6 @@
                                             <span class="cv-card-value" id="a_co2_ppm-value">?</span>
                                             <span class="cv-card-unit">ppm</span>
                                         </div>
-
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="a_co2_ppm-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="a_co2_ppm-min"></i>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
                                 
@@ -611,15 +548,6 @@
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="a_pm2_5_ugm3-value">?</span>
                                             <span class="cv-card-unit">μm/m³</span>
-                                        </div>
-
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="a_pm2_5_ugm3-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="a_pm2_5_ugm3-min"></i>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -637,15 +565,6 @@
                                             <span class="cv-card-value" id="a_pm10_ugm3-value">?</span>
                                             <span class="cv-card-unit">μm/m³</span>
                                         </div>
-
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="a_pm10_ugm3-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="a_pm10_ugm3-min"></i>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
                                 
@@ -662,15 +581,6 @@
                                             <span class="cv-card-value" id="a_pm1_ugm3-value">?</span>
                                             <span class="cv-card-unit">μm/m³</span>
                                         </div>
-
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="a_pm1_ugm3-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="a_pm1_ugm3-min"></i>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
                                 
@@ -686,15 +596,6 @@
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="a_pm4_ugm3-value">?</span>
                                             <span class="cv-card-unit">μm/m³</span>
-                                        </div>
-
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="a_pm4_ugm3-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="a_pm4_ugm3-min"></i>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -910,14 +811,6 @@
                                             <span class="cv-card-value" id="placeholder-value">0.00</span>
                                             <span class="cv-card-unit">°C</span>
                                         </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="placeholder-max">0.00</i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="placeholder-min">0.00</i>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -933,14 +826,6 @@
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="placeholder-value">0.00</span>
                                             <span class="cv-card-unit">%</span>
-                                        </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="placeholder-max">0.00</i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="placeholder-min">0.00</i>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -990,14 +875,6 @@
                                             <span class="cv-card-value" id="amon-value">?</span>
                                             <span class="cv-card-unit">ppm</span>
                                         </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="amon-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="amon-min"></i>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -1013,14 +890,6 @@
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="temp_f-value">?</span>
                                             <span class="cv-card-unit">°C</span>
-                                        </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="temp_f-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="temp_f-min"></i>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -1038,14 +907,6 @@
                                             <span class="cv-card-value" id="hum-value">?</span>
                                             <span class="cv-card-unit">%</span>
                                         </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="hum-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="hum-min"></i>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -1061,14 +922,6 @@
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="h2s-value">?</span>
                                             <span class="cv-card-unit">ppm</span>
-                                        </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="h2s-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="h2s-min"></i>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -1086,14 +939,6 @@
                                             <span class="cv-card-value" id="o2-value">?</span>
                                             <span class="cv-card-unit">%</span>
                                         </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="o2-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="o2-min"></i>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -1110,14 +955,6 @@
                                             <span class="cv-card-value" id="co-value">?</span>
                                             <span class="cv-card-unit">ppm</span>
                                         </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="co-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="co-min"></i>
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -1133,14 +970,6 @@
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="lel-value">?</span>
                                             <span class="cv-card-unit">%</span>
-                                        </div>
-                                        <div class="cv-card-range">
-                                            <span class="cv-range-item cv-range-high">
-                                                <i class="fas fa-arrow-up mr-1" id="lel-max"></i>
-                                            </span>
-                                            <span class="cv-range-item cv-range-low">
-                                                <i class="fas fa-arrow-down mr-1" id="lel-min"></i>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>

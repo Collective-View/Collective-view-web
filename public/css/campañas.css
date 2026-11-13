@@ -96,6 +96,8 @@
         width: 100%;
         max-width: 100%;
         flex: 0 0 100%;
+        /* deja aire para la pestaña "Campañas" pegada al borde izquierdo */
+        padding-left: 3.5rem;
     }
 }
 
@@ -186,6 +188,17 @@
     box-shadow: 0 2px 8px rgba(11, 122, 92, 0.3);
 }
 
+/* Botones a la derecha de "Campañas": filtros + cerrar (cerrar solo en tablet / celular) */
+.cv-dashboard .cv-sidebar-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.cv-dashboard .cv-sidebar-close-btn {
+    display: none;
+}
+
 /* Green dot on filter button when active filters exist */
 .cv-dashboard .cv-filter-indicator-dot {
     position: absolute;
@@ -202,7 +215,8 @@
 .cv-dashboard .cv-sidebar-filters-panel {
     background-color: var(--cv-mint-light);
     border: 1px solid rgba(31, 191, 159, 0.3);
-    border-radius: var(--cv-radius-md);
+    /* --cv-radius-md no estaba definida y el panel salía con esquinas cuadradas */
+    border-radius: var(--cv-radius-md, 14px);
     box-shadow: 0 4px 14px rgba(11, 122, 92, 0.06);
     max-height: 0;
     overflow: hidden;
@@ -215,7 +229,7 @@
 }
 
 .cv-dashboard .cv-sidebar-filters-panel.cv-panel-open {
-    max-height: 520px;
+    max-height: 600px;
     opacity: 1;
     transform: translateY(0);
     padding: 0.95rem;
@@ -241,6 +255,10 @@
     letter-spacing: 0.5px;
     display: flex;
     align-items: center;
+}
+
+.cv-dashboard .cv-filters-panel-icon {
+    color: var(--cv-teal);
 }
 
 .cv-dashboard .cv-filters-close-btn {
@@ -291,6 +309,32 @@
     outline: none;
 }
 
+/* Desplegables con flechita propia (antes no se notaba que eran desplegables) */
+.cv-dashboard select.cv-filter-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-right: 2rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%238A99A5' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 11px 8px;
+    cursor: pointer;
+}
+
+/* Aplicar / Limpiar: mismo ancho, lado a lado */
+.cv-dashboard .cv-filter-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    padding-top: 0.25rem;
+}
+
+.cv-dashboard .cv-filter-actions .btn {
+    width: 100%;
+    justify-content: center;
+}
+
 .cv-dashboard .cv-btn-filter-apply {
     background: linear-gradient(135deg, var(--cv-primary), var(--cv-teal));
     color: #FFFFFF !important;
@@ -312,8 +356,9 @@
 
 .cv-dashboard .cv-btn-filter-reset {
     background: transparent;
-    border: 1px solid var(--cv-border);
-    color: var(--cv-text-muted);
+    /* más oscuro que --cv-text-muted: sobre el fondo menta del panel casi no se leía */
+    border: 1px solid rgba(33, 77, 84, 0.22);
+    color: #52606D;
     font-weight: 600;
     font-size: 0.76rem;
     padding: 0.38rem 0.75rem;
@@ -374,33 +419,121 @@
 }
 
 
-/* Sidebar Toggle Button (Junto al título DASHBOARD) */
+/* ==========================================================================
+   BOTÓN MOSTRAR / OCULTAR "CAMPAÑAS"
+   Fijo en pantalla para que nunca se pierda al hacer scroll.
+   - Escritorio: pestaña pegada al borde del sidebar que viaja con él.
+   - Móvil / tablet: botón flotante abajo a la izquierda.
+   ========================================================================== */
 .cv-dashboard .cv-sidebar-toggle-btn {
-    background-color: var(--cv-card-bg);
-    border: 1px solid var(--cv-border);
-    color: var(--cv-primary);
-    width: 44px;
-    height: 44px;
-    border-radius: 14px;
+    position: fixed;
+    z-index: 1021;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 0.55rem;
+    margin: 0;
+    background-color: var(--cv-card-bg);
+    border: 1px solid var(--cv-border);
+    color: var(--cv-primary);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    line-height: 1;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(16, 42, 67, 0.05);
-    transition: all 0.25s ease;
-    flex-shrink: 0;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .cv-dashboard .cv-sidebar-toggle-btn:hover {
     background-color: var(--cv-mint-light);
     border-color: var(--cv-mint);
     color: var(--cv-primary-dark);
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(11, 122, 92, 0.18);
 }
 
-.cv-dashboard .cv-sidebar-toggle-btn i {
-    font-size: 1.1rem;
+.cv-dashboard .cv-sidebar-toggle-btn:focus {
+    outline: none;
+}
+
+.cv-dashboard .cv-sidebar-toggle-btn:focus-visible {
+    outline: 2px solid var(--cv-teal);
+    outline-offset: 2px;
+}
+
+.cv-dashboard .cv-sidebar-toggle-label {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.72rem;
+}
+
+@media (min-width: 992px) {
+    /* Pestaña: alineada con el encabezado "Campañas" del sidebar */
+    .cv-dashboard .cv-sidebar-toggle-btn {
+        top: calc(72px + 1.5rem);
+        left: 0;
+        flex-direction: column;
+        width: 24px;
+        min-height: 44px;
+        padding: 0.9rem 0;
+        border-left: 0;
+        border-radius: 0 12px 12px 0;
+        box-shadow: 3px 2px 10px rgba(16, 42, 67, 0.08);
+        transform: translateX(260px);
+    }
+
+    .cv-dashboard.cv-sidebar-collapsed .cv-sidebar-toggle-btn {
+        transform: translateX(0);
+    }
+
+    .cv-dashboard .cv-toggle-icon-mobile {
+        display: none;
+    }
+
+    .cv-dashboard .cv-toggle-icon-desktop {
+        font-size: 0.75rem;
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cv-dashboard.cv-sidebar-collapsed .cv-toggle-icon-desktop {
+        transform: rotate(180deg);
+    }
+
+    /* Con el sidebar oculto, la pestaña muestra "CAMPAÑAS" en vertical */
+    .cv-dashboard .cv-sidebar-toggle-label {
+        display: none;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+    }
+
+    .cv-dashboard.cv-sidebar-collapsed .cv-sidebar-toggle-label {
+        display: block;
+    }
+}
+
+@media (max-width: 991.98px) {
+    /* Botón flotante: al alcance del pulgar, lejos del "volver arriba" (derecha) */
+    .cv-dashboard .cv-sidebar-toggle-btn {
+        left: 1rem;
+        bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+        z-index: 1025;
+        height: 44px;
+        padding: 0 1.15rem;
+        border-radius: 999px;
+        box-shadow: 0 6px 18px rgba(16, 42, 67, 0.22);
+    }
+
+    .cv-dashboard .cv-toggle-icon-desktop {
+        display: none;
+    }
+
+    .cv-dashboard .cv-toggle-icon-mobile {
+        font-size: 0.95rem;
+    }
+
+    /* Solo en esta página: el copyright del footer no queda tapado por el botón flotante */
+    .cv-dashboard ~ .copyright {
+        padding-bottom: calc(44px + 1.5rem + env(safe-area-inset-bottom, 0px));
+    }
 }
 
 /* Mobile backdrop */
@@ -543,6 +676,183 @@
 }
 
 /* ==========================================================================
+   BARRA DESLIZADORA DE LECTURAS (entre las pestañas y las tarjetas)
+   --cv-slider-p: posición del punto de 0 a 1 (la pone campañas.js)
+   ========================================================================== */
+.cv-dashboard .cv-time-slider {
+    --cv-slider-thumb: 20px;
+    --cv-slider-fill: var(--cv-teal);
+    --cv-slider-rail: var(--cv-border);
+    --cv-slider-text: var(--cv-primary);
+    margin: 0 0 1.75rem;
+    padding: 0 0.25rem;
+}
+
+.cv-dashboard .cv-time-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cv-dashboard .cv-time-slider-edge {
+    flex-shrink: 0;
+    min-width: 2.75rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    color: var(--cv-text-muted);
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
+
+.cv-dashboard .cv-time-slider-track {
+    --cv-slider-p: 0;
+    --cv-slider-x: calc(var(--cv-slider-p) * (100% - var(--cv-slider-thumb)) + var(--cv-slider-thumb) / 2);
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    height: var(--cv-slider-thumb);
+}
+
+/* Input range: se quita el estilo del navegador y se dibuja a mano */
+.cv-dashboard .cv-time-slider-input {
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    width: 100%;
+    height: var(--cv-slider-thumb);
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.cv-dashboard .cv-time-slider-input:focus {
+    outline: none;
+}
+
+.cv-dashboard .cv-time-slider-input::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(to right,
+            var(--cv-slider-fill) 0,
+            var(--cv-slider-fill) var(--cv-slider-x),
+            var(--cv-slider-rail) var(--cv-slider-x),
+            var(--cv-slider-rail) 100%);
+}
+
+.cv-dashboard .cv-time-slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: var(--cv-slider-thumb);
+    height: var(--cv-slider-thumb);
+    margin-top: calc((6px - var(--cv-slider-thumb)) / 2);
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 3px solid var(--cv-slider-fill);
+    box-shadow: 0 2px 6px rgba(16, 42, 67, 0.25);
+    cursor: grab;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cv-dashboard .cv-time-slider-input::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--cv-slider-rail);
+}
+
+.cv-dashboard .cv-time-slider-input::-moz-range-progress {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--cv-slider-fill);
+}
+
+.cv-dashboard .cv-time-slider-input::-moz-range-thumb {
+    box-sizing: border-box;
+    width: var(--cv-slider-thumb);
+    height: var(--cv-slider-thumb);
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 3px solid var(--cv-slider-fill);
+    box-shadow: 0 2px 6px rgba(16, 42, 67, 0.25);
+    cursor: grab;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cv-dashboard .cv-time-slider-input:hover::-webkit-slider-thumb {
+    transform: scale(1.12);
+}
+
+.cv-dashboard .cv-time-slider-input:hover::-moz-range-thumb {
+    transform: scale(1.12);
+}
+
+.cv-dashboard .cv-time-slider-input:active::-webkit-slider-thumb {
+    cursor: grabbing;
+    transform: scale(1.18);
+}
+
+.cv-dashboard .cv-time-slider-input:active::-moz-range-thumb {
+    cursor: grabbing;
+    transform: scale(1.18);
+}
+
+.cv-dashboard .cv-time-slider-input:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 2px 6px rgba(16, 42, 67, 0.25), 0 0 0 4px rgba(73, 168, 182, 0.45);
+}
+
+.cv-dashboard .cv-time-slider-input:focus-visible::-moz-range-thumb {
+    box-shadow: 0 2px 6px rgba(16, 42, 67, 0.25), 0 0 0 4px rgba(73, 168, 182, 0.45);
+}
+
+.cv-dashboard .cv-time-slider-input:disabled {
+    cursor: default;
+    opacity: 0.45;
+}
+
+/* Hora de la lectura seleccionada, siempre bajo el punto */
+.cv-dashboard .cv-time-slider-current {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: var(--cv-slider-x);
+    transform: translateX(-50%);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    color: var(--cv-slider-text);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.cv-dashboard .cv-time-slider-caption {
+    margin: 2.1rem 0 0;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--cv-text-muted);
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.cv-dashboard .cv-time-slider-caption strong {
+    color: var(--cv-text-charcoal);
+    font-weight: 700;
+}
+
+@media (max-width: 575.98px) {
+    .cv-dashboard .cv-time-slider-row {
+        gap: 0.65rem;
+    }
+
+    .cv-dashboard .cv-time-slider-edge {
+        min-width: 2.4rem;
+        font-size: 0.72rem;
+    }
+}
+
+/* ==========================================================================
    METRIC CARDS - UNIFORM SIZE & PROPORTIONS
    ========================================================================== */
 .cv-dashboard .tab-pane .row>[class*="col-"] {
@@ -663,33 +973,12 @@
     color: #0E6245;
 }
 
-/* Row 4: Range / Min-Max */
-.cv-dashboard .cv-card-range {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.15rem;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding-top: 0.55rem;
-    margin-bottom: 0.6rem;
-    border-top: 1px dashed #E2E8F0;
-    transition: border-color 0.3s ease;
-}
-
-.cv-dashboard .cv-range-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.cv-dashboard .cv-range-high {
-    color: #DE5B38;
-}
-
-.cv-dashboard .cv-range-low {
-    color: #2680EB;
+/* Tarjetas solo con título + dato principal (sin renglón de máx/mín):
+   el dato se centra en el espacio bajo el título */
+.cv-dashboard .cv-metric-card .cv-card-main-val,
+.cv-dashboard .cv-metric-card .cv-wind-dial-wrap {
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 /* Row 5: Footer Info Row */
@@ -1175,8 +1464,7 @@ body.cv-dark-mode .cv-sidebar-toggle-btn,
 .cv-dashboard.cv-dark .cv-sidebar-toggle-btn {
     background-color: #242629;
     border-color: #3A3E44;
-    color: #FFF;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    color: #E2E8F0;
 }
 
 body.cv-dark-mode .cv-sidebar-toggle-btn:hover,
@@ -1210,6 +1498,14 @@ body.cv-dark-mode .cv-tab-nav .nav-link.active,
     border-color: rgba(31, 191, 159, 0)
 }
 
+/* Barra deslizadora de lecturas */
+body.cv-dark-mode .cv-time-slider,
+.cv-dashboard.cv-dark .cv-time-slider {
+    --cv-slider-fill: var(--cv-mint);
+    --cv-slider-rail: #33363B;
+    --cv-slider-text: var(--cv-mint);
+}
+
 /* Tarjetas de Métricas */
 body.cv-dark-mode .cv-metric-card,
 .cv-dashboard.cv-dark .cv-metric-card {
@@ -1232,11 +1528,6 @@ body.cv-dark-mode .cv-card-value,
 body.cv-dark-mode .cv-card-unit,
 .cv-dashboard.cv-dark .cv-card-unit {
     color: #8C97A5;
-}
-
-body.cv-dark-mode .cv-card-range,
-.cv-dashboard.cv-dark .cv-card-range {
-    border-top-color: #33363B;
 }
 
 body.cv-dark-mode .cv-card-footer-info,
@@ -1374,6 +1665,14 @@ body.cv-dark-mode .apexcharts-menu-item:hover,
         left: 0;
         bottom: 0;
         height: 100vh;
+        /* dvh: la lista llega hasta abajo aunque aparezca la barra del navegador del celular */
+        height: 100dvh;
+        /* mismo panel que en escritorio: fondo sólido (en modo claro era transparente), ancho y márgenes */
+        width: 280px;
+        max-width: 85vw;
+        padding: 1.5rem 1.15rem calc(2rem + env(safe-area-inset-bottom, 0px));
+        background-color: #FFFFFF;
+        border-right: 1px solid var(--cv-border);
         z-index: 1050;
         box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
         transform: translateX(-100%);
@@ -1411,6 +1710,61 @@ body.cv-dark-mode .apexcharts-menu-item:hover,
         width: 100% !important;
         max-width: 100% !important;
         flex: 0 0 100% !important;
+    }
+
+    /* Lista de campañas en tablet / celular */
+    .cv-dashboard .cv-sidebar-close-btn {
+        display: inline-flex;
+    }
+
+    /* Filtros: campos más altos para el dedo y texto de 16px (con menos, iPhone hace zoom al tocarlos) */
+    .cv-dashboard .cv-filter-input {
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .cv-dashboard .cv-btn-filter-apply,
+    .cv-dashboard .cv-btn-filter-reset {
+        min-height: 40px;
+        font-size: 0.82rem;
+    }
+
+    /* Cabecera: título arriba y los tres botones en una sola fila */
+    .cv-dashboard .cv-header-actions {
+        width: 100%;
+        flex-wrap: nowrap;
+        gap: 0.6rem;
+    }
+
+    .cv-dashboard .cv-header-actions .cv-btn-download {
+        margin-right: 0 !important;
+        min-height: 48px;
+    }
+
+    /* Modo oscuro / claro: botón cuadrado solo con el ícono (el texto queda para lectores de pantalla) */
+    .cv-dashboard .cv-header-actions .cv-btn-theme-toggle {
+        position: relative;
+        flex: 0 0 48px;
+        width: 48px;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .cv-dashboard .cv-header-actions .cv-btn-theme-toggle i {
+        margin-right: 0;
+        font-size: 1.2rem;
+    }
+
+    .cv-dashboard .cv-btn-theme-toggle .cv-btn-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
     }
 }
 
@@ -1459,25 +1813,21 @@ body.cv-dark-mode .apexcharts-menu-item:hover,
 
     .cv-dashboard .cv-header-actions {
         margin-top: 1rem;
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
         gap: 0.5rem;
     }
 
-    .cv-dashboard .cv-header-actions .cv-btn-theme-toggle {
-        grid-column: span 2;
-        width: 100%;
+    /* Las dos descargas se reparten el ancho que deja el botón de modo */
+    .cv-dashboard .cv-header-actions .cv-btn-download:not(.cv-btn-theme-toggle) {
+        flex: 1 1 0;
+        min-width: 0;
         justify-content: center;
-        margin-right: 0 !important;
+        padding: 0.5rem 0.6rem;
+        font-size: 0.8rem;
     }
 
-    .cv-dashboard .cv-btn-download {
-        width: 100%;
-        justify-content: center;
-        margin-right: 0 !important;
-        padding: 0.55rem 0.75rem;
-        font-size: 0.8rem;
+    .cv-dashboard .cv-header-actions .cv-btn-download:not(.cv-btn-theme-toggle) i {
+        margin-right: 0.5rem;
+        font-size: 1.05rem;
     }
 }
 

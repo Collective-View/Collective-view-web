@@ -188,6 +188,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     setSidebarEvents();
     setFilterEvents();
     setThemeEvent();
+    setTimeSliderEvents();
     setDarkMode(true);
     window.state = state;
     setupFilterListeners();
@@ -258,6 +259,8 @@ function setCampaignEvent() {
         campaignContainer.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
         link.classList.add("active");
         state.activePath = link.dataset.path;
+        // En tablet / celular la lista tapa los datos: se cierra al elegir una campaña
+        if (window.innerWidth < 992) closeSidebar();
         await renderCampaign(state.activePath);
     });
 }
@@ -849,6 +852,7 @@ function toggleSidebar() {
 }
 
 function closeSidebar() {
+    const dashContainer = document.querySelector('.cv-dashboard');
     if (window.innerWidth < 992) {
         dashContainer.classList.remove('cv-sidebar-open-mobile');
         document.body.classList.remove('cv-sidebar-is-open');
@@ -1188,9 +1192,11 @@ window.setWindDirection = function (degrees,cardinalName) {
 function setSidebarEvents() {
     const sidebarToggle = document.getElementById('cvSidebarToggle');
     const sidebarBackdrop = document.getElementById('cvSidebarBackdrop');
+    const sidebarClose = document.getElementById('cvSidebarClose');
 
     if (sidebarToggle) sidebarToggle.addEventListener('click',toggleSidebar);
     if (sidebarBackdrop) sidebarBackdrop.addEventListener('click',closeSidebar);
+    if (sidebarClose) sidebarClose.addEventListener('click',closeSidebar);
 }
 
 function setFilterEvents() {
@@ -1239,5 +1245,44 @@ function setThemeEvent() {
             setDarkMode(!document.body.classList.contains('cv-dark-mode'));
         });
     }
+}
+
+// ---------------
+// BARRA DESLIZADORA DE LECTURAS (solo la parte visual)
+// Mueve el relleno y la hora bajo el punto, y calcula "Lectura X de Y" desde min/max/value.
+// Los datos (horas, fecha y qué muestran las tarjetas) los conecta el backend; si cambian
+// min/max/value o los textos por código, deben llamar a window.cvUpdateTimeSliderUI().
+// ---------------
+function updateTimeSliderUI() {
+    const slider = document.getElementById('cvTimeSlider');
+    if (!slider) return;
+
+    const min = Number(slider.min) || 0;
+    const max = Number(slider.max) || 0;
+    const value = Number(slider.value) || min;
+    const progress = max > min ? (value - min) / (max - min) : 0;
+
+    const track = document.getElementById('cvTimeSliderTrack');
+    if (track) track.style.setProperty('--cv-slider-p',progress.toFixed(4));
+
+    const index = value - min + 1;
+    const total = Math.max(max - min + 1,1);
+    const indexEl = document.getElementById('cvTimeSliderIndex');
+    const totalEl = document.getElementById('cvTimeSliderTotal');
+    if (indexEl) indexEl.textContent = index;
+    if (totalEl) totalEl.textContent = total;
+
+    const currentEl = document.getElementById('cvTimeSliderCurrent');
+    const time = currentEl ? currentEl.textContent.trim() : '';
+    slider.setAttribute('aria-valuetext',`Lectura ${index} de ${total}${time ? ', ' + time : ''}`);
+}
+
+function setTimeSliderEvents() {
+    const slider = document.getElementById('cvTimeSlider');
+    if (!slider) return;
+
+    slider.addEventListener('input',updateTimeSliderUI);
+    window.cvUpdateTimeSliderUI = updateTimeSliderUI;
+    updateTimeSliderUI();
 }
 
