@@ -280,7 +280,7 @@ function setCampaignEvent() {
         campaignContainer.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
         link.classList.add("active");
         state.activePath = link.dataset.path;
-        // En tablet / celular la lista tapa los datos: se cierra al elegir una campaña
+        
         if (window.innerWidth < 992) closeSidebar();
         await renderCampaign(state.activePath);
     });
@@ -299,17 +299,11 @@ async function renderCampaign(path) {
         if (gasCsv) {
             gasRows = await readCsv(gasCsv.download_url);
             state.gasRows = gasRows;
-            //updateGasCards(gasVariables);
             updateGasCharts(gasRows);
         } else {
             state.gasRows = [];
-            //updateCards(variables, theresGas=false);
-            //updateAllCharts(variables,theresGas=false);
-            //updateWindCompass(variables);
-            //return;
         }
-        
-        //updateCards(variables);
+
         updateAllCharts(variables);
         updateWindCompass(variables);
         
@@ -365,18 +359,14 @@ function initSliderForCampaign(mainRows,gasRows) {
     if (startEl) startEl.textContent = fmt(firstTs);
     if (endEl) endEl.textContent = fmt(lastTs);
     
-    // Fecha de la campaña
     const dateEl = document.getElementById('cvTimeSliderDate');
     if (dateEl && state.campaignMeta && state.campaignMeta.date) {
         const [y,m,d] = state.campaignMeta.date.split('-');
         const meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
         dateEl.textContent = `${d}/${meses[parseInt(m) - 1]}/${y.slice(-2)}`;
     }
-
-    // Aplicar la lectura activa (última)
+    
     goToReading(0);
-
-    // Listener (una sola vez por sesión)
     attachSliderListener();
 }
 
@@ -387,10 +377,8 @@ function goToReading(idx) {
     if (idx >= rows.length) idx = rows.length - 1;
     state.currentIndex = idx;
 
-    // Tarjetas ambiente
     updateCardsFromIndex(idx);
 
-    // Tarjetas gases (si hay)
     if (state.gasRows && state.gasRows.length) {
         const gIdx = Math.min(idx,state.gasRows.length - 1);
         updateGasCardsFromIndex(gIdx);
@@ -398,7 +386,6 @@ function goToReading(idx) {
         updateGasCardsFromIndex(idx,rows);
     }
 
-    // Hora bajo el punto del slider
     const ts = extractTimestamp(rows[idx]);
     const currentEl = document.getElementById('cvTimeSliderCurrent');
     if (currentEl && ts) {
@@ -407,12 +394,10 @@ function goToReading(idx) {
         currentEl.textContent = `${hh}:${mm}`;
     }
 
-    // Recalcular relleno del slider
     if (typeof window.cvUpdateTimeSliderUI === 'function') {
         window.cvUpdateTimeSliderUI();
     }
 
-    // Resaltar fila activa en tablas
     highlightActiveRows(idx);
 }
 
@@ -441,7 +426,6 @@ function setupZipDownload() {
             return;
         }
 
-        // Estado visual del botón
         const originalHTML = btn.innerHTML;
         btn.disabled = true;
         btn.innerHTML = `
@@ -452,7 +436,6 @@ function setupZipDownload() {
             </div>`;
 
         try {
-            // 1) Listar contenido de la carpeta activa
             const items = await getContents(state.activePath);
             const files = items.filter(i => i.type === 'file');
 
@@ -461,12 +444,10 @@ function setupZipDownload() {
                 return;
             }
 
-            // 2) Descargar cada archivo y agregarlo al zip
             const zip = new JSZip();
             const folderName = state.activePath.split('/').pop();
             const root = zip.folder(folderName);
 
-            // Descargamos en paralelo (más rápido)
             await Promise.all(files.map(async (file) => {
                 const res = await fetch(file.download_url);
                 if (!res.ok) throw new Error(`No se pudo descargar ${file.name}`);
@@ -474,14 +455,12 @@ function setupZipDownload() {
                 root.file(file.name,blob);
             }));
 
-            // 3) Generar el zip y disparar la descarga
             const content = await zip.generateAsync({
                 type: 'blob',
                 compression: 'DEFLATE',
                 compressionOptions: { level: 6 }
             });
 
-            // Nombre: "20261019_id1_chetumal.zip"
             saveAs(content,`${folderName}.zip`);
 
         } catch (err) {
@@ -503,21 +482,16 @@ function filterSidebar(filters) {
         const folderCity = link.dataset.city || '';
         let visible = true;
 
-        // Filtro de fecha
         if (filters.dateFrom && folderDate < filters.dateFrom) visible = false;
         if (filters.dateTo && folderDate > filters.dateTo) visible = false;
 
-        // Filtro de estación
         if (filters.station && folderStation !== filters.station) visible = false;
 
-        // Filtro de localidad
         if (filters.city && folderCity.toLowerCase() !== filters.city.toLowerCase()) visible = false;
 
-        // Ocultar/mostrar
         link.style.display = visible ? '' : 'none';
     });
     
-    // Si la campaña que estaba abierta se ocultó, abrir automáticamente la primera que sí coincida
     if (!activeStillVisible && firstVisibleLink) {
         firstVisibleLink.click();
     } else if (!firstVisibleLink) {
@@ -661,7 +635,6 @@ function updateAllCharts(csvRows, theresGas=true) {
                 };
             }
 
-            // Actualizar el título del eje Y con el nombre legible
             chart.updateOptions({
                 xaxis: xaxisOpts,
                 yaxis: {
@@ -670,7 +643,6 @@ function updateAllCharts(csvRows, theresGas=true) {
                 markers: { size: markerSize }
             },false,false);
 
-            // Actualizar la serie con el nombre legible
             chart.updateSeries([{ name: readableName,data: seriesData }],true);
         });
     });
@@ -727,7 +699,6 @@ function updateGasCharts(csvRows) {
                 };
             }
 
-            // Actualizar el título del eje Y con el nombre legible
             chart.updateOptions({
                 xaxis: xaxisOpts,
                 yaxis: {
@@ -736,7 +707,6 @@ function updateGasCharts(csvRows) {
                 markers: { size: markerSize }
             },false,false);
 
-            // Actualizar la serie con el nombre legible
             chart.updateSeries([{ name: readableName,data: seriesData }],true);
         });
     });
@@ -760,7 +730,6 @@ function renderDataTable(rows) {
             return;
         }
         
-        // Fallbacks de columna (CSV viejos con nombres distintos)
         const pickValue = (row,key) => pickRowValue(row,key);
         
         const html = rows.map((row,i) => {
