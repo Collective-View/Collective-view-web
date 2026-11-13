@@ -13,8 +13,13 @@ window.chartById = {};
 const state = {
     activePath: null,
     filters: { dateFrom: "",dateTo: "",station: "",city: "" },
-    campaigns: []
+    campaigns: [],
+    mainRows: [],
+    gasRows: [],
+    currentIndex: 0
 };
+
+let sliderListenerAttached = false;
 
 // Variables que se van a mostrar (Poner el nombre que aparece en el .CSV)
 const VARIABLES = [
@@ -158,10 +163,10 @@ const chartConfigs = {
         { id: 'chart-a_temp_c',name: 'Temperatura (AQIN)',unit: '°C',color: '#0B7A5C',data: [],decimals: 1 },
         { id: 'chart-a_hum',name: 'Humedad (AQIN)',unit: '%',color: '#78909C',data: [],min: 0, max: 100, decimals: 0 },
         { id: 'chart-a_co2_ppm',name: 'Dióxido de carbono (AQIN)',unit: 'ppm',color: '#FF7043',data: [],decimals: 1 },
-        { id: 'chart-a_pm2_5_ugm3',name: 'PM2.5 (AQIN)',unit: 'μm/m³',color: '#29B6F6',data: [],min: 0,max: 100,decimals: 1 },
-        { id: 'chart-a_pm10_ugm3',name: 'PM10 (AQIN)',unit: 'μm/m³',color: '#af3009',data: [],decimals: 1 },
-        { id: 'chart-a_pm1_ugm3',name: 'PM1.0 (AQIN)',unit: 'μm/m³',color: '#7E57C2',data: [],decimals: 1 },
-        { id: 'chart-a_pm4_ugm3',name: 'PM4.0 (AQIN)',unit: 'μm/m³',color: '#FFA726',data: [],decimals: 0 },
+        { id: 'chart-a_pm2_5_ugm3',name: 'PM2.5 (AQIN)',unit: 'µg/m³',color: '#29B6F6',data: [],min: 0,max: 100,decimals: 1 },
+        { id: 'chart-a_pm10_ugm3',name: 'PM10 (AQIN)',unit: 'µg/m³',color: '#af3009',data: [],decimals: 1 },
+        { id: 'chart-a_pm1_ugm3',name: 'PM1.0 (AQIN)',unit: 'µg/m³',color: '#7E57C2',data: [],decimals: 1 },
+        { id: 'chart-a_pm4_ugm3',name: 'PM4.0 (AQIN)',unit: 'µg/m³',color: '#FFA726',data: [],decimals: 0 },
     ],
     suelo: [
         { id: 'chart-suelo-humedad',name: 'Humedad del suelo',unit: '%',color: '#0B7A5C',data: [],min: 0,max: 100,decimals: 0 },
@@ -175,6 +180,21 @@ const chartConfigs = {
         { id: 'chart-lel',name: 'LEL',unit: 'ppb',color: '#AB47BC',data: [],decimals: 0 },
         { id: 'chart-temp_f',name: 'Temperatura NH3',unit: '°C',color: '#FF7043',data: [],decimals: 1 },
         { id: 'chart-hum',name: 'Humedad NH3',unit: '%',color: '#29B6F6',data: [],min: 0,max: 100,decimals: 0 }
+    ]
+};
+
+// CAMPOS PARA MOSTRAR LA TABLA DE DATOS
+const TABLE_FIELDS = {
+    all: [
+        // Tiempo
+        'time',
+        // Ambiente
+        'wind_ms','wind_dir_10min_deg','out_temp_c','out_hum','out_feels_like_c',
+        'rel_pres_hpa','solar_rad_wm2','uv_index','event_rain_mm',
+        // Calidad del aire
+        'a_temp_c','a_hum','a_co2_ppm','a_pm2_5_ugm3','a_pm10_ugm3','a_pm1_ugm3','a_pm4_ugm3',
+        // Gases
+        'amon','temp_f','hum','h2s','o2','co','lel'
     ]
 };
 
@@ -272,24 +292,139 @@ async function renderCampaign(path) {
         const csvItem = await getCSV(path);
         const variables = await readCsv(csvItem.download_url);
         
+        state.mainRows = variables;
+        
         const gasCsv = await getCSV(path,"gases.csv")
+        let gasRows = null;
         if (gasCsv) {
-            const gasVariables = await readCsv(gasCsv.download_url);
-            updateGasCards(gasVariables);
-            updateGasCharts(gasVariables);
+            gasRows = await readCsv(gasCsv.download_url);
+            state.gasRows = gasRows;
+            //updateGasCards(gasVariables);
+            updateGasCharts(gasRows);
         } else {
-            updateCards(variables, theresGas=false);
-            updateAllCharts(variables,theresGas=false);
-            updateWindCompass(variables);
-            return;
+            state.gasRows = [];
+            //updateCards(variables, theresGas=false);
+            //updateAllCharts(variables,theresGas=false);
+            //updateWindCompass(variables);
+            //return;
         }
         
-        updateCards(variables);
+        //updateCards(variables);
         updateAllCharts(variables);
         updateWindCompass(variables);
+        
+        initSliderForCampaign(variables,gasRows);
     } catch (err) {
         console.error("Error cargando campaña:",err);
     }
+}
+
+function mergeRowsForTable(mainRows,gasRows) {
+    if (!gasRows || !gasRows.length) return mainRows;
+    const total = Math.max(mainRows.length,gasRows.length);
+    const merged = [];
+    for (let i = 0; i < total; i++) {
+        const m = mainRows[i] || {};
+        const g = gasRows[i] || {};
+        merged.push({ ...m,...g,time: m.time || g.time });
+    }
+    return merged;
+}
+
+function initSliderForCampaign(mainRows,gasRows) {
+    const tableRows = mergeRowsForTable(mainRows,gasRows);
+    renderDataTable(tableRows);
+    
+    const total = mainRows.length;
+    if (!total) {
+        updateCardsFromIndex(0);
+        updateGasCardsFromIndex(0);
+        return;
+    }
+    
+    const slider = document.getElementById('cvTimeSlider');
+    if (slider) {
+        slider.min = 1;
+        slider.max = total;
+        slider.value = 1;
+    }
+    
+    const firstTs = extractTimestamp(mainRows[0]);
+    const lastTs = extractTimestamp(mainRows[total - 1]);
+    
+    const fmt = (d) => {
+        if (!d) return '--:--';
+        const hh = String(d.getHours()).padStart(2,'0');
+        const mm = String(d.getMinutes()).padStart(2,'0');
+        return `${hh}:${mm}`;
+    };
+    
+    const startEl = document.getElementById('cvTimeSliderStart');
+    const endEl = document.getElementById('cvTimeSliderEnd');
+    
+    if (startEl) startEl.textContent = fmt(firstTs);
+    if (endEl) endEl.textContent = fmt(lastTs);
+    
+    // Fecha de la campaña
+    const dateEl = document.getElementById('cvTimeSliderDate');
+    if (dateEl && state.campaignMeta && state.campaignMeta.date) {
+        const [y,m,d] = state.campaignMeta.date.split('-');
+        const meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+        dateEl.textContent = `${d}/${meses[parseInt(m) - 1]}/${y.slice(-2)}`;
+    }
+
+    // Aplicar la lectura activa (última)
+    goToReading(0);
+
+    // Listener (una sola vez por sesión)
+    attachSliderListener();
+}
+
+function goToReading(idx) {
+    const rows = state.mainRows || [];
+    if (!rows.length) return;
+    if (idx < 0) idx = 0;
+    if (idx >= rows.length) idx = rows.length - 1;
+    state.currentIndex = idx;
+
+    // Tarjetas ambiente
+    updateCardsFromIndex(idx);
+
+    // Tarjetas gases (si hay)
+    if (state.gasRows && state.gasRows.length) {
+        const gIdx = Math.min(idx,state.gasRows.length - 1);
+        updateGasCardsFromIndex(gIdx);
+    } else {
+        updateGasCardsFromIndex(idx,rows);
+    }
+
+    // Hora bajo el punto del slider
+    const ts = extractTimestamp(rows[idx]);
+    const currentEl = document.getElementById('cvTimeSliderCurrent');
+    if (currentEl && ts) {
+        const hh = String(ts.getHours()).padStart(2,'0');
+        const mm = String(ts.getMinutes()).padStart(2,'0');
+        currentEl.textContent = `${hh}:${mm}`;
+    }
+
+    // Recalcular relleno del slider
+    if (typeof window.cvUpdateTimeSliderUI === 'function') {
+        window.cvUpdateTimeSliderUI();
+    }
+
+    // Resaltar fila activa en tablas
+    highlightActiveRows(idx);
+}
+
+function attachSliderListener() {
+    if (sliderListenerAttached) return;
+    const slider = document.getElementById('cvTimeSlider');
+    if (!slider) return;
+    slider.addEventListener('input',() => {
+        const idx = Number(slider.value) - 1;
+        goToReading(idx);
+    });
+    sliderListenerAttached = true;
 }
 
 function setupZipDownload() {
@@ -410,117 +545,70 @@ function calculateMode(values) {
     return moda;
 }
 
-function updateCards(csvRows, theresGas=true) {
-    VARIABLES.forEach(variable => {
-        const values = csvRows
-            .map(row => row[variable])
-            .filter(v => v !== null && v !== undefined && v !== '' && !isNaN(v))
-            .map(Number);
-        
+function updateCardsFromIndex(idx) {
+    const row = state.mainRows[idx];
+    if (!row) return;
+    
+    VARIABLES.forEach(variable => {        
         const avgText = document.getElementById(`${variable}-value`);
         const maxText = document.getElementById(`${variable}-max`);
         const minText = document.getElementById(`${variable}-min`);
         
-        if (variable === 'event_rain_mm') {
-            if (avgText) avgText.textContent = values.length ? Math.max(...values) : "N/A";
+        const raw = pickRowValue(row,variable);
+
+        if (raw === undefined || raw === null || raw === '' || isNaN(raw)) {
+            if (avgText) avgText.textContent = "N/A";
+            if (maxText) maxText.textContent = "--";
+            if (minText) minText.textContent = "--";
             return;
         }
         
-        if (variable === 'rel_pres_hpa') {
-            let secondChance;
-
-            if (!values.length) {
-                secondChance = csvRows
-                    .map(row => row['pres_rel_hpa'])
-                    .filter(v => v !== null && v !== undefined && v !== '' && !isNaN(v))
-                    .map(Number);
-            } else {
-                secondChance = values;
-            }
-
-            const finalValues = calculateFinalValues(secondChance);
-
-            if (avgText) avgText.textContent = secondChance.length ? finalValues.promedio.toFixed(2) : "N/A";
-            if (maxText) maxText.textContent = secondChance.length ? finalValues.maximo.toFixed(2) : "--";
-            if (minText) minText.textContent = secondChance.length ? finalValues.minimo.toFixed(2) : "--";
-            return;
-        }
+        const num = Number(raw);
         
         if (variable === 'wind_dir_10min_deg') {
-            let secondChance;
-            
-            if (!values.length) {
-                secondChance = csvRows
-                    .map(row => row['wind_dir_10_mean'])
-                    .filter(v => v !== null && v !== undefined && v !== '' && !isNaN(v))
-                    .map(Number);
-            } else {
-                secondChance = values;
-            }
-            
-            const moda = calculateMode(secondChance);
-            if (avgText) avgText.textContent = moda !== null ? moda.toFixed(0) : "N/A"
+            if (avgText) avgText.textContent = num.toFixed(0);
             return;
         }
-        
-        if (variable === 'solar_rad_wm2') {
-            if (avgText) avgText.textContent = values.length ? Math.max(...values) : "N/A";
+        if (variable === 'rel_pres_hpa') {
+            if (avgText) avgText.textContent = num.toFixed(2);
+            if (maxText) maxText.textContent = num.toFixed(2);
+            if (minText) minText.textContent = num.toFixed(2);
+            return;
+        }
+        if (variable === 'event_rain_mm' || variable === 'solar_rad_wm2') {
+            if (avgText) avgText.textContent = num;
             return;
         }
 
-        const finalValues = calculateFinalValues(values);
-
-        if (avgText) avgText.textContent = values.length ? finalValues.promedio.toFixed(2) : "N/A";
-        if (maxText) maxText.textContent = values.length ? finalValues.maximo.toFixed(2) : "--";
-        if (minText) minText.textContent = values.length ? finalValues.minimo.toFixed(2) : "--";
+        if (avgText) avgText.textContent = num.toFixed(2);
+        if (maxText) maxText.textContent = num.toFixed(2);
+        if (minText) minText.textContent = num.toFixed(2);
     });
-    
-    if (!theresGas) updateGasCards(csvRows);
 }
 
-function updateGasCards(csvRows) {
+function updateGasCardsFromIndex(idx,sourceRows) {
+    const rows = sourceRows || state.gasRows || [];
+    const row =rows[idx];
+    if (!row) return;
+    
     GAS_VARIABLES.forEach(variable => {
-        const values = csvRows
-            .map(row => row[variable])
-            .filter(v => v !== null && v !== undefined && v !== '' && !isNaN(v))
-            .map(Number);
-
         const avgText = document.getElementById(`${variable}-value`);
         const maxText = document.getElementById(`${variable}-max`);
         const minText = document.getElementById(`${variable}-min`);
+        
+        const raw = pickRowValue(row,variable);
 
-        if (variable === 'amon' || variable === 'temp_f' || variable === 'hum') {
-            let secondChance,newRow;
-            
-            if (variable === 'amon') {1
-                newRow = 'nh3';
-            } else if (variable === 'temp_f') {
-                newRow = 'temp_nh3';
-            } else {
-                newRow = 'hum_nh3';
-            }
-            
-            if (!values.length) {
-                secondChance = csvRows
-                    .map(row => row[newRow])
-                    .filter(v => v !== null && v !== undefined && v !== '' && !isNaN(v))
-                    .map(Number);
-            } else {
-                secondChance = values;
-            }
-            
-            const finalValues = calculateFinalValues(secondChance);
-            if (avgText) avgText.textContent = secondChance.length ? finalValues.promedio.toFixed(2) : "N/A";
-            if (maxText) maxText.textContent = secondChance.length ? finalValues.maximo.toFixed(2) : "--";
-            if (minText) minText.textContent = secondChance.length ? finalValues.minimo.toFixed(2) : "--";
+        if (raw === undefined || raw === null || raw === '' || isNaN(raw)) {
+            if (avgText) avgText.textContent = "N/A";
+            if (maxText) maxText.textContent = "--";
+            if (minText) minText.textContent = "--";
             return;
         }
 
-        const finalValues = calculateFinalValues(values);
-
-        if (avgText) avgText.textContent = values.length ? finalValues.promedio.toFixed(2) : "N/A";
-        if (maxText) maxText.textContent = values.length ? finalValues.maximo.toFixed(2) : "--";
-        if (minText) minText.textContent = values.length ? finalValues.minimo.toFixed(2) : "--";
+        const num = Number(raw);
+        if (avgText) avgText.textContent = num.toFixed(2);
+        if (maxText) maxText.textContent = num.toFixed(2);
+        if (minText) minText.textContent = num.toFixed(2);
     });
 }
 
@@ -543,7 +631,7 @@ function updateAllCharts(csvRows, theresGas=true) {
                 seriesData = csvRows
                     .map(r => {
                         const ts = extractTimestamp(r);
-                        const v = r[campo];
+                        const v = pickRowValue(r,campo);
                         if (!ts || v === null || v === undefined || v === '' || isNaN(v)) return null;
                         return { x: ts.getTime(),y: Number(v) };
                     })
@@ -564,7 +652,7 @@ function updateAllCharts(csvRows, theresGas=true) {
                 };
             } else {
                 seriesData = csvRows.map(r => {
-                    const v = r[campo];
+                    const v = pickRowValue(r,campo);
                     return (v === null || v === undefined || v === '' || isNaN(v)) ? null : Number(v);
                 });
                 xaxisOpts = {
@@ -609,7 +697,7 @@ function updateGasCharts(csvRows) {
                 seriesData = csvRows
                     .map(r => {
                         const ts = extractTimestamp(r);
-                        const v = r[campo];
+                        const v = pickRowValue(r,campo);
                         if (!ts || v === null || v === undefined || v === '' || isNaN(v)) return null;
                         return { x: ts.getTime(),y: Number(v) };
                     })
@@ -630,7 +718,7 @@ function updateGasCharts(csvRows) {
                 };
             } else {
                 seriesData = csvRows.map(r => {
-                    const v = r[campo];
+                    const v = pickRowValue(r,campo);
                     return (v === null || v === undefined || v === '' || isNaN(v)) ? null : Number(v);
                 });
                 xaxisOpts = {
@@ -651,6 +739,60 @@ function updateGasCharts(csvRows) {
             // Actualizar la serie con el nombre legible
             chart.updateSeries([{ name: readableName,data: seriesData }],true);
         });
+    });
+}
+
+function renderDataTable(rows) {
+    const targets = [
+        { tbody: document.getElementById('cvDataBodyAmbiente'),count: document.getElementById('cvDataCountAmbiente') },
+        { tbody: document.getElementById('cvDataBodyGases'),count: document.getElementById('cvDataCountGases') }
+    ];
+    
+    const fields = TABLE_FIELDS.all;
+    const total = rows.length;
+    
+    targets.forEach(({ tbody,count }) => {
+        if (!tbody) return;
+        if (count) count.textContent = `${total} lecturas`;
+        
+        if (!total) {
+            tbody.innerHTML = `<tr><td colspan="${fields.length}" class="cv-data-empty">Sin datos</td></tr>`;
+            return;
+        }
+        
+        // Fallbacks de columna (CSV viejos con nombres distintos)
+        const pickValue = (row,key) => pickRowValue(row,key);
+        
+        const html = rows.map((row,i) => {
+            const ts = extractTimestamp(row);
+            let hora = '--:--';
+            if (ts) {
+                hora = `${String(ts.getHours()).padStart(2,'0')}:${String(ts.getMinutes()).padStart(2,'0')}`;
+            }
+
+            const cells = fields.map((f,idx) => {
+                if (idx === 0) return `<td>${hora}</td>`;
+                const v = pickValue(row,f);
+                if (v === undefined || v === null || v === '' || isNaN(v)) {
+                    return `<td class="cv-data-empty">—</td>`;
+                }
+                return `<td>${Number(v)}</td>`;
+            }).join('');
+
+            return `<tr data-index="${i}">${cells}</tr>`;
+        }).join('');
+
+        tbody.innerHTML = html;
+    });
+}
+
+function highlightActiveRows(idx) {
+    ['cvDataBodyAmbiente','cvDataBodyGases'].forEach(id => {
+        const tbody = document.getElementById(id);
+        if (!tbody) return;
+        tbody.querySelectorAll('tr').forEach(tr => tr.classList.remove('is-current'));
+        const active = tbody.querySelector(`tr[data-index="${idx}"]`);
+        if (active) active.classList.add('is-current');
     });
 }
 
@@ -1104,6 +1246,20 @@ function extractTimestamp(row) {
     return null;
 }
 
+function pickRowValue(row,key) {
+    if (!row) return undefined;
+    let v = row[key];
+    if (v !== undefined && v !== null && v !== '') return v;
+
+    if (key === 'rel_pres_hpa') v = row['pres_rel_hpa'];
+    else if (key === 'wind_dir_10min_deg') v = row['wind_dir_10_mean'];
+    else if (key === 'amon') v = row['nh3'];
+    else if (key === 'temp_f') v = row['temp_nh3'];
+    else if (key === 'hum') v = row['hum_nh3'];
+
+    return v;
+}
+
 function parseDateString(raw) {
     // Si ya es Date
     if (raw instanceof Date) return isNaN(raw.getTime()) ? null : raw;
@@ -1155,15 +1311,10 @@ function calculateFinalValues(valores) {
 }
 
 function updateWindCompass(csvRows) {
-    let dirVals = csvRows.map(r => r.wind_dir_10min_deg)
-        .filter(v => v !== null && v !== undefined && !isNaN(v))
+    const dirVals = csvRows
+        .map(r => pickRowValue(r,'wind_dir_10min_deg'))
+        .filter(v => v !== null && v !== undefined && v !== '' && !isNaN(v))
         .map(Number);
-
-    if (!dirVals.length) {
-        dirVals = csvRows.map(r => r.wind_dir_10_mean)
-            .filter(v => v !== null && v !== undefined && !isNaN(v))
-            .map(Number);
-    }
 
     if (dirVals.length && typeof window.setWindDirection === 'function') {
         const avg = dirVals.reduce((a,b) => a + b,0) / dirVals.length;
@@ -1293,6 +1444,7 @@ function setTimeSliderEvents() {
     if (!slider) return;
 
     slider.addEventListener('input',updateTimeSliderUI);
+    
     window.cvUpdateTimeSliderUI = updateTimeSliderUI;
     updateTimeSliderUI();
 }

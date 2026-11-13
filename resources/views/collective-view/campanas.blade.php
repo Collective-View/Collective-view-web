@@ -279,14 +279,14 @@
                             <span class="cv-time-slider-edge" id="cvTimeSliderStart">10:15</span>
                             <div class="cv-time-slider-track" id="cvTimeSliderTrack" style="--cv-slider-p: 0.4035;">
                                 <input type="range" class="cv-time-slider-input" id="cvTimeSlider"
-                                    min="1" max="58" step="1" value="24"
+                                    min="1" max="58" step="1" value="0"
                                     aria-label="Recorrer las lecturas de la campaña" aria-describedby="cvTimeSliderCaption">
-                                <output class="cv-time-slider-current" id="cvTimeSliderCurrent" for="cvTimeSlider">11:21</output>
+                                <output class="cv-time-slider-current" id="cvTimeSliderCurrent" for="cvTimeSlider"></output>
                             </div>
-                            <span class="cv-time-slider-edge" id="cvTimeSliderEnd">12:58</span>
+                            <span class="cv-time-slider-edge" id="cvTimeSliderEnd"></span>
                         </div>
                         <p class="cv-time-slider-caption" id="cvTimeSliderCaption">
-                            Lectura <strong id="cvTimeSliderIndex">24</strong> de <span id="cvTimeSliderTotal">58</span> - <span id="cvTimeSliderDate">03/Nov/26</span>
+                            Lectura <strong id="cvTimeSliderIndex">1</strong> de <span id="cvTimeSliderTotal">?</span> - <span id="cvTimeSliderDate">??/???/??</span>
                         </p>
                     </div>
 
@@ -547,7 +547,7 @@
                                         </div>
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="a_pm2_5_ugm3-value">?</span>
-                                            <span class="cv-card-unit">μm/m³</span>
+                                            <span class="cv-card-unit">µg/m³</span>
                                         </div>
                                     </div>
                                 </div>
@@ -563,7 +563,7 @@
                                         </div>
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="a_pm10_ugm3-value">?</span>
-                                            <span class="cv-card-unit">μm/m³</span>
+                                            <span class="cv-card-unit">µg/m³</span>
                                         </div>
                                     </div>
                                 </div>
@@ -579,7 +579,7 @@
                                         </div>
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="a_pm1_ugm3-value">?</span>
-                                            <span class="cv-card-unit">μm/m³</span>
+                                            <span class="cv-card-unit">µg/m³</span>
                                         </div>
                                     </div>
                                 </div>
@@ -595,7 +595,7 @@
                                         </div>
                                         <div class="cv-card-main-val">
                                             <span class="cv-card-value" id="a_pm4_ugm3-value">?</span>
-                                            <span class="cv-card-unit">μm/m³</span>
+                                            <span class="cv-card-unit">µg/m³</span>
                                         </div>
                                     </div>
                                 </div>
@@ -772,7 +772,7 @@
                                             <h4 class="cv-chart-title">
                                                 <i class="fas fa-smog mr-2"></i>PM2.5 (AQIN)
                                             </h4>
-                                            <span class="cv-chart-badge">Unidad: μm/m³</span>
+                                            <span class="cv-chart-badge">Unidad: µg/m³</span>
                                         </div>
                                         <div id="chart-a_pm2_5_ugm3" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
@@ -783,7 +783,7 @@
                                             <h4 class="cv-chart-title">
                                                 <i class="fas fa-smog mr-2"></i>PM10 (AQIN)
                                             </h4>
-                                            <span class="cv-chart-badge">Unidad: μm/m³</span>
+                                            <span class="cv-chart-badge">Unidad: µg/m³</span>
                                         </div>
                                         <div id="chart-a_pm10_ugm3" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
@@ -794,7 +794,7 @@
                                             <h4 class="cv-chart-title">
                                                 <i class="fas fa-smog mr-2"></i>PM1.0 (AQIN)
                                             </h4>
-                                            <span class="cv-chart-badge">Unidad: μm/m³</span>
+                                            <span class="cv-chart-badge">Unidad: µg/m³</span>
                                         </div>
                                         <div id="chart-a_pm1_ugm3" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
@@ -805,7 +805,7 @@
                                             <h4 class="cv-chart-title">
                                                 <i class="fas fa-smog mr-2"></i>PM4.0 (AQIN)
                                             </h4>
-                                            <span class="cv-chart-badge">Unidad: μm/m³</span>
+                                            <span class="cv-chart-badge">Unidad: µg/m³</span>
                                         </div>
                                         <div id="chart-a_pm4_ugm3" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
@@ -837,38 +837,34 @@
                                             <caption class="sr-only">Lecturas de ambiente de la campaña seleccionada</caption>
                                             <thead>
                                                 <tr>
-                                                <th scope="col" data-field="time">Hora</th>
-                                                <th scope="col" data-field="wind_ms">Velocidad del viento<span class="cv-th-unit">mph</span></th>
-                                                <th scope="col" data-field="wind_dir_10min_deg">Dirección del viento<span class="cv-th-unit">°</span></th>
-                                                <th scope="col" data-field="out_temp_c">Temperatura<span class="cv-th-unit">°C</span></th>
-                                                <th scope="col" data-field="out_hum">Humedad<span class="cv-th-unit">%</span></th>
-                                                <th scope="col" data-field="out_feels_like_c">Sensación térmica<span class="cv-th-unit">°C</span></th>
-                                                <th scope="col" data-field="rel_pres_hpa">Presión barométrica<span class="cv-th-unit">hPa</span></th>
-                                                <th scope="col" data-field="solar_rad_wm2">Radiación solar<span class="cv-th-unit">W/m²</span></th>
-                                                <th scope="col" data-field="uv_index">Índice UV<span class="cv-th-unit">UV</span></th>
-                                                <th scope="col" data-field="event_rain_mm">Lluvia<span class="cv-th-unit">mm</span></th>
-                                                <th scope="col" data-field="a_temp_c">Temperatura (AQIN)<span class="cv-th-unit">°C</span></th>
-                                                <th scope="col" data-field="a_hum">Humedad (AQIN)<span class="cv-th-unit">%</span></th>
-                                                <th scope="col" data-field="a_co2_ppm">Dióxido de carbono (AQIN)<span class="cv-th-unit">ppm</span></th>
-                                                <th scope="col" data-field="a_pm2_5_ugm3">PM2.5 (AQIN)<span class="cv-th-unit">μm/m³</span></th>
-                                                <th scope="col" data-field="a_pm10_ugm3">PM10 (AQIN)<span class="cv-th-unit">μm/m³</span></th>
-                                                <th scope="col" data-field="a_pm1_ugm3">PM1.0 (AQIN)<span class="cv-th-unit">μm/m³</span></th>
-                                                <th scope="col" data-field="a_pm4_ugm3">PM4.0 (AQIN)<span class="cv-th-unit">μm/m³</span></th>
+                                                    <th scope="col" data-field="time">Hora</th>
+                                                    <th scope="col" data-field="wind_ms">Velocidad del viento<span class="cv-th-unit">mph</span></th>
+                                                    <th scope="col" data-field="wind_dir_10min_deg">Dirección del viento<span class="cv-th-unit">°</span></th>
+                                                    <th scope="col" data-field="out_temp_c">Temperatura<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="out_hum">Humedad<span class="cv-th-unit">%</span></th>
+                                                    <th scope="col" data-field="out_feels_like_c">Sensación térmica<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="rel_pres_hpa">Presión barométrica<span class="cv-th-unit">hPa</span></th>
+                                                    <th scope="col" data-field="solar_rad_wm2">Radiación solar<span class="cv-th-unit">W/m²</span></th>
+                                                    <th scope="col" data-field="uv_index">Índice UV<span class="cv-th-unit">UV</span></th>
+                                                    <th scope="col" data-field="event_rain_mm">Lluvia<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="a_temp_c">Temperatura (AQIN)<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="a_hum">Humedad (AQIN)<span class="cv-th-unit">%</span></th>
+                                                    <th scope="col" data-field="a_co2_ppm">Dióxido de carbono (AQIN)<span class="cv-th-unit">ppm</span></th>
+                                                    <th scope="col" data-field="a_pm2_5_ugm3">PM2.5 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
+                                                    <th scope="col" data-field="a_pm10_ugm3">PM10 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
+                                                    <th scope="col" data-field="a_pm1_ugm3">PM1.0 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
+                                                    <th scope="col" data-field="a_pm4_ugm3">PM4.0 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
+                                                    <th scope="col" data-field="amon">Amoniaco<span class="cv-th-unit">ppm</span></th>
+                                                    <th scope="col" data-field="temp_f">Temperatura NH3<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="hum">Humedad NH3<span class="cv-th-unit">%</span></th>
+                                                    <th scope="col" data-field="h2s">Ácido sulfhídrico<span class="cv-th-unit">ppm</span></th>
+                                                    <th scope="col" data-field="o2">Oxígeno<span class="cv-th-unit">%</span></th>
+                                                    <th scope="col" data-field="co">Monóxido de carbono<span class="cv-th-unit">ppm</span></th>
+                                                    <th scope="col" data-field="lel">Límite inferior de explosividad<span class="cv-th-unit">%</span>
                                                 </tr>
                                             </thead>
                                             <tbody id="cvDataBodyAmbiente">
-                                                <tr data-index="19"><td>11:06</td><td>3.8</td><td>158</td><td>29.4</td><td>77</td><td>34.4</td><td>1012.5</td><td>842.0</td><td>7</td><td>0.0</td><td>30.8</td><td>71.2</td><td>475</td><td>1.6</td><td>2.5</td><td>1.4</td><td>1.5</td></tr>
-                                                <tr data-index="20"><td>11:09</td><td>4.3</td><td>154</td><td>29.5</td><td>76</td><td>34.3</td><td>1012.5</td><td>857.0</td><td>7</td><td>0.0</td><td>30.9</td><td>71.4</td><td>474</td><td>1.8</td><td>2.6</td><td>1.3</td><td>1.5</td></tr>
-                                                <tr data-index="21"><td>11:12</td><td>3.9</td><td>146</td><td>29.5</td><td>76</td><td>34.5</td><td>1012.4</td><td>857.2</td><td>7</td><td>0.0</td><td>30.9</td><td>71.4</td><td>472</td><td>1.8</td><td>2.5</td><td>1.3</td><td>1.6</td></tr>
-                                                <tr data-index="22"><td>11:15</td><td>3.7</td><td>153</td><td>29.5</td><td>76</td><td>34.6</td><td>1012.3</td><td>842.0</td><td>7</td><td>0.0</td><td>30.9</td><td>71.7</td><td>470</td><td>1.8</td><td>2.3</td><td>1.3</td><td>1.5</td></tr>
-                                                <tr data-index="23"><td>11:18</td><td>3.7</td><td>158</td><td>29.3</td><td>77</td><td>34.7</td><td>1012.4</td><td>843.9</td><td>7</td><td>0.0</td><td>30.9</td><td>71.6</td><td>468</td><td>1.7</td><td>2.2</td><td>1.3</td><td>1.6</td></tr>
-                                                <tr class="is-current" data-index="24"><td>11:21</td><td>4.1</td><td>158</td><td>29.1</td><td>76</td><td>34.8</td><td>1012.5</td><td>842.0</td><td>7</td><td>0.0</td><td>30.9</td><td>71.5</td><td>468</td><td>1.8</td><td>2.1</td><td>1.3</td><td>1.6</td></tr>
-                                                <tr data-index="25"><td>11:24</td><td>3.4</td><td>157</td><td>29.1</td><td>77</td><td>34.9</td><td>1012.5</td><td>862.0</td><td>7</td><td>0.0</td><td>30.9</td><td>71.3</td><td>464</td><td>1.9</td><td>1.9</td><td>1.4</td><td>1.6</td></tr>
-                                                <tr data-index="26"><td>11:26</td><td>3.7</td><td>147</td><td>29.2</td><td>77</td><td>34.7</td><td>1012.4</td><td>844.0</td><td>7</td><td>0.0</td><td>30.8</td><td>71.4</td><td>464</td><td>2.0</td><td>1.8</td><td>1.4</td><td>1.6</td></tr>
-                                                <tr data-index="27"><td>11:29</td><td>3.9</td><td>145</td><td>29.4</td><td>77</td><td>34.9</td><td>1012.4</td><td>842.0</td><td>7</td><td>0.0</td><td>30.7</td><td>71.7</td><td>463</td><td>2.2</td><td>1.7</td><td>1.4</td><td>1.5</td></tr>
-                                                <tr data-index="28"><td>11:32</td><td>3.6</td><td>151</td><td>29.5</td><td>77</td><td>34.8</td><td>1012.3</td><td>842.0</td><td>6</td><td>0.0</td><td>30.8</td><td>71.8</td><td>463</td><td>2.1</td><td>1.8</td><td>1.4</td><td>1.4</td></tr>
-                                                <tr data-index="29"><td>11:35</td><td>3.1</td><td>143</td><td>29.6</td><td>77</td><td>34.6</td><td>1012.2</td><td>842.0</td><td>6</td><td>0.0</td><td>30.9</td><td>71.6</td><td>462</td><td>2.0</td><td>2.0</td><td>1.4</td><td>1.6</td></tr>
-                                                <tr data-index="30"><td>11:38</td><td>2.7</td><td>146</td><td>29.6</td><td>77</td><td>34.6</td><td>1012.1</td><td>857.9</td><td>7</td><td>0.0</td><td>30.9</td><td>71.5</td><td>462</td><td>2.0</td><td>2.2</td><td>1.4</td><td>1.6</td></tr>
+                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -1191,29 +1187,34 @@
                                             <caption class="sr-only">Lecturas de gases de la campaña seleccionada</caption>
                                             <thead>
                                                 <tr>
-                                                <th scope="col" data-field="time">Hora</th>
-                                                <th scope="col" data-field="amon">Amoniaco<span class="cv-th-unit">ppm</span></th>
-                                                <th scope="col" data-field="temp_f">Temperatura<span class="cv-th-unit">°C</span></th>
-                                                <th scope="col" data-field="hum">Humedad<span class="cv-th-unit">%</span></th>
-                                                <th scope="col" data-field="h2s">Ácido sulfhídrico<span class="cv-th-unit">ppm</span></th>
-                                                <th scope="col" data-field="o2">Oxígeno<span class="cv-th-unit">%</span></th>
-                                                <th scope="col" data-field="co">Monóxido de carbono<span class="cv-th-unit">ppm</span></th>
-                                                <th scope="col" data-field="lel">Límite inferior de explosividad<span class="cv-th-unit">%</span></th>
+                                                    <th scope="col" data-field="time">Hora</th>
+                                                    <th scope="col" data-field="wind_ms">Velocidad del viento<span class="cv-th-unit">mph</span></th>
+                                                    <th scope="col" data-field="wind_dir_10min_deg">Dirección del viento<span class="cv-th-unit">°</span></th>
+                                                    <th scope="col" data-field="out_temp_c">Temperatura<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="out_hum">Humedad<span class="cv-th-unit">%</span></th>
+                                                    <th scope="col" data-field="out_feels_like_c">Sensación térmica<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="rel_pres_hpa">Presión barométrica<span class="cv-th-unit">hPa</span></th>
+                                                    <th scope="col" data-field="solar_rad_wm2">Radiación solar<span class="cv-th-unit">W/m²</span></th>
+                                                    <th scope="col" data-field="uv_index">Índice UV<span class="cv-th-unit">UV</span></th>
+                                                    <th scope="col" data-field="event_rain_mm">Lluvia<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="a_temp_c">Temperatura (AQIN)<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="a_hum">Humedad (AQIN)<span class="cv-th-unit">%</span></th>
+                                                    <th scope="col" data-field="a_co2_ppm">Dióxido de carbono (AQIN)<span class="cv-th-unit">ppm</span></th>
+                                                    <th scope="col" data-field="a_pm2_5_ugm3">PM2.5 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
+                                                    <th scope="col" data-field="a_pm10_ugm3">PM10 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
+                                                    <th scope="col" data-field="a_pm1_ugm3">PM1.0 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
+                                                    <th scope="col" data-field="a_pm4_ugm3">PM4.0 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
+                                                    <th scope="col" data-field="amon">Amoniaco<span class="cv-th-unit">ppm</span></th>
+                                                    <th scope="col" data-field="temp_f">Temperatura NH3<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="hum">Humedad NH3<span class="cv-th-unit">%</span></th>
+                                                    <th scope="col" data-field="h2s">Ácido sulfhídrico<span class="cv-th-unit">ppm</span></th>
+                                                    <th scope="col" data-field="o2">Oxígeno<span class="cv-th-unit">%</span></th>
+                                                    <th scope="col" data-field="co">Monóxido de carbono<span class="cv-th-unit">ppm</span></th>
+                                                    <th scope="col" data-field="lel">Límite inferior de explosividad<span class="cv-th-unit">%</span>
                                                 </tr>
                                             </thead>
                                             <tbody id="cvDataBodyGases">
-                                                <tr data-index="19"><td>11:06</td><td>0.61</td><td>94.8</td><td>59.3</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
-                                                <tr data-index="20"><td>11:09</td><td>0.61</td><td>94.7</td><td>59.3</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
-                                                <tr data-index="21"><td>11:12</td><td>0.62</td><td>94.7</td><td>59.2</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
-                                                <tr data-index="22"><td>11:15</td><td>0.60</td><td>94.8</td><td>59.3</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
-                                                <tr data-index="23"><td>11:18</td><td>0.60</td><td>94.8</td><td>59.4</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
-                                                <tr class="is-current" data-index="24"><td>11:21</td><td>0.58</td><td>94.8</td><td>59.4</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
-                                                <tr data-index="25"><td>11:24</td><td>0.60</td><td>94.7</td><td>59.4</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
-                                                <tr data-index="26"><td>11:26</td><td>0.58</td><td>94.7</td><td>59.5</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
-                                                <tr data-index="27"><td>11:29</td><td>0.56</td><td>94.7</td><td>59.4</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
-                                                <tr data-index="28"><td>11:32</td><td>0.56</td><td>94.7</td><td>59.5</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
-                                                <tr data-index="29"><td>11:35</td><td>0.56</td><td>94.8</td><td>59.6</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
-                                                <tr data-index="30"><td>11:38</td><td>0.58</td><td>94.8</td><td>59.5</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
+                                                
                                             </tbody>
                                         </table>
                                     </div>
