@@ -599,7 +599,28 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div><!-- /row tarjetas -->
 
+                            <!-- PESTAÑAS DE VISTA: Gráficos / Datos -->
+                            <ul class="nav cv-tab-nav cv-view-nav" id="cvViewTabsAmbiente" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="view-ambiente-graficos-link" data-toggle="pill" data-view="graficos"
+                                        href="#view-ambiente-graficos" role="tab" aria-controls="view-ambiente-graficos" aria-selected="true">
+                                        <i class="fas fa-chart-line"></i> Gráficos
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="view-ambiente-datos-link" data-toggle="pill" data-view="datos"
+                                        href="#view-ambiente-datos" role="tab" aria-controls="view-ambiente-datos" aria-selected="false">
+                                        <i class="fas fa-table"></i> Datos
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content cv-view-content">
+                            <!-- VISTA: GRÁFICOS (lo que ya existía) -->
+                            <div class="tab-pane fade show active" id="view-ambiente-graficos" role="tabpanel" aria-labelledby="view-ambiente-graficos-link">
+                            <div class="row">
 
                                 <!-- Gráficas individuales: Ambiente -->
                                 <div class="col-12 col-xl-6" data-aos="fade-up">
@@ -789,8 +810,71 @@
                                         <div id="chart-a_pm4_ugm3" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
-                                
+                            </div><!-- /row gráficas -->
+                            </div><!-- /vista gráficos -->
+
+                            <!-- VISTA: DATOS (tabla con todas las lecturas del CSV) — solo diseño.
+                                 Para conectarla (backend):
+                                   #cvDataBodyAmbiente  -> un <tr> por lectura; primera celda = hora, luego un <td> por cada
+                                                         <th data-field="..."> en el mismo orden (data-field = columna del CSV)
+                                   #cvDataCountAmbiente -> "N lecturas"
+                                   .is-current          -> clase para la fila de la lectura seleccionada en la barra deslizadora
+                                   Valor vacío          -> <td class="cv-data-empty">—</td>
+                                 Las filas de abajo son de EJEMPLO (lecturas 19 a 30). -->
+                            <div class="tab-pane fade" id="view-ambiente-datos" role="tabpanel" aria-labelledby="view-ambiente-datos-link">
+                                <div class="cv-chart-card cv-data-card">
+                                    <div class="cv-chart-header">
+                                        <h4 class="cv-chart-title">
+                                            <i class="fas fa-table mr-2"></i>Datos de la campaña
+                                        </h4>
+                                        <span class="cv-chart-badge" id="cvDataCountAmbiente">58 lecturas</span>
+                                    </div>
+                                    <p class="cv-data-hint">
+                                        <i class="fas fa-arrows-alt-h" aria-hidden="true"></i> Desliza la tabla para ver todas las mediciones
+                                    </p>
+                                    <div class="cv-data-table-wrap" tabindex="0" role="region" aria-label="Tabla de datos de ambiente">
+                                        <table class="cv-data-table">
+                                            <caption class="sr-only">Lecturas de ambiente de la campaña seleccionada</caption>
+                                            <thead>
+                                                <tr>
+                                                <th scope="col" data-field="time">Hora</th>
+                                                <th scope="col" data-field="wind_ms">Velocidad del viento<span class="cv-th-unit">mph</span></th>
+                                                <th scope="col" data-field="wind_dir_10min_deg">Dirección del viento<span class="cv-th-unit">°</span></th>
+                                                <th scope="col" data-field="out_temp_c">Temperatura<span class="cv-th-unit">°C</span></th>
+                                                <th scope="col" data-field="out_hum">Humedad<span class="cv-th-unit">%</span></th>
+                                                <th scope="col" data-field="out_feels_like_c">Sensación térmica<span class="cv-th-unit">°C</span></th>
+                                                <th scope="col" data-field="rel_pres_hpa">Presión barométrica<span class="cv-th-unit">hPa</span></th>
+                                                <th scope="col" data-field="solar_rad_wm2">Radiación solar<span class="cv-th-unit">W/m²</span></th>
+                                                <th scope="col" data-field="uv_index">Índice UV<span class="cv-th-unit">UV</span></th>
+                                                <th scope="col" data-field="event_rain_mm">Lluvia<span class="cv-th-unit">mm</span></th>
+                                                <th scope="col" data-field="a_temp_c">Temperatura (AQIN)<span class="cv-th-unit">°C</span></th>
+                                                <th scope="col" data-field="a_hum">Humedad (AQIN)<span class="cv-th-unit">%</span></th>
+                                                <th scope="col" data-field="a_co2_ppm">Dióxido de carbono (AQIN)<span class="cv-th-unit">ppm</span></th>
+                                                <th scope="col" data-field="a_pm2_5_ugm3">PM2.5 (AQIN)<span class="cv-th-unit">μm/m³</span></th>
+                                                <th scope="col" data-field="a_pm10_ugm3">PM10 (AQIN)<span class="cv-th-unit">μm/m³</span></th>
+                                                <th scope="col" data-field="a_pm1_ugm3">PM1.0 (AQIN)<span class="cv-th-unit">μm/m³</span></th>
+                                                <th scope="col" data-field="a_pm4_ugm3">PM4.0 (AQIN)<span class="cv-th-unit">μm/m³</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="cvDataBodyAmbiente">
+                                                <tr data-index="19"><td>11:06</td><td>3.8</td><td>158</td><td>29.4</td><td>77</td><td>34.4</td><td>1012.5</td><td>842.0</td><td>7</td><td>0.0</td><td>30.8</td><td>71.2</td><td>475</td><td>1.6</td><td>2.5</td><td>1.4</td><td>1.5</td></tr>
+                                                <tr data-index="20"><td>11:09</td><td>4.3</td><td>154</td><td>29.5</td><td>76</td><td>34.3</td><td>1012.5</td><td>857.0</td><td>7</td><td>0.0</td><td>30.9</td><td>71.4</td><td>474</td><td>1.8</td><td>2.6</td><td>1.3</td><td>1.5</td></tr>
+                                                <tr data-index="21"><td>11:12</td><td>3.9</td><td>146</td><td>29.5</td><td>76</td><td>34.5</td><td>1012.4</td><td>857.2</td><td>7</td><td>0.0</td><td>30.9</td><td>71.4</td><td>472</td><td>1.8</td><td>2.5</td><td>1.3</td><td>1.6</td></tr>
+                                                <tr data-index="22"><td>11:15</td><td>3.7</td><td>153</td><td>29.5</td><td>76</td><td>34.6</td><td>1012.3</td><td>842.0</td><td>7</td><td>0.0</td><td>30.9</td><td>71.7</td><td>470</td><td>1.8</td><td>2.3</td><td>1.3</td><td>1.5</td></tr>
+                                                <tr data-index="23"><td>11:18</td><td>3.7</td><td>158</td><td>29.3</td><td>77</td><td>34.7</td><td>1012.4</td><td>843.9</td><td>7</td><td>0.0</td><td>30.9</td><td>71.6</td><td>468</td><td>1.7</td><td>2.2</td><td>1.3</td><td>1.6</td></tr>
+                                                <tr class="is-current" data-index="24"><td>11:21</td><td>4.1</td><td>158</td><td>29.1</td><td>76</td><td>34.8</td><td>1012.5</td><td>842.0</td><td>7</td><td>0.0</td><td>30.9</td><td>71.5</td><td>468</td><td>1.8</td><td>2.1</td><td>1.3</td><td>1.6</td></tr>
+                                                <tr data-index="25"><td>11:24</td><td>3.4</td><td>157</td><td>29.1</td><td>77</td><td>34.9</td><td>1012.5</td><td>862.0</td><td>7</td><td>0.0</td><td>30.9</td><td>71.3</td><td>464</td><td>1.9</td><td>1.9</td><td>1.4</td><td>1.6</td></tr>
+                                                <tr data-index="26"><td>11:26</td><td>3.7</td><td>147</td><td>29.2</td><td>77</td><td>34.7</td><td>1012.4</td><td>844.0</td><td>7</td><td>0.0</td><td>30.8</td><td>71.4</td><td>464</td><td>2.0</td><td>1.8</td><td>1.4</td><td>1.6</td></tr>
+                                                <tr data-index="27"><td>11:29</td><td>3.9</td><td>145</td><td>29.4</td><td>77</td><td>34.9</td><td>1012.4</td><td>842.0</td><td>7</td><td>0.0</td><td>30.7</td><td>71.7</td><td>463</td><td>2.2</td><td>1.7</td><td>1.4</td><td>1.5</td></tr>
+                                                <tr data-index="28"><td>11:32</td><td>3.6</td><td>151</td><td>29.5</td><td>77</td><td>34.8</td><td>1012.3</td><td>842.0</td><td>6</td><td>0.0</td><td>30.8</td><td>71.8</td><td>463</td><td>2.1</td><td>1.8</td><td>1.4</td><td>1.4</td></tr>
+                                                <tr data-index="29"><td>11:35</td><td>3.1</td><td>143</td><td>29.6</td><td>77</td><td>34.6</td><td>1012.2</td><td>842.0</td><td>6</td><td>0.0</td><td>30.9</td><td>71.6</td><td>462</td><td>2.0</td><td>2.0</td><td>1.4</td><td>1.6</td></tr>
+                                                <tr data-index="30"><td>11:38</td><td>2.7</td><td>146</td><td>29.6</td><td>77</td><td>34.6</td><td>1012.1</td><td>857.9</td><td>7</td><td>0.0</td><td>30.9</td><td>71.5</td><td>462</td><td>2.0</td><td>2.2</td><td>1.4</td><td>1.6</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
+                            </div><!-- /tab-content vistas -->
                         </div>
 
                         <!-- ============================================================= -->
@@ -974,6 +1058,26 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- PESTAÑAS DE VISTA: Gráficos / Datos -->
+                            <ul class="nav cv-tab-nav cv-view-nav" id="cvViewTabsGases" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="view-gases-graficos-link" data-toggle="pill" data-view="graficos"
+                                        href="#view-gases-graficos" role="tab" aria-controls="view-gases-graficos" aria-selected="true">
+                                        <i class="fas fa-chart-line"></i> Gráficos
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="view-gases-datos-link" data-toggle="pill" data-view="datos"
+                                        href="#view-gases-datos" role="tab" aria-controls="view-gases-datos" aria-selected="false">
+                                        <i class="fas fa-table"></i> Datos
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content cv-view-content">
+                            <!-- VISTA: GRÁFICOS (lo que ya existía) -->
+                            <div class="tab-pane fade show active" id="view-gases-graficos" role="tabpanel" aria-labelledby="view-gases-graficos-link">
                             <div class="row">
 
                                 <!-- Gráficas individuales: Concentración de gases -->
@@ -1060,7 +1164,62 @@
                                         <div id="chart-lel" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
+                            </div><!-- /row gráficas -->
+                            </div><!-- /vista gráficos -->
+
+                            <!-- VISTA: DATOS (tabla con todas las lecturas del CSV) — solo diseño.
+                                 Para conectarla (backend):
+                                   #cvDataBodyGases  -> un <tr> por lectura; primera celda = hora, luego un <td> por cada
+                                                         <th data-field="..."> en el mismo orden (data-field = columna del CSV)
+                                   #cvDataCountGases -> "N lecturas"
+                                   .is-current          -> clase para la fila de la lectura seleccionada en la barra deslizadora
+                                   Valor vacío          -> <td class="cv-data-empty">—</td>
+                                 Las filas de abajo son de EJEMPLO (lecturas 19 a 30). -->
+                            <div class="tab-pane fade" id="view-gases-datos" role="tabpanel" aria-labelledby="view-gases-datos-link">
+                                <div class="cv-chart-card cv-data-card">
+                                    <div class="cv-chart-header">
+                                        <h4 class="cv-chart-title">
+                                            <i class="fas fa-table mr-2"></i>Datos de la campaña
+                                        </h4>
+                                        <span class="cv-chart-badge" id="cvDataCountGases">58 lecturas</span>
+                                    </div>
+                                    <p class="cv-data-hint">
+                                        <i class="fas fa-arrows-alt-h" aria-hidden="true"></i> Desliza la tabla para ver todas las mediciones
+                                    </p>
+                                    <div class="cv-data-table-wrap" tabindex="0" role="region" aria-label="Tabla de datos de gases">
+                                        <table class="cv-data-table">
+                                            <caption class="sr-only">Lecturas de gases de la campaña seleccionada</caption>
+                                            <thead>
+                                                <tr>
+                                                <th scope="col" data-field="time">Hora</th>
+                                                <th scope="col" data-field="amon">Amoniaco<span class="cv-th-unit">ppm</span></th>
+                                                <th scope="col" data-field="temp_f">Temperatura<span class="cv-th-unit">°C</span></th>
+                                                <th scope="col" data-field="hum">Humedad<span class="cv-th-unit">%</span></th>
+                                                <th scope="col" data-field="h2s">Ácido sulfhídrico<span class="cv-th-unit">ppm</span></th>
+                                                <th scope="col" data-field="o2">Oxígeno<span class="cv-th-unit">%</span></th>
+                                                <th scope="col" data-field="co">Monóxido de carbono<span class="cv-th-unit">ppm</span></th>
+                                                <th scope="col" data-field="lel">Límite inferior de explosividad<span class="cv-th-unit">%</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="cvDataBodyGases">
+                                                <tr data-index="19"><td>11:06</td><td>0.61</td><td>94.8</td><td>59.3</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
+                                                <tr data-index="20"><td>11:09</td><td>0.61</td><td>94.7</td><td>59.3</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
+                                                <tr data-index="21"><td>11:12</td><td>0.62</td><td>94.7</td><td>59.2</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
+                                                <tr data-index="22"><td>11:15</td><td>0.60</td><td>94.8</td><td>59.3</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
+                                                <tr data-index="23"><td>11:18</td><td>0.60</td><td>94.8</td><td>59.4</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
+                                                <tr class="is-current" data-index="24"><td>11:21</td><td>0.58</td><td>94.8</td><td>59.4</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
+                                                <tr data-index="25"><td>11:24</td><td>0.60</td><td>94.7</td><td>59.4</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
+                                                <tr data-index="26"><td>11:26</td><td>0.58</td><td>94.7</td><td>59.5</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
+                                                <tr data-index="27"><td>11:29</td><td>0.56</td><td>94.7</td><td>59.4</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
+                                                <tr data-index="28"><td>11:32</td><td>0.56</td><td>94.7</td><td>59.5</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
+                                                <tr data-index="29"><td>11:35</td><td>0.56</td><td>94.8</td><td>59.6</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
+                                                <tr data-index="30"><td>11:38</td><td>0.58</td><td>94.8</td><td>59.5</td><td>0.00</td><td>20.9</td><td>0</td><td>0</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
+                            </div><!-- /tab-content vistas -->
                         </div>
 
                     </div>

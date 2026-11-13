@@ -189,6 +189,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     setFilterEvents();
     setThemeEvent();
     setTimeSliderEvents();
+    setViewTabsEvents();
     setDarkMode(true);
     window.state = state;
     setupFilterListeners();
@@ -1275,6 +1276,16 @@ function updateTimeSliderUI() {
     const currentEl = document.getElementById('cvTimeSliderCurrent');
     const time = currentEl ? currentEl.textContent.trim() : '';
     slider.setAttribute('aria-valuetext',`Lectura ${index} de ${total}${time ? ', ' + time : ''}`);
+}
+
+// ---------------
+// PESTAÑAS GRÁFICOS / DATOS (solo la parte visual)
+// Al volver a "Gráficos" se reajustan las gráficas por si la ventana cambió de tamaño mientras estaban ocultas.
+// ---------------
+function setViewTabsEvents() {
+    document.querySelectorAll('.cv-view-nav .nav-link[data-view="graficos"]').forEach(link => {
+        link.addEventListener('click',triggerChartResize);
+    });
 }
 
 function setTimeSliderEvents() {
