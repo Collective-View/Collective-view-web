@@ -265,15 +265,6 @@
                         </li>
                     </ul>
 
-                    <!-- BARRA DESLIZADORA: recorrer las lecturas de la campaña (solo diseño).
-                         Para conectarla (backend):
-                           #cvTimeSlider          -> min = 1, max = total de lecturas, value = lectura mostrada
-                           #cvTimeSliderStart/End -> hora de la primera / última lectura
-                           #cvTimeSliderCurrent   -> hora de la lectura seleccionada (va bajo el punto)
-                           #cvTimeSliderDate      -> fecha de la campaña
-                           "Lectura X de Y" se calcula solo desde min/max/value.
-                           Si cambian min/max/value o los textos por código, llamar window.cvUpdateTimeSliderUI().
-                         Los valores escritos abajo son de EJEMPLO. -->
                     <div class="cv-time-slider" id="cvTimeSliderWrap">
                         <div class="cv-time-slider-row">
                             <span class="cv-time-slider-edge" id="cvTimeSliderStart">10:15</span>
@@ -299,307 +290,621 @@
                         <div class="tab-pane fade show active" id="tab-ambiente" role="tabpanel"
                             aria-labelledby="tab-ambiente-link">
                             <div class="row">
-                                <!-- Card 1: Velocidad del viento -->
+                                
+                                <!-- Bloque de interior-->
                                 <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-wind cv-card-icon"></i>
-                                                Velocidad del viento
-                                            </span>
-                                        </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="wind_ms-value">?</span>
-                                            <span class="cv-card-unit">mph</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Card 2: Direccion del viento -->
-                                <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
-                                        <div class="cv-card-header">
-                                            <span class="cv-card-title">
-                                                <i class="fas fa-compass cv-card-icon"></i>
-                                                Direccion del viento
+                                                Interior
                                             </span>
                                         </div>
 
-                                        <div class="cv-wind-dial-wrap" id="cv-wind-wheel" style="--cv-wind-deg: 330deg;">
-                                            <svg class="cv-wind-dial-svg" viewBox="0 0 160 160">
-                                                <circle cx="80" cy="80" r="70" class="cv-compass-ring" />
-                                                <g class="cv-compass-ticks">
-                                                    <line x1="80" y1="10" x2="80" y2="15" />
-                                                    <line x1="115" y1="19.4" x2="112.5" y2="23.7" />
-                                                    <line x1="140.6" y1="45" x2="136.3" y2="47.5" />
-                                                    <line x1="150" y1="80" x2="145" y2="80" />
-                                                    <line x1="140.6" y1="115" x2="136.3" y2="112.5" />
-                                                    <line x1="115" y1="140.6" x2="112.5" y2="136.3" />
-                                                    <line x1="80" y1="150" x2="80" y2="145" />
-                                                    <line x1="45" y1="140.6" x2="47.5" y2="136.3" />
-                                                    <line x1="19.4" y1="115" x2="23.7" y2="112.5" />
-                                                    <line x1="10" y1="80" x2="15" y2="80" />
-                                                    <line x1="19.4" y1="45" x2="23.7" y2="47.5" />
-                                                    <line x1="45" y1="19.4" x2="47.5" y2="23.7" />
-                                                </g>
-                                                <g class="cv-compass-labels">
-                                                    <text class="cv-compass-deg-text" x="80" y="24">0</text>
-                                                    <text class="cv-compass-deg-text" x="108" y="31.5">30</text>
-                                                    <text class="cv-compass-deg-text" x="128.5" y="52">60</text>
-                                                    <text class="cv-compass-deg-text" x="136" y="80">90</text>
-                                                    <text class="cv-compass-deg-text" x="128.5" y="108">120</text>
-                                                    <text class="cv-compass-deg-text" x="108" y="128.5">150</text>
-                                                    <text class="cv-compass-deg-text" x="80" y="136">180</text>
-                                                    <text class="cv-compass-deg-text" x="52" y="128.5">210</text>
-                                                    <text class="cv-compass-deg-text" x="31.5" y="108">240</text>
-                                                    <text class="cv-compass-deg-text" x="24" y="80">270</text>
-                                                    <text class="cv-compass-deg-text" x="31.5" y="52">300</text>
-                                                    <text class="cv-compass-deg-text" x="52" y="31.5">330</text>
-                                                </g>
-                                                <g class="cv-wind-pointer-group" id="cv-wind-pointer" style="transform: rotate(var(--cv-wind-deg, 330deg));">
-                                                    <polygon points="80,14 74,3 80,6 86,3" class="cv-pointer-primary" />
-                                                    <polygon points="80,14 74,3 80,6 86,3" class="cv-pointer-ghost" transform="rotate(-15 80 80)" />
-                                                </g>
-                                            </svg>
-
-                                            <div class="cv-wind-dial-center">
-                                                <span class="cv-wind-realtime-label">Real-Time</span>
-                                                <div class="cv-wind-main-val">
-                                                    <span class="cv-wind-deg-num" id="wind_dir_10min_deg-value">?</span>
-                                                    <span class="cv-wind-deg-sym">°</span>
+                                        <div class="cv-var-grid">
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Temperatura</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="in_temp_c-value">?</span>
+                                                    <span class="cv-card-unit">°C</span>
                                                 </div>
-                                                <div class="cv-wind-cardinal-badge">
-                                                    <span id="cv-wind-cardinal">NNW</span>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="in_temp_c-max">?</span> °C
+                                                    </span>
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="in_temp_c-min">?</span> °C
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Humedad</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="in_hum-value">?</span>
+                                                    <span class="cv-card-unit">%</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="in_hum-max">?</span> %
+                                                    </span>
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="in_hum-min">?</span> %
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Card 3: Temperatura -->
+                                
+                                <!-- Bloque de Presión-->
                                 <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-thermometer-half cv-card-icon"></i>
-                                                Temperatura
+                                                Presión Barométrica
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="out_temp_c-value">?</span>
-                                            <span class="cv-card-unit">°C</span>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <!-- Card 4: Humedad -->
-                                <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
-                                        <div class="cv-card-header">
-                                            <span class="cv-card-title">
-                                                <i class="fas fa-tint cv-card-icon"></i>
-                                                Humedad
-                                            </span>
-                                        </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="out_hum-value">?</span>
-                                            <span class="cv-card-unit">%</span>
+                                        <div class="cv-var-grid">
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Relativa</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="rel_pres_hpa-value">?</span>
+                                                    <span class="cv-card-unit">hPa</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="rel_pres_hpa-max">?</span> hPa
+                                                    </span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="rel_pres_hpa-min">?</span> hPa
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Absoluta</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="abs_pres_hpa-value">?</span>
+                                                    <span class="cv-card-unit">hPa</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="abs_pres_hpa-max">?</span> hPa
+                                                    </span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="abs_pres_hpa-min">?</span> hPa
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Card 5: Sensación térmica -->
+                                <!-- Bloque de exterior-->
                                 <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-fire cv-card-icon"></i>
-                                                Sensación Térmica
+                                                Exterior
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="out_feels_like_c-value">?</span>
-                                            <span class="cv-card-unit">°C</span>
+
+                                        <div class="cv-var-grid">
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Temperatura</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="out_temp_c-value">?</span>
+                                                    <span class="cv-card-unit">°C</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="out_temp_c-max">?</span> °C
+                                                    </span>
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="out_temp_c-min">?</span> °C
+                                                    </span>
+                                                </div>
+                                                <dl class="cv-kv-list cv-kv-list--flush">
+                                                    <div class="cv-kv-row">
+                                                        <dt>VPD</dt>
+                                                        <dd><span id="vpd_kpa-value">?</span> kPa</dd>
+                                                    </div>
+                                                </dl>
+                                            </div>
+
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Humedad</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="out_hum-value">?</span>
+                                                    <span class="cv-card-unit">%</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="out_hum-max">?</span> %
+                                                    </span>
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="out_hum-min">?</span> %
+                                                    </span>
+                                                </div>
+                                                <dl class="cv-kv-list cv-kv-list--flush">
+                                                    <div class="cv-kv-row">
+                                                        <dt>Sensación térmica</dt>
+                                                        <dd><span id="out_feels_like_c-value">?</span>°C</dd>
+                                                    </div>
+                                                    <div class="cv-kv-row">
+                                                        <dt>Punto de rocío</dt>
+                                                        <dd><span id="out_dew_point_c-value">?</span>°C</dd>
+                                                    </div>
+                                                </dl>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Card 6: Presion barometrica -->
+                            
+                                <!-- Bloque de SOL UV-->
                                 <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-tachometer-alt cv-card-icon"></i>
-                                                Presion barometrica
+                                                Solar y UVI
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="rel_pres_hpa-value">?</span>
-                                            <span class="cv-card-unit">hPa</span>
+
+                                        <div class="cv-card-note">
+                                            <i class="fas fa-adjust" aria-hidden="true"></i>
+                                            <span id="moon_phase">?</span>
+                                        </div>
+
+                                        <div class="cv-var-grid">
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Radiación solar</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="solar_rad_wm2-value">?</span>
+                                                    <span class="cv-card-unit">W/m²</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="solar_rad_wm2-max">?</span> W/m²
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Índice UV</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="uv_index-value">?</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="uv_index-max">?</span>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Card 7: Radiación Solar -->
+                                
+                                <!-- Bloque de Lluvia-->
                                 <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-sun cv-card-icon"></i>
-                                                Radiación Solar
-                                            </span>
-                                        </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="solar_rad_wm2-value">?</span>
-                                            <span class="cv-card-unit">W/m²</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Card 8: Indice UV -->
-                                <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
-                                        <div class="cv-card-header">
-                                            <span class="cv-card-title">
-                                                <i class="fas fa-lightbulb cv-card-icon"></i>
-                                                Indice UV
-                                            </span>
-                                        </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="uv_index-value">?</span>
-                                            <span class="cv-card-unit">UV</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Card 9: Lluvia -->
-                                <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
-                                        <div class="cv-card-header">
-                                            <span class="cv-card-title">
-                                                <i class="fas fa-cloud-rain cv-card-icon"></i>
                                                 Lluvia
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="event_rain_mm-value">?</span>
-                                            <span class="cv-card-unit">mm</span>
+
+                                        <div class="cv-var-grid">
+
+                                            <!-- Izquierda: dos variables apiladas -->
+                                            <div class="cv-var-stack">
+                                                <div class="cv-var">
+                                                    <span class="cv-var-name">Intensidad de lluvia</span>
+                                                    <div class="cv-var-value">
+                                                        <span class="cv-card-value" id="rain_rate_mmhr-value">?</span>
+                                                        <span class="cv-card-unit">mm/h</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="cv-var">
+                                                    <span class="cv-var-name">Acumulado en las últimas 24hrs</span>
+                                                    <div class="cv-var-value">
+                                                        <span class="cv-card-value" id="24h_rain_mm-value">?</span>
+                                                        <span class="cv-card-unit">mm</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Derecha: lista etiqueta / valor -->
+                                            <dl class="cv-kv-list">
+                                                <div class="cv-kv-row">
+                                                    <dt>Estado</dt>
+                                                    <dd id="rain_status-value">?</dd>
+                                                </div>
+                                                <div class="cv-kv-row">
+                                                    <dt>Evento</dt>
+                                                    <dd><span id="event_rain_mm-value">?</span> mm</dd>
+                                                </div>
+                                                <div class="cv-kv-row">
+                                                    <dt>Por hora</dt>
+                                                    <dd><span id="hourly_rain_mm-value">?</span> mm</dd>
+                                                </div>
+                                                <div class="cv-kv-row">
+                                                    <dt>24 horas</dt>
+                                                    <dd><span id="daily_rain_mm-value">?</span> mm</dd>
+                                                </div>
+                                                <div class="cv-kv-row">
+                                                    <dt>Semanal</dt>
+                                                    <dd><span id="weekly_rain_mm-value">?</span> mm</dd>
+                                                </div>
+                                                <div class="cv-kv-row">
+                                                    <dt>Mensual</dt>
+                                                    <dd><span id="monthly_rain_mm-value">?</span> mm</dd>
+                                                </div>
+                                                <div class="cv-kv-row">
+                                                    <dt>Anual</dt>
+                                                    <dd><span id="yearly_rain_mm-value">?</span> mm</dd>
+                                                </div>
+                                            </dl>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Card 10: Temperatura (AQIN) -->
-                                <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
+                                <!-- Cuadro de viento -->
+                                 <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-thermometer-half cv-card-icon"></i>
-                                                Temperatura (AQIN)
+                                                Viento
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="a_temp_c-value">?</span>
-                                            <span class="cv-card-unit">°C</span>
+
+                                        <div class="cv-var-grid cv-var-grid--3">
+                                            <!-- Velocidad -->
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Velocidad</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="wind_ms-value">?</span>
+                                                    <span class="cv-card-unit">m/s</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="wind_ms-max">?</span> m/s
+                                                    </span>
+                                                </div>
+                                                <span class="cv-var-time" id="wind_ms-max-time">--:--</span>
+                                            </div>
+
+                                            <!-- Brújula -->
+                                            <div class="cv-var cv-var--dial">
+                                                <div class="cv-wind-dial-wrap" id="cv-wind-wheel" style="--cv-wind-deg: 330deg;">
+                                                    <svg class="cv-wind-dial-svg" viewBox="0 0 160 160">
+                                                        <circle cx="80" cy="80" r="70" class="cv-compass-ring" />
+                                                        <g class="cv-compass-ticks">
+                                                            <line x1="80" y1="10" x2="80" y2="15" />
+                                                            <line x1="115" y1="19.4" x2="112.5" y2="23.7" />
+                                                            <line x1="140.6" y1="45" x2="136.3" y2="47.5" />
+                                                            <line x1="150" y1="80" x2="145" y2="80" />
+                                                            <line x1="140.6" y1="115" x2="136.3" y2="112.5" />
+                                                            <line x1="115" y1="140.6" x2="112.5" y2="136.3" />
+                                                            <line x1="80" y1="150" x2="80" y2="145" />
+                                                            <line x1="45" y1="140.6" x2="47.5" y2="136.3" />
+                                                            <line x1="19.4" y1="115" x2="23.7" y2="112.5" />
+                                                            <line x1="10" y1="80" x2="15" y2="80" />
+                                                            <line x1="19.4" y1="45" x2="23.7" y2="47.5" />
+                                                            <line x1="45" y1="19.4" x2="47.5" y2="23.7" />
+                                                        </g>
+                                                        <g class="cv-compass-labels">
+                                                            <text class="cv-compass-deg-text" x="80" y="24">0</text>
+                                                            <text class="cv-compass-deg-text" x="108" y="31.5">30</text>
+                                                            <text class="cv-compass-deg-text" x="128.5" y="52">60</text>
+                                                            <text class="cv-compass-deg-text" x="136" y="80">90</text>
+                                                            <text class="cv-compass-deg-text" x="128.5" y="108">120</text>
+                                                            <text class="cv-compass-deg-text" x="108" y="128.5">150</text>
+                                                            <text class="cv-compass-deg-text" x="80" y="136">180</text>
+                                                            <text class="cv-compass-deg-text" x="52" y="128.5">210</text>
+                                                            <text class="cv-compass-deg-text" x="31.5" y="108">240</text>
+                                                            <text class="cv-compass-deg-text" x="24" y="80">270</text>
+                                                            <text class="cv-compass-deg-text" x="31.5" y="52">300</text>
+                                                            <text class="cv-compass-deg-text" x="52" y="31.5">330</text>
+                                                        </g>
+                                                        <g class="cv-wind-pointer-group" id="cv-wind-pointer" style="transform: rotate(var(--cv-wind-deg, 330deg));">
+                                                            <polygon points="80,14 74,3 80,6 86,3" class="cv-pointer-primary" />
+                                                            <polygon points="80,14 74,3 80,6 86,3" class="cv-pointer-ghost" transform="rotate(-15 80 80)" />
+                                                        </g>
+                                                    </svg>
+
+                                                    <div class="cv-wind-dial-center">
+                                                        <span class="cv-wind-realtime-label">Real-Time</span>
+                                                        <div class="cv-wind-main-val">
+                                                            <span class="cv-wind-deg-num" id="wind_dir_deg-value">?</span>
+                                                            <span class="cv-wind-deg-sym">°</span>
+                                                        </div>
+                                                        <div class="cv-wind-cardinal-badge">
+                                                            <span id="cv-wind-cardinal">NNW</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Ráfaga -->
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Ráfaga</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="gust_ms-value">?</span>
+                                                    <span class="cv-card-unit">m/s</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="gust_ms-max">?</span> m/s
+                                                    </span>
+                                                </div>
+                                                <span class="cv-var-time" id="gust_ms-max-time">--:--</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <!-- Cuadro de dioxido de carbono -->
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <div class="cv-metric-card cv-metric-card--multi">
+                                        <div class="cv-card-header">
+                                            <span class="cv-card-title">
+                                                CO2 AQI Combo
+                                            </span>
+                                        </div>
+
+                                        <div class="cv-var-grid cv-var-grid--1">
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">CO2</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="a_co2_ppm-value">?</span>
+                                                    <span class="cv-card-unit">ppm</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="a_co2_ppm-max">?</span> ppm
+                                                    </span>
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="a_co2_ppm-min">?</span> ppm
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Card 11: Humedad (AQIN) -->
+                                <!-- Cuadro de PM2.5 -->
                                 <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-tint cv-card-icon"></i>
-                                                Humedad (AQIN)
+                                                PM2.5 AQI Combo
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="a_hum-value">?</span>
-                                            <span class="cv-card-unit">%</span>
+
+                                        <div class="cv-var-grid">
+                                            <!-- Semáforo: JS cambia la clase cv-aqi--good por moderate / sensitive / unhealthy / very-unhealthy / hazardous -->
+                                            <div class="cv-var cv-aqi cv-aqi--good" id="a_pm2_5_ugm3-status">
+                                                <span class="cv-aqi-label" id="a_pm2_5_ugm3-label">Desconocido</span>
+                                                <span class="cv-aqi-dot" aria-hidden="true"></span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="a_pm2_5_ugm3-aqi">?</span>
+                                                    <span class="cv-card-unit">AQI</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Concentración actual -->
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Actual</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="a_pm2_5_ugm3-value">?</span>
+                                                    <span class="cv-card-unit">µg/m³</span>
+                                                </div>
+                                                <dl class="cv-kv-list cv-kv-list--flush">
+                                                    <div class="cv-kv-row">
+                                                        <dt>Máx. 1 h</dt>
+                                                        <dd><span id="a_pm2_5_ugm3-max1h">?</span> µg/m³</dd>
+                                                    </div>
+                                                    <div class="cv-kv-row">
+                                                        <dt>Máx. del día</dt>
+                                                        <dd><span id="a_pm2_5_ugm3-max">?</span> µg/m³</dd>
+                                                    </div>
+                                                </dl>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Card 12: Dióxido de carbono (AQIN) -->
+                                <!-- Cuadro de PM10 -->
                                 <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-smog cv-card-icon"></i>
-                                                Dióxido de carbono (AQIN)
+                                                PM10 AQI Combo
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="a_co2_ppm-value">?</span>
-                                            <span class="cv-card-unit">ppm</span>
+
+                                        <div class="cv-var-grid">
+                                            <!-- Semáforo: JS cambia la clase cv-aqi--good por moderate / sensitive / unhealthy / very-unhealthy / hazardous -->
+                                            <div class="cv-var cv-aqi cv-aqi--good" id="a_pm10_ugm3-status">
+                                                <span class="cv-aqi-label" id="a_pm10_ugm3-label">Desconocido</span>
+                                                <span class="cv-aqi-dot" aria-hidden="true"></span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="a_pm10_ugm3-aqi">?</span>
+                                                    <span class="cv-card-unit">AQI</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Concentración actual -->
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Actual</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="a_pm10_ugm3-value">?</span>
+                                                    <span class="cv-card-unit">µg/m³</span>
+                                                </div>
+                                                <dl class="cv-kv-list cv-kv-list--flush">
+                                                    <div class="cv-kv-row">
+                                                        <dt>Máx. 1 h</dt>
+                                                        <dd><span id="a_pm10_ugm3-max1h">?</span> µg/m³</dd>
+                                                    </div>
+                                                    <div class="cv-kv-row">
+                                                        <dt>Máx. del día</dt>
+                                                        <dd><span id="a_pm10_ugm3-max">?</span> µg/m³</dd>
+                                                    </div>
+                                                </dl>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Card 13: PM2.5 (AQIN) -->
+                                <!-- Cuadro de PM1.0 -->
                                 <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-smog cv-card-icon"></i>
-                                                PM2.5 (AQIN)
+                                                PM1.0 AQI Combo
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="a_pm2_5_ugm3-value">?</span>
-                                            <span class="cv-card-unit">µg/m³</span>
+
+                                        <div class="cv-var-grid">
+                                            <!-- Semáforo: JS cambia la clase cv-aqi--good por moderate / sensitive / unhealthy / very-unhealthy / hazardous -->
+                                            <div class="cv-var cv-aqi cv-aqi--good" id="a_pm1_ugm3-status">
+                                                <span class="cv-aqi-label" id="a_pm1_ugm3-label">Desconocido</span>
+                                                <span class="cv-aqi-dot" aria-hidden="true"></span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="a_pm1_ugm3-aqi">?</span>
+                                                    <span class="cv-card-unit">AQI</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Concentración actual -->
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Actual</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="a_pm1_ugm3-value">?</span>
+                                                    <span class="cv-card-unit">µg/m³</span>
+                                                </div>
+                                                <dl class="cv-kv-list cv-kv-list--flush">
+                                                    <div class="cv-kv-row">
+                                                        <dt>Máx. 1 h</dt>
+                                                        <dd><span id="a_pm1_ugm3-max1h">?</span> µg/m³</dd>
+                                                    </div>
+                                                    <div class="cv-kv-row">
+                                                        <dt>Máx. del día</dt>
+                                                        <dd><span id="a_pm1_ugm3-max">?</span> µg/m³</dd>
+                                                    </div>
+                                                </dl>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Card 14: PM10 (AQIN) -->
+                                <!-- Cuadro de PM4.0 -->
                                 <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-smog cv-card-icon"></i>
-                                                PM10 (AQIN)
+                                                PM4.0 AQI Combo
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="a_pm10_ugm3-value">?</span>
-                                            <span class="cv-card-unit">µg/m³</span>
+
+                                        <div class="cv-var-grid">
+                                            <!-- Semáforo: JS cambia la clase cv-aqi--good por moderate / sensitive / unhealthy / very-unhealthy / hazardous -->
+                                            <div class="cv-var cv-aqi cv-aqi--good" id="a_pm4_ugm3-status">
+                                                <span class="cv-aqi-label" id="a_pm4_ugm3-label">Desconocido</span>
+                                                <span class="cv-aqi-dot" aria-hidden="true"></span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="a_pm4_ugm3-aqi">?</span>
+                                                    <span class="cv-card-unit">AQI</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Concentración actual -->
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Actual</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="a_pm4_ugm3-value">?</span>
+                                                    <span class="cv-card-unit">µg/m³</span>
+                                                </div>
+                                                <dl class="cv-kv-list cv-kv-list--flush">
+                                                    <div class="cv-kv-row">
+                                                        <dt>Máx. 1 h</dt>
+                                                        <dd><span id="a_pm4_ugm3-max1h">?</span> µg/m³</dd>
+                                                    </div>
+                                                    <div class="cv-kv-row">
+                                                        <dt>Máx. del día</dt>
+                                                        <dd><span id="a_pm4_ugm3-max">?</span> µg/m³</dd>
+                                                    </div>
+                                                </dl>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Card 15: PM1.0 (AQIN) -->
+                                <!-- Bloque de temp/humedad por AQIN-->
                                 <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-smog cv-card-icon"></i>
-                                                PM1.0 (AQIN)
+                                                T&RH AQI Combo
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="a_pm1_ugm3-value">?</span>
-                                            <span class="cv-card-unit">µg/m³</span>
+
+                                        <div class="cv-var-grid">
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Temperatura</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="a_temp_c-value">?</span>
+                                                    <span class="cv-card-unit">°C</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="a_temp_c-max">?</span> °C
+                                                    </span>
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="a_temp_c-min">?</span> °C
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Humedad</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="a_hum-value">?</span>
+                                                    <span class="cv-card-unit">%</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <!-- Card 16: PM4.0 (AQIN) -->
-                                <div class="col-12 col-md-6 col-xl-3">
-                                    <div class="cv-metric-card">
-                                        <div class="cv-card-header">
-                                            <span class="cv-card-title">
-                                                <i class="fas fa-smog cv-card-icon"></i>
-                                                PM4.0 (AQIN)
-                                            </span>
-                                        </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="a_pm4_ugm3-value">?</span>
-                                            <span class="cv-card-unit">µg/m³</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- /row tarjetas -->
+                            </div>
+                            
+                                <!-- aqui iban las tarjetas -->
 
                             <!-- PESTAÑAS DE VISTA: Gráficos / Datos -->
                             <ul class="nav cv-tab-nav cv-view-nav" id="cvViewTabsAmbiente" role="tablist">
@@ -629,7 +934,7 @@
                                             <h4 class="cv-chart-title">
                                                 <i class="fas fa-wind mr-2"></i>Velocidad del viento
                                             </h4>
-                                            <span class="cv-chart-badge">Unidad: mph</span>
+                                            <span class="cv-chart-badge">Unidad: m/s</span>
                                         </div>
                                         <div id="chart-wind_ms" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
@@ -643,7 +948,7 @@
                                             </h4>
                                             <span class="cv-chart-badge">Unidad: °</span>
                                         </div>
-                                        <div id="chart-wind_dir_10min_deg" class="cv-chart-canvas cv-chart-canvas--single"></div>
+                                        <div id="chart-wind_dir_deg" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
 
@@ -810,17 +1115,9 @@
                                         <div id="chart-a_pm4_ugm3" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
-                            </div><!-- /row gráficas -->
-                            </div><!-- /vista gráficos -->
+                            </div>
+                            </div>
 
-                            <!-- VISTA: DATOS (tabla con todas las lecturas del CSV) — solo diseño.
-                                 Para conectarla (backend):
-                                   #cvDataBodyAmbiente  -> un <tr> por lectura; primera celda = hora, luego un <td> por cada
-                                                         <th data-field="..."> en el mismo orden (data-field = columna del CSV)
-                                   #cvDataCountAmbiente -> "N lecturas"
-                                   .is-current          -> clase para la fila de la lectura seleccionada en la barra deslizadora
-                                   Valor vacío          -> <td class="cv-data-empty">—</td>
-                                 Las filas de abajo son de EJEMPLO (lecturas 19 a 30). -->
                             <div class="tab-pane fade" id="view-ambiente-datos" role="tabpanel" aria-labelledby="view-ambiente-datos-link">
                                 <div class="cv-chart-card cv-data-card">
                                     <div class="cv-chart-header">
@@ -837,30 +1134,61 @@
                                             <caption class="sr-only">Lecturas de ambiente de la campaña seleccionada</caption>
                                             <thead>
                                                 <tr>
+                                                    <!-- Tiempo -->
                                                     <th scope="col" data-field="time">Hora</th>
-                                                    <th scope="col" data-field="wind_ms">Velocidad del viento<span class="cv-th-unit">mph</span></th>
-                                                    <th scope="col" data-field="wind_dir_10min_deg">Dirección del viento<span class="cv-th-unit">°</span></th>
-                                                    <th scope="col" data-field="out_temp_c">Temperatura<span class="cv-th-unit">°C</span></th>
-                                                    <th scope="col" data-field="out_hum">Humedad<span class="cv-th-unit">%</span></th>
+
+                                                    <!-- Interior -->
+                                                    <th scope="col" data-field="in_temp_c">Temperatura interior<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="in_hum">Humedad interior<span class="cv-th-unit">%</span></th>
+
+                                                    <!-- Presión -->
+                                                    <th scope="col" data-field="abs_pres_hpa">Presión absoluta<span class="cv-th-unit">hPa</span></th>
+                                                    <th scope="col" data-field="rel_pres_hpa">Presión relativa<span class="cv-th-unit">hPa</span></th>
+
+                                                    <!-- Exterior -->
+                                                    <th scope="col" data-field="out_temp_c">Temperatura exterior<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="out_hum">Humedad exterior<span class="cv-th-unit">%</span></th>
                                                     <th scope="col" data-field="out_feels_like_c">Sensación térmica<span class="cv-th-unit">°C</span></th>
-                                                    <th scope="col" data-field="rel_pres_hpa">Presión barométrica<span class="cv-th-unit">hPa</span></th>
+                                                    <th scope="col" data-field="out_dew_point_c">Punto de rocío<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="vpd_kpa">VPD<span class="cv-th-unit">kPa</span></th>
+
+                                                    <!-- Solar y UV -->
                                                     <th scope="col" data-field="solar_rad_wm2">Radiación solar<span class="cv-th-unit">W/m²</span></th>
                                                     <th scope="col" data-field="uv_index">Índice UV<span class="cv-th-unit">UV</span></th>
-                                                    <th scope="col" data-field="event_rain_mm">Lluvia<span class="cv-th-unit">mm</span></th>
+
+                                                    <!-- Lluvia -->
+                                                    <th scope="col" data-field="rain_rate_mmhr">Intensidad de lluvia<span class="cv-th-unit">mm/h</span></th>
+                                                    <th scope="col" data-field="24h_rain_mm">Lluvia 24 h<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="rain_status">Estado de lluvia</th>
+                                                    <th scope="col" data-field="event_rain_mm">Lluvia del evento<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="hourly_rain_mm">Lluvia por hora<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="daily_rain_mm">Lluvia diaria<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="weekly_rain_mm">Lluvia semanal<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="monthly_rain_mm">Lluvia mensual<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="yearly_rain_mm">Lluvia anual<span class="cv-th-unit">mm</span></th>
+
+                                                    <!-- Viento -->
+                                                    <th scope="col" data-field="wind_ms">Velocidad del viento<span class="cv-th-unit">m/s</span></th>
+                                                    <th scope="col" data-field="wind_dir_deg">Dirección del viento<span class="cv-th-unit">°</span></th>
+                                                    <th scope="col" data-field="gust_ms">Ráfaga<span class="cv-th-unit">m/s</span></th>
+
+                                                    <!-- Calidad del aire (AQIN) -->
                                                     <th scope="col" data-field="a_temp_c">Temperatura (AQIN)<span class="cv-th-unit">°C</span></th>
                                                     <th scope="col" data-field="a_hum">Humedad (AQIN)<span class="cv-th-unit">%</span></th>
-                                                    <th scope="col" data-field="a_co2_ppm">Dióxido de carbono (AQIN)<span class="cv-th-unit">ppm</span></th>
+                                                    <th scope="col" data-field="a_co2_ppm">CO₂ (AQIN)<span class="cv-th-unit">ppm</span></th>
                                                     <th scope="col" data-field="a_pm2_5_ugm3">PM2.5 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
                                                     <th scope="col" data-field="a_pm10_ugm3">PM10 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
                                                     <th scope="col" data-field="a_pm1_ugm3">PM1.0 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
                                                     <th scope="col" data-field="a_pm4_ugm3">PM4.0 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
+
+                                                    <!-- Gases -->
                                                     <th scope="col" data-field="amon">Amoniaco<span class="cv-th-unit">ppm</span></th>
                                                     <th scope="col" data-field="temp_f">Temperatura NH3<span class="cv-th-unit">°C</span></th>
                                                     <th scope="col" data-field="hum">Humedad NH3<span class="cv-th-unit">%</span></th>
                                                     <th scope="col" data-field="h2s">Ácido sulfhídrico<span class="cv-th-unit">ppm</span></th>
                                                     <th scope="col" data-field="o2">Oxígeno<span class="cv-th-unit">%</span></th>
                                                     <th scope="col" data-field="co">Monóxido de carbono<span class="cv-th-unit">ppm</span></th>
-                                                    <th scope="col" data-field="lel">Límite inferior de explosividad<span class="cv-th-unit">%</span>
+                                                    <th scope="col" data-field="lel">Límite inferior de explosividad<span class="cv-th-unit">%</span></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cvDataBodyAmbiente">
@@ -942,114 +1270,203 @@
                         <!-- ============================================================= -->
                         <div class="tab-pane fade" id="tab-gases" role="tabpanel" aria-labelledby="tab-gases-link">
                             <div class="row">
+                                
                                 <!-- Card 1: Amoniaco -->
                                 <div class="col-12 col-md-6 col-xl-4">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-flask cv-card-icon"></i>
                                                 Amoniaco
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="amon-value">?</span>
-                                            <span class="cv-card-unit">ppm</span>
+
+                                        <div class="cv-var-grid cv-var-grid--1">
+                                            <div class="cv-var">
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="amon-value">?</span>
+                                                    <span class="cv-card-unit">ppm</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="amon-max">?</span> ppm
+                                                    </span>
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="amon-min">?</span> ppm
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Card 2: Temperatura NH3 -->
                                 <div class="col-12 col-md-6 col-xl-4">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-thermometer-half cv-card-icon"></i>
-                                                Temperatura
+                                                Sensor de amoniaco
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="temp_f-value">?</span>
-                                            <span class="cv-card-unit">°C</span>
+
+                                        <div class="cv-var-grid">
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Temperatura</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="temp_f-value">?</span>
+                                                    <span class="cv-card-unit">°C</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="temp_f-max">?</span> °C
+                                                    </span>
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="temp_f-min">?</span> °C
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="cv-var">
+                                                <span class="cv-var-name">Humedad</span>
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="hum-value">?</span>
+                                                    <span class="cv-card-unit">%</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="hum-max">?</span> %
+                                                    </span>
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="hum-min">?</span> %
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Card 3: Humedad NH3 -->
-                                <div class="col-12 col-md-6 col-xl-4">
-                                    <div class="cv-metric-card">
-                                        <div class="cv-card-header">
-                                            <span class="cv-card-title">
-                                                <i class="fas fa-tint cv-card-icon"></i>
-                                                Humedad
-                                            </span>
-                                        </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="hum-value">?</span>
-                                            <span class="cv-card-unit">%</span>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <!-- Card 4: Ácido sulfhídrico -->
                                 <div class="col-12 col-md-6 col-xl-4">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-droplet cv-card-icon"></i>
                                                 Ácido sulfhídrico
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="h2s-value">?</span>
-                                            <span class="cv-card-unit">ppm</span>
+
+                                        <div class="cv-var-grid cv-var-grid--1">
+                                            <div class="cv-var">
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="h2s-value">?</span>
+                                                    <span class="cv-card-unit">ppm</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="h2s-max">?</span> ppm
+                                                    </span>
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="h2s-min">?</span> ppm
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Card 5: Oxígeno -->
                                 <div class="col-12 col-md-6 col-xl-4">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-atom cv-card-icon"></i>
                                                 Oxígeno
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="o2-value">?</span>
-                                            <span class="cv-card-unit">%</span>
+
+                                        <div class="cv-var-grid cv-var-grid--1">
+                                            <div class="cv-var">
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="o2-value">?</span>
+                                                    <span class="cv-card-unit">%</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="o2-max">?</span> %
+                                                    </span>
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="o2-min">?</span> %
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Card 6: Monóxido de carbono -->
                                 <div class="col-12 col-md-6 col-xl-4">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-triangle-exclamation cv-card-icon"></i>
                                                 Monóxido de carbono
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="co-value">?</span>
-                                            <span class="cv-card-unit">ppm</span>
+
+                                        <div class="cv-var-grid cv-var-grid--1">
+                                            <div class="cv-var">
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="co-value">?</span>
+                                                    <span class="cv-card-unit">ppm</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="co-max">?</span> ppm
+                                                    </span>
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="co-min">?</span> ppm
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Card 7: LEL -->
                                 <div class="col-12 col-md-6 col-xl-4">
-                                    <div class="cv-metric-card">
+                                    <div class="cv-metric-card cv-metric-card--multi">
                                         <div class="cv-card-header">
                                             <span class="cv-card-title">
-                                                <i class="fas fa-fire cv-card-icon"></i>
-                                                Limite inferior de explosividad
+                                                Límite inferior de explosividad
                                             </span>
                                         </div>
-                                        <div class="cv-card-main-val">
-                                            <span class="cv-card-value" id="lel-value">?</span>
-                                            <span class="cv-card-unit">%</span>
+
+                                        <div class="cv-var-grid cv-var-grid--1">
+                                            <div class="cv-var">
+                                                <div class="cv-var-value">
+                                                    <span class="cv-card-value" id="lel-value">?</span>
+                                                    <span class="cv-card-unit">ppm</span>
+                                                </div>
+                                                <div class="cv-var-range">
+                                                    <span class="cv-var-max">
+                                                        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                                                        <span id="lel-max">?</span> ppm
+                                                    </span>
+                                                    <span class="cv-var-min">
+                                                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                                                        <span id="lel-min">?</span> ppm
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1160,17 +1577,8 @@
                                         <div id="chart-lel" class="cv-chart-canvas cv-chart-canvas--single"></div>
                                     </div>
                                 </div>
-                            </div><!-- /row gráficas -->
-                            </div><!-- /vista gráficos -->
-
-                            <!-- VISTA: DATOS (tabla con todas las lecturas del CSV) — solo diseño.
-                                 Para conectarla (backend):
-                                   #cvDataBodyGases  -> un <tr> por lectura; primera celda = hora, luego un <td> por cada
-                                                         <th data-field="..."> en el mismo orden (data-field = columna del CSV)
-                                   #cvDataCountGases -> "N lecturas"
-                                   .is-current          -> clase para la fila de la lectura seleccionada en la barra deslizadora
-                                   Valor vacío          -> <td class="cv-data-empty">—</td>
-                                 Las filas de abajo son de EJEMPLO (lecturas 19 a 30). -->
+                            </div>
+                            </div>
                             <div class="tab-pane fade" id="view-gases-datos" role="tabpanel" aria-labelledby="view-gases-datos-link">
                                 <div class="cv-chart-card cv-data-card">
                                     <div class="cv-chart-header">
@@ -1187,30 +1595,61 @@
                                             <caption class="sr-only">Lecturas de gases de la campaña seleccionada</caption>
                                             <thead>
                                                 <tr>
+                                                    <!-- Tiempo -->
                                                     <th scope="col" data-field="time">Hora</th>
-                                                    <th scope="col" data-field="wind_ms">Velocidad del viento<span class="cv-th-unit">mph</span></th>
-                                                    <th scope="col" data-field="wind_dir_10min_deg">Dirección del viento<span class="cv-th-unit">°</span></th>
-                                                    <th scope="col" data-field="out_temp_c">Temperatura<span class="cv-th-unit">°C</span></th>
-                                                    <th scope="col" data-field="out_hum">Humedad<span class="cv-th-unit">%</span></th>
+
+                                                    <!-- Interior -->
+                                                    <th scope="col" data-field="in_temp_c">Temperatura interior<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="in_hum">Humedad interior<span class="cv-th-unit">%</span></th>
+
+                                                    <!-- Presión -->
+                                                    <th scope="col" data-field="abs_pres_hpa">Presión absoluta<span class="cv-th-unit">hPa</span></th>
+                                                    <th scope="col" data-field="rel_pres_hpa">Presión relativa<span class="cv-th-unit">hPa</span></th>
+
+                                                    <!-- Exterior -->
+                                                    <th scope="col" data-field="out_temp_c">Temperatura exterior<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="out_hum">Humedad exterior<span class="cv-th-unit">%</span></th>
                                                     <th scope="col" data-field="out_feels_like_c">Sensación térmica<span class="cv-th-unit">°C</span></th>
-                                                    <th scope="col" data-field="rel_pres_hpa">Presión barométrica<span class="cv-th-unit">hPa</span></th>
+                                                    <th scope="col" data-field="out_dew_point_c">Punto de rocío<span class="cv-th-unit">°C</span></th>
+                                                    <th scope="col" data-field="vpd_kpa">VPD<span class="cv-th-unit">kPa</span></th>
+
+                                                    <!-- Solar y UV -->
                                                     <th scope="col" data-field="solar_rad_wm2">Radiación solar<span class="cv-th-unit">W/m²</span></th>
                                                     <th scope="col" data-field="uv_index">Índice UV<span class="cv-th-unit">UV</span></th>
-                                                    <th scope="col" data-field="event_rain_mm">Lluvia<span class="cv-th-unit">mm</span></th>
+
+                                                    <!-- Lluvia -->
+                                                    <th scope="col" data-field="rain_rate_mmhr">Intensidad de lluvia<span class="cv-th-unit">mm/h</span></th>
+                                                    <th scope="col" data-field="24h_rain_mm">Lluvia 24 h<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="rain_status">Estado de lluvia</th>
+                                                    <th scope="col" data-field="event_rain_mm">Lluvia del evento<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="hourly_rain_mm">Lluvia por hora<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="daily_rain_mm">Lluvia diaria<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="weekly_rain_mm">Lluvia semanal<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="monthly_rain_mm">Lluvia mensual<span class="cv-th-unit">mm</span></th>
+                                                    <th scope="col" data-field="yearly_rain_mm">Lluvia anual<span class="cv-th-unit">mm</span></th>
+
+                                                    <!-- Viento -->
+                                                    <th scope="col" data-field="wind_ms">Velocidad del viento<span class="cv-th-unit">m/s</span></th>
+                                                    <th scope="col" data-field="wind_dir_deg">Dirección del viento<span class="cv-th-unit">°</span></th>
+                                                    <th scope="col" data-field="gust_ms">Ráfaga<span class="cv-th-unit">m/s</span></th>
+
+                                                    <!-- Calidad del aire (AQIN) -->
                                                     <th scope="col" data-field="a_temp_c">Temperatura (AQIN)<span class="cv-th-unit">°C</span></th>
                                                     <th scope="col" data-field="a_hum">Humedad (AQIN)<span class="cv-th-unit">%</span></th>
-                                                    <th scope="col" data-field="a_co2_ppm">Dióxido de carbono (AQIN)<span class="cv-th-unit">ppm</span></th>
+                                                    <th scope="col" data-field="a_co2_ppm">CO₂ (AQIN)<span class="cv-th-unit">ppm</span></th>
                                                     <th scope="col" data-field="a_pm2_5_ugm3">PM2.5 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
                                                     <th scope="col" data-field="a_pm10_ugm3">PM10 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
                                                     <th scope="col" data-field="a_pm1_ugm3">PM1.0 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
                                                     <th scope="col" data-field="a_pm4_ugm3">PM4.0 (AQIN)<span class="cv-th-unit">µg/m³</span></th>
+
+                                                    <!-- Gases -->
                                                     <th scope="col" data-field="amon">Amoniaco<span class="cv-th-unit">ppm</span></th>
                                                     <th scope="col" data-field="temp_f">Temperatura NH3<span class="cv-th-unit">°C</span></th>
                                                     <th scope="col" data-field="hum">Humedad NH3<span class="cv-th-unit">%</span></th>
                                                     <th scope="col" data-field="h2s">Ácido sulfhídrico<span class="cv-th-unit">ppm</span></th>
                                                     <th scope="col" data-field="o2">Oxígeno<span class="cv-th-unit">%</span></th>
                                                     <th scope="col" data-field="co">Monóxido de carbono<span class="cv-th-unit">ppm</span></th>
-                                                    <th scope="col" data-field="lel">Límite inferior de explosividad<span class="cv-th-unit">%</span>
+                                                    <th scope="col" data-field="lel">Límite inferior de explosividad<span class="cv-th-unit">%</span></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cvDataBodyGases">

@@ -25,15 +25,29 @@ let sliderListenerAttached = false;
 const VARIABLES = [
     
     // SECCIÓN AMBIENTE
-    "wind_ms", // Velocidad del viento
-    "wind_dir_10min_deg", // Dirección del viento
-    "out_temp_c", // Temperatura
-    "out_hum", // Humedad
+    "in_temp_c", // Temperatura (Interior)
+    "in_hum", // Humedad (Interior)
+    "abs_pres_hpa", // Presión barométrica absoluta
+    "rel_pres_hpa", // Presión barométrica relativa
+    "out_temp_c", // Temperatura (Exterior)
+    "vpd_kpa", // Déficit de presión de vapor
+    "out_hum", // Humedad (Exterior)
     "out_feels_like_c", // Sensación Térmica
-    "rel_pres_hpa", // Presión barométrica
+    "out_dew_point_c", // Punto de rocío
     "solar_rad_wm2", // Radiación Solar
     "uv_index", // Índice UV
-    "event_rain_mm", // Lluvia en MM durante el evento
+    "rain_rate_mmhr", // Intensidad de la lluvia
+    "24h_rain_mm", //  Lluvia acumulada en las ultimas 24h consecutivas
+    "rain_status", // Estado de la lluvia
+    "event_rain_mm", // Lluvia acumulada durante el evento
+    "hourly_rain_mm", // Lluvia acumulada por hora
+    "daily_rain_mm", // Lluvia acumulada en el dia
+    "weekly_rain_mm", // Lluvia acumulada en la semana
+    "monthly_rain_mm", // Lluvia acumulada en el mes
+    "yearly_rain_mm", // Lluvia acumulada en el año
+    "wind_ms", // Velocidad del viento
+    "wind_dir_deg", // Dirección instantánea del viento
+    "gust_ms", // Ráfaga de viento
     
     // SECCIÓN CALIDAD DEL AIRE
     "a_temp_c", // Temperatura (AQIN)
@@ -75,7 +89,7 @@ const VARIABLE_NAMES = {
     
     // SECCIÓN AMBIENTE
     wind_ms: "Velocidad del viento",
-    wind_dir_10min_deg: "Dirección del viento",
+    wind_dir_deg: "Dirección del viento",
     out_temp_c: "Temperatura",
     out_hum: "Humedad",
     out_feels_like_c: "Sensación Térmica",
@@ -109,7 +123,7 @@ const VARIABLE_NAMES = {
 const CHART_MAP = {
     ambiente: [
         { campo: "wind_ms", chartId: "chart-wind_ms" },
-        { campo: "wind_dir_10min_deg", chartId: "chart-wind_dir_10min_deg" },
+        { campo: "wind_dir_deg", chartId: "chart-wind_dir_deg" },
         { campo: "out_temp_c", chartId: "chart-out_temp_c" },
         { campo: "out_hum", chartId: "chart-out_hum" },
         { campo: "out_feels_like_c", chartId: "chart-out_feels_like_c" },
@@ -149,8 +163,8 @@ const GAS_CHART_MAP = {
 
 const chartConfigs = {
     ambiente: [
-        { id: 'chart-wind_ms',name: 'Velocidad del viento',unit: 'mph',color: '#0B7A5C',data: [],decimals: 1 },
-        { id: 'chart-wind_dir_10min_deg',name: 'Dirección del viento',unit: '°',color: '#78909C',data: [],min: 0,max: 360,tickAmount: 4,decimals: 0 },
+        { id: 'chart-wind_ms',name: 'Velocidad del viento',unit: 'm/s',color: '#0B7A5C',data: [],decimals: 1 },
+        { id: 'chart-wind_dir_deg',name: 'Dirección del viento',unit: '°',color: '#78909C',data: [],min: 0,max: 360,tickAmount: 4,decimals: 0 },
         { id: 'chart-out_temp_c',name: 'Temperatura',unit: '°C',color: '#FF7043',data: [],decimals: 1 },
         { id: 'chart-out_hum',name: 'Humedad',unit: '%',color: '#29B6F6',data: [],min: 0,max: 100,decimals: 0 },
         { id: 'chart-out_feels_like_c',name: 'Sensación Térmica',unit: '°C',color: '#af3009',data: [],decimals: 1 },
@@ -188,15 +202,52 @@ const TABLE_FIELDS = {
     all: [
         // Tiempo
         'time',
-        // Ambiente
-        'wind_ms','wind_dir_10min_deg','out_temp_c','out_hum','out_feels_like_c',
-        'rel_pres_hpa','solar_rad_wm2','uv_index','event_rain_mm',
+
+        // Interior
+        'in_temp_c','in_hum',
+
+        // Presión
+        'abs_pres_hpa','rel_pres_hpa',
+
+        // Exterior
+        'out_temp_c','out_hum','out_feels_like_c','out_dew_point_c','vpd_kpa',
+
+        // Solar y UV
+        'solar_rad_wm2','uv_index',
+
+        // Lluvia
+        'rain_rate_mmhr','24h_rain_mm','rain_status','event_rain_mm',
+        'hourly_rain_mm','daily_rain_mm','weekly_rain_mm','monthly_rain_mm','yearly_rain_mm',
+
+        // Viento
+        'wind_ms','wind_dir_deg','gust_ms',
+
         // Calidad del aire
         'a_temp_c','a_hum','a_co2_ppm','a_pm2_5_ugm3','a_pm10_ugm3','a_pm1_ugm3','a_pm4_ugm3',
+
         // Gases
         'amon','temp_f','hum','h2s','o2','co','lel'
     ]
 };
+
+// Tramos PM2.5: [conc_baja, conc_alta, aqi_bajo, aqi_alto, clase CSS, texto]
+const PM25_BP = [
+    [0.0,12.0,0,50,'good','Bueno'],
+    [12.1,35.4,51,100,'moderate','Moderado'],
+    [35.5,55.4,101,150,'sensitive','Dañino para sensibles'],
+    [55.5,150.4,151,200,'unhealthy','Dañino'],
+    [150.5,250.4,201,300,'very-unhealthy','Muy dañino'],
+    [250.5,500.4,301,500,'hazardous','Peligroso']
+];
+
+const PM10_BP = [
+    [0,54,0,50,'good','Bueno'],
+    [55,154,51,100,'moderate','Moderado'],
+    [155,254,101,150,'sensitive','Dañino para sensibles'],
+    [255,354,151,200,'unhealthy','Dañino'],
+    [355,424,201,300,'very-unhealthy','Muy dañino'],
+    [425,604,301,500,'hazardous','Peligroso']
+];
 
 // ---------------
 // MAIN
@@ -304,9 +355,7 @@ async function renderCampaign(path) {
             state.gasRows = [];
         }
 
-        updateAllCharts(variables);
-        updateWindCompass(variables);
-        
+        updateAllCharts(variables);        
         initSliderForCampaign(variables,gasRows);
     } catch (err) {
         console.error("Error cargando campaña:",err);
@@ -380,8 +429,7 @@ function goToReading(idx) {
     updateCardsFromIndex(idx);
 
     if (state.gasRows && state.gasRows.length) {
-        const gIdx = Math.min(idx,state.gasRows.length - 1);
-        updateGasCardsFromIndex(gIdx);
+        updateGasCardsFromIndex(idx);
     } else {
         updateGasCardsFromIndex(idx,rows);
     }
@@ -522,6 +570,13 @@ function calculateMode(values) {
 function updateCardsFromIndex(idx) {
     const row = state.mainRows[idx];
     if (!row) return;
+
+    const windDir = pickRowValue(row,'wind_dir_deg');
+    if (windDir !== undefined && windDir !== null && windDir !== '' && !isNaN(windDir)) {
+        if (typeof window.setWindDirection === 'function') {
+            window.setWindDirection(Number(windDir));
+        }
+    }
     
     VARIABLES.forEach(variable => {        
         const avgText = document.getElementById(`${variable}-value`);
@@ -531,39 +586,66 @@ function updateCardsFromIndex(idx) {
         const raw = pickRowValue(row,variable);
 
         if (raw === undefined || raw === null || raw === '' || isNaN(raw)) {
-            if (avgText) avgText.textContent = "N/A";
-            if (maxText) maxText.textContent = "--";
-            if (minText) minText.textContent = "--";
+            if (avgText) avgText.textContent = "Sin dato";
+            if (maxText) maxText.textContent = "N/A";
+            if (minText) minText.textContent = "N/A";
             return;
         }
         
         const num = Number(raw);
+        const maxValue = getMaxValue(variable);
+        const minValue = getMinValue(variable);
         
-        if (variable === 'wind_dir_10min_deg') {
-            if (avgText) avgText.textContent = num.toFixed(0);
-            return;
+        if (variable.includes('ugm3')) {
+            const avgValue = getAvgValue(variable);
+            pintarAQI(variable,avgValue);
+            
+            const maxOneHourText = document.getElementById(`${variable}-max1h`);
+            if (maxOneHourText) maxOneHourText.textContent = maxValue.toFixed(2);
         }
-        if (variable === 'rel_pres_hpa') {
-            if (avgText) avgText.textContent = num.toFixed(2);
-            if (maxText) maxText.textContent = num.toFixed(2);
-            if (minText) minText.textContent = num.toFixed(2);
-            return;
+        
+        if (variable === 'wind_ms' || variable === 'gust_ms') {
+            const max = getMaxValueTime(variable);
+            const maxTimer = document.getElementById(`${variable}-max-time`);
+            maxTimer.textContent = max.timeStr;
         }
-        if (variable === 'event_rain_mm' || variable === 'solar_rad_wm2') {
-            if (avgText) avgText.textContent = num;
+        
+        if (variable === 'solar_rad_wm2') {
+            const ts = extractTimestamp(row)
+            const moon = getMoonPhase(ts);
+            document.getElementById('moon_phase').textContent = moon.phaseName;
+        }
+        
+        if (variable === 'rain_status') {
+            if (num === 0) {
+                avgText.textContent = "Sin lluvia";
+            } else {
+                avgText.textContent = "Lloviendo";
+            }
             return;
         }
 
         if (avgText) avgText.textContent = num.toFixed(2);
-        if (maxText) maxText.textContent = num.toFixed(2);
-        if (minText) minText.textContent = num.toFixed(2);
+        if (maxText) maxText.textContent = maxValue !== null ? maxValue.toFixed(2) : "--";
+        if (minText) minText.textContent = minValue !== null ? minValue.toFixed(2) : "--";
     });
 }
 
 function updateGasCardsFromIndex(idx,sourceRows) {
     const rows = sourceRows || state.gasRows || [];
     const row =rows[idx];
-    if (!row) return;
+    if (!row) {
+        GAS_VARIABLES.forEach(variable => {
+            const avgText = document.getElementById(`${variable}-value`);
+            const maxText = document.getElementById(`${variable}-max`);
+            const minText = document.getElementById(`${variable}-min`);
+
+            if (avgText) avgText.textContent = "Sin dato";
+            if (maxText) maxText.textContent = "N/A";
+            if (minText) minText.textContent = "N/A";
+        });
+        return;
+    }
     
     GAS_VARIABLES.forEach(variable => {
         const avgText = document.getElementById(`${variable}-value`);
@@ -573,16 +655,19 @@ function updateGasCardsFromIndex(idx,sourceRows) {
         const raw = pickRowValue(row,variable);
 
         if (raw === undefined || raw === null || raw === '' || isNaN(raw)) {
-            if (avgText) avgText.textContent = "N/A";
-            if (maxText) maxText.textContent = "--";
-            if (minText) minText.textContent = "--";
+            if (avgText) avgText.textContent = "Sin Dato";
+            if (maxText) maxText.textContent = "N/A";
+            if (minText) minText.textContent = "N/A";
             return;
         }
 
         const num = Number(raw);
+        const maxValue = getMaxValue(variable, rows);
+        const minValue = getMinValue(variable, rows);
+        
         if (avgText) avgText.textContent = num.toFixed(2);
-        if (maxText) maxText.textContent = num.toFixed(2);
-        if (minText) minText.textContent = num.toFixed(2);
+        if (maxText) maxText.textContent = maxValue !== null ? maxValue.toFixed(2) : "--";
+        if (minText) minText.textContent = minValue !== null ? minValue.toFixed(2) : "--";
     });
 }
 
@@ -877,6 +962,152 @@ function updateGroup(group,categories,seriesData) {
 // ---------------
 // HELPERS
 // ---------------
+function formatHHmm(date) {
+    if (!date) return '--:--';
+    const hh = String(date.getHours()).padStart(2,'0');
+    const mm = String(date.getMinutes()).padStart(2,'0');
+    return `${hh}:${mm}`;
+}
+
+function getMaxValueTime(variable,sourceRows) {
+    const rows = sourceRows || state.mainRows || [];
+    if (!rows.length) return null;
+
+    let max = null;
+    let maxTime = null;
+
+    for (const row of rows) {
+        const raw = pickRowValue(row,variable);
+        if (raw === undefined || raw === null || raw === '' || isNaN(raw)) continue;
+        const num = Number(raw);
+        if (max === null || num > max) {
+            max = num;
+            maxTime = extractTimestamp(row);
+        }
+    }
+
+    if (max === null) return null;
+    return {
+        value: max,
+        time: maxTime,                       // Date o null
+        timeStr: maxTime ? formatHHmm(maxTime) : '--:--'
+    };
+}
+
+function getAvgValue(variable,sourceRows) {
+    const rows = sourceRows || state.mainRows || [];
+    if (!rows.length) return null;
+
+    let sum = 0;
+    let count = 0;
+    for (const row of rows) {
+        const raw = pickRowValue(row,variable);
+        if (raw === undefined || raw === null || raw === '' || isNaN(raw)) continue;
+        sum += Number(raw);
+        count++;
+    }
+    return count ? sum / count : null; // null si no hay ningún valor válido
+}
+
+function calcAQI(conc,tramos = PM25_BP) {
+    if (conc == null || isNaN(conc)) return null;
+
+    const c = Math.floor(conc * 10) / 10;
+    const t = tramos.find(([lo,hi]) => c >= lo && c <= hi) || tramos[tramos.length - 1];
+    const [cLo,cHi,iLo,iHi,cls,label] = t;
+
+    const aqi = Math.round(((iHi - iLo) / (cHi - cLo)) * (c - cLo) + iLo);
+    return { aqi: Math.min(aqi,500),cls,label };
+}
+
+function pintarAQI(prefijo,promedio24h) {
+    const r = prefijo === "a_pm10_ugm3" ? calcAQI(promedio24h,PM10_BP) : calcAQI(promedio24h);
+    if (!r) return;
+
+    document.getElementById(`${prefijo}-aqi`).textContent = r.aqi;
+    document.getElementById(`${prefijo}-label`).textContent = r.label;
+
+    const caja = document.getElementById(`${prefijo}-status`);
+    caja.className = caja.className.replace(/cv-aqi--\S+/g,'').trim();
+    caja.classList.add(`cv-aqi--${r.cls}`);
+}
+
+function getMoonPhase(date) {
+    // Convertir fecha a Julian Date
+    const jd = (date.getTime() / 86400000) + 2440587.5;
+
+    // Siglos desde J2000
+    const T = (jd - 2451545) / 36525;
+    const t2 = T * T;
+    const t3 = t2 * T;
+    const t4 = t3 * T;
+
+    // Argumentos fundamentales (en grados)
+    const D = (297.8501921 + 445267.1114034 * T - 0.0018819 * t2 + t3 / 545868 - t4 / 113065000) % 360;
+    const M = (357.5291092 + 35999.0502909 * T - 0.0001536 * t2 + t3 / 24490000) % 360;
+    const Mp = (134.9633964 + 477198.8675055 * T + 0.0087414 * t2 + t3 / 69699 - t4 / 14712000) % 360;
+
+    // Convertir a radianes para las funciones trigonométricas
+    const rad = Math.PI / 180;
+    const D_rad = D * rad;
+    const M_rad = M * rad;
+    const Mp_rad = Mp * rad;
+
+    // Ángulo de fase (aproximación)
+    let phaseAngle = 180 - D - 6.289 * Math.sin(Mp_rad) + 2.1 * Math.sin(M_rad)
+        - 1.274 * Math.sin(2 * D_rad - Mp_rad) - 0.658 * Math.sin(2 * D_rad)
+        - 0.214 * Math.sin(2 * Mp_rad) - 0.11 * Math.sin(D_rad);
+
+    // Normalizar a 0-360
+    phaseAngle = ((phaseAngle % 360) + 360) % 360;
+
+    // Fracción iluminada (0 a 1)
+    const illumination = (1 + Math.cos(phaseAngle * rad)) / 2;
+
+    // Nombre de la fase (rangos aproximados)
+    let phaseName = "Luna Nueva";
+    if (phaseAngle > 22.5 && phaseAngle <= 67.5) phaseName = "Creciente";
+    else if (phaseAngle > 67.5 && phaseAngle <= 112.5) phaseName = "Cuarto Creciente";
+    else if (phaseAngle > 112.5 && phaseAngle <= 157.5) phaseName = "Gibosa Creciente";
+    else if (phaseAngle > 157.5 && phaseAngle <= 202.5) phaseName = "Luna Llena";
+    else if (phaseAngle > 202.5 && phaseAngle <= 247.5) phaseName = "Gibosa Menguante";
+    else if (phaseAngle > 247.5 && phaseAngle <= 292.5) phaseName = "Cuarto Menguante";
+    else if (phaseAngle > 292.5 && phaseAngle <= 337.5) phaseName = "Menguante";
+
+    return {
+        phaseAngle: phaseAngle,
+        illumination: illumination,
+        phaseName: phaseName,
+    };
+}
+
+function getMaxValue(variable,sourceRows) {
+    const rows = sourceRows || state.mainRows || [];
+    if (!rows.length) return null;
+
+    let max = null;
+    for (const row of rows) {
+        const raw = pickRowValue(row,variable);
+        if (raw === undefined || raw === null || raw === '' || isNaN(raw)) continue;
+        const num = Number(raw);
+        if (max === null || num > max) max = num;
+    }
+    return max; // null si no hay ningún valor válido
+}
+
+function getMinValue(variable,sourceRows) {
+    const rows = sourceRows || state.mainRows || [];
+    if (!rows.length) return null;
+
+    let min = null;
+    for (const row of rows) {
+        const raw = pickRowValue(row,variable);
+        if (raw === undefined || raw === null || raw === '' || isNaN(raw)) continue;
+        const num = Number(raw);
+        if (min === null || num < min) min = num;
+    }
+    return min; // null si no hay ningún valor válido
+}
 
 function updateFilterSummary() {
     const filterDateFrom = document.getElementById('filter-date-from');
@@ -1136,7 +1367,7 @@ function setDarkMode(isDark) {
     const themeLabel = document.getElementById('cvThemeModeLabel');
     const themeSub = document.getElementById('cvThemeModeSub');
     const dash = document.querySelector('.cv-dashboard');
-    const allCharts = [].concat(dashboardCharts.ambiente,dashboardCharts.suelo,dashboardCharts.gases);
+    const allCharts = [].concat(dashboardCharts.ambiente,dashboardCharts.aire,dashboardCharts.suelo,dashboardCharts.gases);
     window.dashboardCharts = dashboardCharts;
 
     if (isDark) {
@@ -1221,7 +1452,8 @@ function pickRowValue(row,key) {
     if (v !== undefined && v !== null && v !== '') return v;
 
     if (key === 'rel_pres_hpa') v = row['pres_rel_hpa'];
-    else if (key === 'wind_dir_10min_deg') v = row['wind_dir_10_mean'];
+    else if (key === 'abs_pres_hpa') v = row['pres_abs_hpa'];
+    else if (key === 'daily_rain_mm') v = row['daily_rain'];
     else if (key === 'amon') v = row['nh3'];
     else if (key === 'temp_f') v = row['temp_nh3'];
     else if (key === 'hum') v = row['hum_nh3'];
@@ -1281,14 +1513,14 @@ function calculateFinalValues(valores) {
 
 function updateWindCompass(csvRows) {
     const dirVals = csvRows
-        .map(r => pickRowValue(r,'wind_dir_10min_deg'))
+        .map(r => pickRowValue(r,'wind_dir_deg'))
         .filter(v => v !== null && v !== undefined && v !== '' && !isNaN(v))
         .map(Number);
 
     if (dirVals.length && typeof window.setWindDirection === 'function') {
         const avg = dirVals.reduce((a,b) => a + b,0) / dirVals.length;
         window.setWindDirection(avg);
-        const degEl = document.getElementById('wind_dir_10min_deg-value');
+        const degEl = document.getElementById('wind_dir_deg-value');
         if (degEl) degEl.textContent = avg.toFixed(1);
     }
 }
